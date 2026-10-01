@@ -2,7 +2,7 @@ import LazyImage from "../LazyImage";
 import TeachersSmileTwoImage from "../../assets/images/Home/TeachersSmileTwo.png";
 import TeachersSmileThree from "../../assets/images/Home/TeachersSmileThree.png";
 import TeachersSmileFour from "../../assets/images/Home/TeachersSmileFour.png";
-import TeachersSmileFive from "../../assets/images/Home/TeachersSmileFive.png";
+import TeachersSmileFive from "../../assets/images/Home/TeachersSmileFIve.png";
 import TeachersSmileSix from "../../assets/images/Home/TeachersSmileSix.png";
 
 export default function TeachersSmileTwo() {
