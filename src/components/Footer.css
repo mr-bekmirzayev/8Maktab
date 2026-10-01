@@ -1,0 +1,343 @@
+/* =========================================
+   PRO PROFESSIONAL FOOTER STYLES
+========================================= */
+
+.site-footer {
+    position: relative;
+    z-index: 10;
+    margin-top: 60px;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(7, 8, 12, 0.98) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-top: 1px solid rgba(249, 115, 22, 0.25);
+    color: #cbd5e1;
+    overflow: hidden;
+}
+
+/* Glowing Top Accent Line */
+.footer-top-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fb923c, #3b24138a, #fb923c, transparent);
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.6);
+}
+
+/* Footer Outer Layout */
+.footer-inner-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+/* Main Grid Layout */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 45px;
+}
+
+/* Footer Columns */
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Brand Column */
+.footer-brand-link {
+    text-decoration: none;
+    display: inline-block;
+    width: fit-content;
+}
+
+.footer-brand-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+
+.footer-brand-icon {
+    font-size: 32px;
+    color: #fb923c;
+    filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.8));
+    animation: iconAnim 8s ease-in-out infinite;
+}
+
+.footer-school-num {
+    font-size: 3.2rem;
+    font-weight: 900;
+    line-height: 0.85;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(249, 115, 22, 0.7);
+    margin: 0;
+}
+
+.footer-school-text-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer-school-city,
+.footer-school-region,
+.footer-school-type {
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.2;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.footer-school-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+    margin: 2px 0;
+}
+
+.footer-brand-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #94a3b8;
+    margin: 4px 0 0;
+}
+
+.footer-location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.25);
+    color: #fb923c;
+    font-size: 12.5px;
+    font-weight: 500;
+}
+
+/* Column Titles */
+.footer-col-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f8fafc;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 4px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-title-indicator {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f97316;
+    box-shadow: 0 0 8px #f97316;
+}
+
+/* Link Lists */
+.footer-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-link-item a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 14.5px;
+    font-weight: 400;
+    transition: all 0.25s ease;
+    padding: 2px 0;
+}
+
+.footer-link-icon {
+    font-size: 16px;
+    color: #94a3b8;
+    transition: all 0.25s ease;
+}
+
+.footer-link-item a:hover {
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+.footer-link-item a:hover .footer-link-icon {
+    color: #fb923c;
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.8));
+}
+
+/* Contact List & Badges */
+.footer-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-contact-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    text-decoration: none;
+    color: #e2e8f0;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-contact-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(249, 115, 22, 0.15);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    color: #fb923c;
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+}
+
+.footer-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.footer-contact-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.footer-contact-value {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.footer-contact-card:hover {
+    background: rgba(249, 115, 22, 0.12);
+    border-color: rgba(249, 115, 22, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 12px rgba(249, 115, 22, 0.2);
+}
+
+.footer-contact-card:hover .footer-contact-icon-box {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.6);
+}
+
+/* Bottom Bar */
+.footer-bottom-bar {
+    padding-top: 24px;
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.footer-copyright {
+    font-size: 13.5px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.footer-copyright strong {
+    color: #fb923c;
+    font-weight: 600;
+}
+
+/* Scroll To Top Button */
+.footer-top-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #cbd5e1;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.footer-top-btn:hover {
+    background: rgba(249, 115, 22, 0.2);
+    border-color: rgba(249, 115, 22, 0.5);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+}
+
+.footer-top-btn-icon {
+    font-size: 16px;
+    transition: transform 0.25s ease;
+}
+
+.footer-top-btn:hover .footer-top-btn-icon {
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   RESPONSIVE MEDIA QUERIES
+========================================= */
+
+@media screen and (max-width: 1024px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px 30px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .footer-inner-container {
+        padding-top: 40px;
+        padding-bottom: 24px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .footer-brand-desc {
+        font-size: 13.5px;
+    }
+}
