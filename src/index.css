@@ -484,11 +484,35 @@ img {
     position: relative;
     display: block;
     margin-top: 90px;
+    background-size: cover;
+    -webkit-backdrop-filter: blur(20px);
     transform-style: preserve-3d;
 }
 
 .locationChild {
     font-weight: 700 !important;
+}
+
+.homeOneSectionBg {
+    position: absolute;
+    height: 700px;
+    margin-top: -100px;
+    width: 100%;
+    animation: heroImageAnimBrightness 5s ease-in-out infinite;
+    filter: blur(3px) brightness(50%);
+    background: rgba(0, 0, 0, 0.318);
+}
+
+@keyframes heroImageAnimBrightness {
+
+    0%,
+    100% {
+        filter: brightness(80%) blur(4px);
+    }
+
+    50% {
+        filter: brightness(140%) blur(8px);
+    }
 }
 
 .blackShadowImageFor {
@@ -578,6 +602,13 @@ img {
     margin-left: 160px;
     margin-top: -80px;
     font-size: 55px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 2px dashed #00ff88; /* Uzuk-uzuk yashil chiziq */
+    outline-offset: 4px;
 }
 
 @keyframes faqAnim {
@@ -1550,49 +1581,308 @@ html {
 .Principal {
     list-style: none;
     display: flex;
+    align-items: start;
+    margin-top: 20px;
+    gap: 20px;
     justify-content: space-around;
 }
 
 .principal {
     border-radius: 10px;
-    width: 920px;
-    box-shadow: 0 0 20px white;
+    width: clamp(620px, 80vw, 900px);
     filter: brightness(140%);
 }
 
 .PrincipalName {
     text-transform: uppercase;
-    background: linear-gradient(to left top, white, white, rgba(128, 128, 128, 0.701), white, white);
-
-    background-size: 100% 300%;
-
-    background-position: 0% 0%;
-
     font-weight: 800;
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+
+    /* Задаем градиент и клиппинг по умолчанию */
+    background: linear-gradient(to left top, white, white, rgba(128, 128, 128, 0.701), white, white);
+    background-size: 100% 200%;
+    background-position: 0% 0%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: PrincipalAnimation 5s 1;
+    line-height: 45px;
 
-    transition: background-position, color 0.5s ease;
+    /* 5s — длительность, 1 — количество повторов, forwards — сохранить финальное состояние */
+    animation: PrincipalAnimation 5s 1 forwards;
+
+    /* Исправленный transition */
+    transition: background-position color 0.8s ease;
 }
 
 @keyframes PrincipalAnimation {
-    from {
+    0% {
         background-position: 0% 0%;
+        color: transparent;
+        text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
 
+    10% {
+        text-transform: capitalize;
+    }
+
+    34% {
+        text-transform: uppercase;
+    }
+
+    35% {
+        text-transform: capitalize;
+    }
+
+    40% {
+        text-transform: uppercase;
+    }
+
+    48% {
+        text-transform: capitalize;
+    }
+
+    49% {
+        text-transform: uppercase;
     }
 
     50% {
-        background-position: -800% 850%;
+        text-transform: capitalize;
     }
 
-    to {
+    51% {
+        text-transform: uppercase;
+    }
+
+    /* Анимация перелива градиента */
+    80% {
+        background-position: -200% 200%;
+        color: transparent;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.912);
+    }
+
+    81% {
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.912);
+    }
+
+    /* В самом конце анимации зафиксировать белый цвет */
+    100% {
         background-position: 0% 0%;
+        color: #ffffff;
+        /* Текст становится полностью белым */
     }
 }
-.PrincipalName:hover {
+
+.principalChild {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.principalChild>li:last-child {
+    background-color: rgba(255, 255, 255, 0.395);
+    backdrop-filter: blur(20px);
+    padding: 10px 20px;
+    transition: 0.4s;
+    animation: loadElement 3s 1;
+    border: solid 1px white;
+    box-shadow: inset 0 0 10px white;
+    border-radius: 10px;
+}
+
+.studentsComentary {
     color: white;
-    background: none;
-    text-shadow: 0 0 10px white;
+    text-transform: uppercase;
+    -webkit-text-stroke: grey 0.9px;
+    font-weight: 900;
+    font-size: 45px;
+}
+
+.principalInfo {
+    backdrop-filter: blur(12px);
+    padding: 10px 20px;
+    border: 2.3px solid rgba(255, 255, 255, 0.227);
+    background: rgba(15, 23, 42, 0.548);
+    cursor: pointer;
+    animation: loadElement 1 2s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    max-width: 1000px;
+    border-radius: 5px;
+    animation: dTransformAnimation 1.5s linear;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), border-bottom 0.3s ease, border-left 0.3s ease, backdrop-filter 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease, filter 0.4s;
+    animation: loadElementTwo 2s 1;
+}
+
+.principalTitle {
+    margin-top: 20px;
+    border-left: solid white 2px;
+    padding: 5px 5px 5px 10px;
+    background: rgba(255, 255, 255, 0.129);
+
+}
+
+.PrincipalSectionTitle {
+    background: rgba(0, 0, 0, 0.454);
+    width: fit-content;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-radius: 8px;
+    padding: 0px 120px;
+    backdrop-filter: blur(10px);
+    font-size: 40px;
+}
+
+.principalSectionTitleFather {
+    display: flex;
+    justify-content: center;
+}
+
+.principalInfo:hover {
+    border-radius: 0;
+    box-shadow: -15px 20px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    filter: drop-shadow(0 0 20px white);
+    box-shadow: inset 0 0 10px white;
+    transform: scale(1.1) translateY(-10px) translateX(30px);
+    border: solid white 2.4px;
+}
+
+.PrinsipalSection {
+    padding-top: 50px;
+}
+
+@keyframes loadElementTwo {
+    0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.96);
+        border: 2.3px solid transparent;
+    }
+
+    /* 1-miltillash */
+    5% {
+        border-top: 2.3px solid #ffffff;
+        border-right: 2.3px solid #ffffff;
+        border-bottom: 2.3px solid transparent;
+        border-left: 2.3px solid transparent;
+    }
+
+    10% {
+        border: 2.3px solid transparent;
+    }
+
+    /* 2-miltillash */
+    15% {
+        border-top: 2.3px solid transparent;
+        border-right: 2.3px solid transparent;
+        border-bottom: 2.3px solid #ffffff;
+        border-left: 2.3px solid #ffffff;
+    }
+
+    20% {
+        border: 2.3px solid transparent;
+    }
+
+    /* 3-miltillash */
+    25% {
+        border-top: 2.3px solid #ffffff;
+        border-right: 2.3px solid #ffffff;
+        border-bottom: 2.3px solid transparent;
+        border-left: 2.3px solid transparent;
+    }
+
+    30% {
+        border: 2.3px solid transparent;
+    }
+
+    /* 4-miltillash */
+    35% {
+        border-top: 2.3px solid transparent;
+        border-right: 2.3px solid transparent;
+        border-bottom: 2.3px solid #ffffff;
+        border-left: 2.3px solid #ffffff;
+    }
+
+    40% {
+        border: 2.3px solid transparent;
+    }
+
+    /* 5-miltillash */
+    45% {
+        border-top: 2.3px solid #ffffff;
+        border-right: 2.3px solid #ffffff;
+        border-bottom: 2.3px solid transparent;
+        border-left: 2.3px solid transparent;
+    }
+
+    50% {
+        border: 2.3px solid transparent;
+    }
+
+    /* 6-miltillash */
+    55% {
+        border-top: 2.3px solid transparent;
+        border-right: 2.3px solid transparent;
+        border-bottom: 2.3px solid #ffffff;
+        border-left: 2.3px solid #ffffff;
+    }
+
+    60% {
+        border: 2.3px solid transparent;
+    }
+
+    /* 7-miltillash */
+    65% {
+        border-top: 2.3px solid #ffffff;
+        border-right: 2.3px solid #ffffff;
+        border-bottom: 2.3px solid transparent;
+        border-left: 2.3px solid transparent;
+    }
+
+    70% {
+        border: 2.3px solid transparent;
+    }
+
+    /* 8-miltillash */
+    75% {
+        border-top: 2.3px solid transparent;
+        border-right: 2.3px solid transparent;
+        border-bottom: 2.3px solid #ffffff;
+        border-left: 2.3px solid #ffffff;
+        box-shadow: 0 0 20px inset rgba(255, 255, 255, 0.5);
+    }
+
+    80% {
+        border: 2.3px solid transparent;
+        box-shadow: none;
+    }
+
+    /* 9-miltillash */
+    85% {
+        border-top: 2.3px solid #ffffff;
+        border-right: 2.3px solid #ffffff;
+        border-bottom: 2.3px solid transparent;
+        border-left: 2.3px solid transparent;
+    }
+
+    90% {
+        border: 2.3px solid transparent;
+    }
+
+    /* 10-miltillash va oxirgi holatda muqim qolishi (chap-past) */
+    95%,
+    100% {
+        border-top: 2.3px solid transparent;
+        border-right: 2.3px solid transparent;
+        border-bottom: 2.3px solid #ffffff;
+        border-left: 2.3px solid #ffffff;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.studentsComentaryTwo:hover {
+    background: white;
+    filter: none;
+    transform: translateX(50px) scale(1.1);
 }

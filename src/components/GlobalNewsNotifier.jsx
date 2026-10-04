@@ -2,13 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoNotifications, IoClose, IoChevronForward, IoInformationCircle } from "react-icons/io5";
 
-import { fetchWithJsonbinCache } from "../utils/jsonbinCache";
+// JSONBin o'chirilmagan, faqat ishlatilmaydigan holatga keltirilgan:
+// import { fetchWithJsonbinCache } from "../utils/jsonbinCache";
+// const BIN_ID = "6ab11f8effd5d160531f39ea";
+// const MASTER_KEY = "$2a$10$P2EP5iL5TTjPvxXdGmgRJeZ0SuAQRZpwWmOWJV5dLBWuS791xj2jm";
+
+import { fetchNewsFromFirestore } from "../utils/firestoreService";
 import { FiLock } from "react-icons/fi";
 
-const BIN_ID = "6ab11f8effd5d160531f39ea";
-const MASTER_KEY = "$2a$10$P2EP5iL5TTjPvxXdGmgRJeZ0SuAQRZpwWmOWJV5dLBWuS791xj2jm";
 const NOTIFIED_IDS_KEY = "notified_news_ids_v2";
-const CACHE_KEY = "news-section-cache";
 const CHECK_INTERVAL_MS = 10 * 60 * 1000; // Har 10 daqiqada tejamkor kesh tekshiruvi
 
 // Yoqimli bildirishnoma tovushini chiqarish (Web Audio API)
@@ -150,16 +152,14 @@ export default function GlobalNewsNotifier() {
       if (typeof document !== "undefined" && document.hidden) return;
 
       try {
-        const cacheResult = await fetchWithJsonbinCache({
-          binId: BIN_ID,
-          masterKey: MASTER_KEY,
-          cacheKey: CACHE_KEY,
+        const cacheResult = await fetchNewsFromFirestore({
           ttlMs: CHECK_INTERVAL_MS,
         });
 
         const record = cacheResult?.data;
         if (!record) return;
 
+        // Firestore dan kelgan ma'lumot to'g'ridan-to'g'ri massiv
         let items = [];
         if (Array.isArray(record)) {
           items = record;

@@ -1,0 +1,730 @@
+{
+    "maktab_raqami": 8,
+    "tuman": "Uychi tumani",
+    "viloyat": "Namangan viloyati",
+    "oquvchilar_soni": 850,
+    "oqituvchilar_soni": 71,
+    "toifalar": {
+        "oliy_toifali": 8,
+        "bir_toifali": 13,
+        "ikki_toifali": 21,
+        "mutaxassis": 21,
+        "toifasiz": 8
+    },
+    "sertifikatlar": {
+        "milliy_sertifikatlilar": 12,
+        "xalqaro_sertifikatlilar": 12
+    },
+    "hodimlar": [
+        {
+            "t_r": 1,
+            "f_i_sh": "Djamoldinova Mutabar Xoshimovna",
+            "lavozimi": "Direktor",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ona tili va adabiyoti",
+            "fani": "Ona tili va adabiyoti",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 2,
+            "f_i_sh": "Isaxo'jayev Doniyor Adxamjon o'g'li",
+            "lavozimi": "O'IBDO'",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Fizika",
+            "fani": "Fizika",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 3,
+            "f_i_sh": "Abduraximova Nasiba Davronovna",
+            "lavozimi": "MMIBDO'",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Tarix",
+            "fani": "Tarix",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 4,
+            "f_i_sh": "Daminov Shuhratjon Abduvahobovich",
+            "lavozimi": "maktab maslahatchisi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "jismoniy tarbiya",
+            "fani": "jismoniy tarbiya",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 5,
+            "f_i_sh": "Xakimov Alisher Abdusalomovich",
+            "lavozimi": "O'IBDO'",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Tarix",
+            "fani": "Tarix",
+            "toifasi": null,
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 6,
+            "f_i_sh": "Jo'raeva Naima Abdurasulovna",
+            "lavozimi": "Psixolog",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Psixolog",
+            "fani": "Psixolog",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 7,
+            "f_i_sh": "Abralova Maxbuba Ortiqboyevna",
+            "lavozimi": "AKM",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Kutubxonachi",
+            "fani": "Kutubxonachi",
+            "toifasi": null,
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 8,
+            "f_i_sh": "Sobirjonov Dostonbek Rustamjon o'g'li",
+            "lavozimi": "CHYT rahbari",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Psixolog",
+            "fani": "Psixolog",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 9,
+            "f_i_sh": "Yakubbayeva Gulchehra Mirzabdullayevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ona tili va adabiyoti",
+            "fani": "Ona tili va adabiyoti",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 10,
+            "f_i_sh": "Jamalitdinova Nargiza Qodirjonovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ona tili va adabiyoti",
+            "fani": "Ona tili va adabiyoti",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 11,
+            "f_i_sh": "Najimova Rahima Xolmirzayevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ona tili va adabiyoti",
+            "fani": "Ona tili va adabiyoti",
+            "toifasi": "Oliy",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 12,
+            "f_i_sh": "Pulatova Dilfuza Mavlonboyevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ona tili va adabiyoti",
+            "fani": "Ona tili va adabiyoti",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 13,
+            "f_i_sh": "Abdulxamidova Ruxshona Shokirjon qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ona tili va adabiyoti",
+            "fani": "Ona tili va adabiyoti",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 14,
+            "f_i_sh": "Talibboev Shokirjon Sharipjanovich",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "rus tili va adabiyoti",
+            "fani": "rus tili va adabiyoti",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 15,
+            "f_i_sh": "Tolibbaeva Muyassar Abduxamidovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "o'zbek tili va adabiyoti",
+            "fani": "o'zbek tili va adabiyoti",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 16,
+            "f_i_sh": "Jo'rayeva Shoxida Baxtiyor qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "rus tili va adabiyoti",
+            "fani": "rus tili va adabiyoti",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 17,
+            "f_i_sh": "Choriyeva O'g'iloy Chorshamovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "rus tili va adabiyoti",
+            "fani": "rus tili va adabiyoti",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 18,
+            "f_i_sh": "Alieva Ra'no Tojimirzaevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "rus tili va adabiyoti",
+            "fani": "rus tili va adabiyoti",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 19,
+            "f_i_sh": "Abduraxmanova Zumrad Xakimovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ingliz tili",
+            "fani": "Ingliz tili",
+            "toifasi": "Oliy",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 20,
+            "f_i_sh": "Yuldasheva Go'zal Rustamovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ingliz tili",
+            "fani": "Ingliz tili",
+            "toifasi": "Oliy",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 21,
+            "f_i_sh": "Qodirova Gulnora Rustamjanovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ingliz tili",
+            "fani": "Ingliz tili",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 22,
+            "f_i_sh": "To'xtaboeva Dilafro'z Turg'unboevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ingliz tili",
+            "fani": "Ingliz tili",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 23,
+            "f_i_sh": "Tursunova Diyora Zoxidjon qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ingliz tili",
+            "fani": "Ingliz tili",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 24,
+            "f_i_sh": "Abdulhamidov Nozimjon Yaqubjonovich",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ingliz tili",
+            "fani": "Ingliz tili",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 25,
+            "f_i_sh": "Kuzieva Oydin Yormuxammedovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Ingliz tili/rus tili va adabiyoti",
+            "fani": "Ingliz tili/rus tili va adabiyoti",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 26,
+            "f_i_sh": "Abdullaeva Anvara Otaxanovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Tarix",
+            "fani": "Tarix",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 27,
+            "f_i_sh": "Tojimirzayeva Azizaxon Abdurashid qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": null,
+            "mutaxassisligi": "Tarix",
+            "fani": "Tarix",
+            "toifasi": null,
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 28,
+            "f_i_sh": "Abdulxamidova Zoxidaxon Toxirjonovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Tarix",
+            "fani": "Tarix",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 29,
+            "f_i_sh": "To'raboeva Nargiza G'ulomjonovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Huquq",
+            "fani": "Huquq",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 30,
+            "f_i_sh": "Turg'unov Dilshodbek Dilmurod o'g'li",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "MIG'",
+            "fani": "MIG'",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 31,
+            "f_i_sh": "Xodjaaxrolov Nosir Muxiddinovich",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Matematika",
+            "fani": "Matematika",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 32,
+            "f_i_sh": "Najimov Ulug'bek Farxodovich",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Matematika",
+            "fani": "Matematika",
+            "toifasi": "Oliy",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 33,
+            "f_i_sh": "Onorboyeva Nozima Ilhomjon qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Matematika",
+            "fani": "Matematika",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 34,
+            "f_i_sh": "Qodirov Sobir Sobitxonovich",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Matematika",
+            "fani": "Matematika",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 35,
+            "f_i_sh": "Bozorboyeva Maftuna Xasanboy qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Matematika",
+            "fani": "Matematika",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 36,
+            "f_i_sh": "Dehqonboyeva Diyora Farxod qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Matematika",
+            "fani": "Matematika",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 37,
+            "f_i_sh": "Oqboyeva Marg'uba Rasuljonovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Informatika",
+            "fani": "Informatika",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 38,
+            "f_i_sh": "Mirzayeva Madinabonu Adxamjon qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Informatika",
+            "fani": "Informatika",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 39,
+            "f_i_sh": "Qodirova Muqaddasxon Sobitxanovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Fizika",
+            "fani": "Fizika",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 40,
+            "f_i_sh": "Egamberdieva Barno Qodiralievna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Kimyo",
+            "fani": "Kimyo",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 41,
+            "f_i_sh": "Mirzaeva Dilnoza Sheralievna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Biologiya",
+            "fani": "Biologiya",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 42,
+            "f_i_sh": "Karimova Feruza Xamidjanovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Biologiya",
+            "fani": "Biologiya",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 43,
+            "f_i_sh": "Yakubbaeva Zamiraxon Nematillaevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Geografiya",
+            "fani": "Geografiya",
+            "toifasi": "Oliy",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 44,
+            "f_i_sh": "Umarova Vasila Sharofitdinova",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "musiqa",
+            "fani": "musiqa",
+            "toifasi": "Oliy",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 45,
+            "f_i_sh": "Shamsiddinova Oynisa Abduraxim qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Rangtasvir",
+            "fani": "Tasviriu san'at va chizmachilik",
+            "toifasi": null,
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 46,
+            "f_i_sh": "Xolmirzaev Botirjon Boydedaevich",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "texnalogiya",
+            "fani": "texnalogiya",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 47,
+            "f_i_sh": "Qozaqova Nigora Saynurdinovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "texnalogiya",
+            "fani": "texnalogiya",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 48,
+            "f_i_sh": "Jamoliddinova Xatiba Maxmudovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "texnalogiya",
+            "fani": "texnalogiya",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 49,
+            "f_i_sh": "Ataxanova Feruza O'rinboevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "jismoniy tarbiya",
+            "fani": "jismoniy tarbiya",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 50,
+            "f_i_sh": "Ergasheva Nazokat Abdug'anievna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "jismoniy tarbiya",
+            "fani": "jismoniy tarbiya",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 51,
+            "f_i_sh": "Komilov Saydulloxo'ja Sultonxo'jaevich",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "jismoniy tarbiya",
+            "fani": "jismoniy tarbiya",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 52,
+            "f_i_sh": "Boyxanov Anvar Axmadjanovich",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "jismoniy tarbiya",
+            "fani": "jismoniy tarbiya",
+            "toifasi": null,
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 53,
+            "f_i_sh": "Ilmiyaminov Odiljon Obidxonovich",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "jismoniy tarbiya va jismoniy tarbiya madaniyat",
+            "fani": "jismoniy tarbiya va jismoniy tarbiya madaniyat",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 54,
+            "f_i_sh": "Qodirova Shaxnoza Toxirjon qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": null,
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 55,
+            "f_i_sh": "Yakubbaeva Naimaxon Turg'unpo'latovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Kimyo",
+            "fani": "Kimyo",
+            "toifasi": "Oliy",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 56,
+            "f_i_sh": "Abduraxmanova Zulxumor Isroilovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 57,
+            "f_i_sh": "Baxriddinova Nargiza Turg'unovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 58,
+            "f_i_sh": "Baxriddinova Zulfiya Turg'unboevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 59,
+            "f_i_sh": "Eshonova Ozoda Nosirovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 60,
+            "f_i_sh": "Qodirjonova Nazokat Odiljon qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 61,
+            "f_i_sh": "Xakimova Muyassar Dedamirzaevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "Oliy",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 62,
+            "f_i_sh": "Ataboeva Gulbaxor Abdulxaevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "2",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 63,
+            "f_i_sh": "Ibroximova Zebo Ismoil qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 64,
+            "f_i_sh": "Jabbarova Zebo Ilxamjanovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": null,
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 65,
+            "f_i_sh": "Yoqubbaeva Maxmuda Jamoliddinovna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "1",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 66,
+            "f_i_sh": "Mamajanova Madina Xamidullo qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 67,
+            "f_i_sh": "Yaqubbayeva Nigora Abdullajon qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 68,
+            "f_i_sh": "Farxodova Muazzam Mashrabjon qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 69,
+            "f_i_sh": "Boltaboyeva Muqaddasxon Saidaxmad qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 70,
+            "f_i_sh": "Baxriddinova Maxbuba Urayimjon qizi",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": null,
+            "asosiy_yoki_urindosh": "asosiy"
+        },
+        {
+            "t_r": 71,
+            "f_i_sh": "Oqsaqalova Muslima Qoraxo'jaevna",
+            "lavozimi": "O'qituvchi",
+            "malumoti": "oliy",
+            "mutaxassisligi": "Boshlang'ich ta'lim",
+            "fani": "Boshlang'ich ta'lim",
+            "toifasi": "M",
+            "asosiy_yoki_urindosh": "asosiy"
+        }
+    ]
+}

@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { VscChatSparkleError } from "react-icons/vsc";
 import { HashLoader } from "react-spinners";
-import { fetchWithJsonbinCache } from "../../utils/jsonbinCache";
+// JSONBin o'chirilmagan, faqat ishlatilmaydigan holatga keltirilgan:
+// import { fetchWithJsonbinCache } from "../../utils/jsonbinCache";
+// const BIN_ID = "6aae18d1ac6210605adec643";
+// const MASTER_KEY = "$2a$10$P2EP5iL5TTjPvxXdGmgRJeZ0SuAQRZpwWmOWJV5dLBWuS791xj2jm";
+// const CACHE_KEY = "teachers-section-cache";
+// const CACHE_TTL_MS = 1.5 * 24 * 60 * 60 * 1000;
 
-const BIN_ID = "6aae18d1ac6210605adec643";
-const MASTER_KEY = "$2a$10$P2EP5iL5TTjPvxXdGmgRJeZ0SuAQRZpwWmOWJV5dLBWuS791xj2jm";
-const CACHE_KEY = "teachers-section-cache";
-const CACHE_TTL_MS = 1.5 * 24 * 60 * 60 * 1000;
+import { fetchSchoolFromFirestore } from "../../utils/firestoreService";
+
+const CACHE_TTL_MS = 1.5 * 24 * 60 * 60 * 1000; // 1.5 kun
 
 export default function TeachersSection() {
   const [status, setStatus] = useState(null);
@@ -18,10 +22,7 @@ export default function TeachersSection() {
 
     const fetchTeachers = async () => {
       try {
-        const result = await fetchWithJsonbinCache({
-          binId: BIN_ID,
-          masterKey: MASTER_KEY,
-          cacheKey: CACHE_KEY,
+        const result = await fetchSchoolFromFirestore({
           ttlMs: CACHE_TTL_MS,
         });
 

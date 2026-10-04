@@ -157,12 +157,12 @@ export default function Header() {
             </li>
             {isFullscreen ? (
               <li
-                className="fullscreenExit"
+                className="nav-link"
                 onClick={toggleFullscreen}
                 style={{ cursor: "pointer" }}
                 title="To'liq ekrandan chiqish"
               >
-                <BsFullscreenExit size={"14px"} /> To'liq ekrandan chiqish
+                <BsFullscreenExit size={"18px"} />
               </li>
             ) : (
               <li
@@ -172,7 +172,6 @@ export default function Header() {
                 title="To'liq ekran"
               >
                 <RiFullscreenLine className="doFullScreen nav-icon" />
-                <span>To'liq ekran</span>
               </li>
             )}
           </ul>
