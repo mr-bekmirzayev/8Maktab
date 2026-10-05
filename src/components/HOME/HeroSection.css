@@ -1,0 +1,247 @@
+@keyframes heroImageAnimBrightness {
+    0%,
+    100% {
+        filter: brightness(80%) blur(4px);
+    }
+
+    50% {
+        filter: brightness(140%) blur(8px);
+    }
+}
+
+@keyframes heroImageAnim {
+    0%,
+    100% {
+        transform: perspective(1200px) rotateY(18deg) rotateX(12deg) rotateZ(2deg) translateY(0px);
+    }
+
+    50% {
+        transform: perspective(1200px) rotateY(22deg) rotateX(8deg) rotateZ(1deg) translateY(-6px);
+    }
+}
+
+@keyframes glowHeroAnim {
+    0% {
+        transform: translateY(-100px);
+        box-shadow: #3a3a3b 0 0 25px;
+    }
+
+    25% {
+        transform: translateY(30px);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes loadElement {
+    to {
+        opacity: 1;
+    }
+
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+}
+
+@keyframes textAnimColor {
+    0% {
+        text-shadow: #3a3a3b 0 0 25px;
+        background-size: auto;
+    }
+
+    15% {
+        text-shadow: #44435c 0 0 25px;
+        background-size: 300% 200%;
+    }
+
+    30% {
+        color: grey;
+        text-transform: lowercase;
+        text-shadow: #abb3be 0 0 7px;
+        background-size: 100%;
+    }
+
+    45% {
+        color: grey;
+        text-transform: lowercase;
+        text-shadow: #424143 0 0 15px;
+        background-position-x: 50px;
+    }
+
+    70% {
+        color: grey;
+        text-transform: lowercase;
+        text-shadow: #2b2b3a 0 0 25px;
+    }
+
+    95% {
+        text-shadow: #c4c4c4 0 0 25px;
+    }
+
+    100% {
+        background-position-x: 0;
+    }
+}
+
+.heroSectionCard {
+    position: relative;
+    display: block;
+    margin-top: 90px;
+    background-size: cover;
+    -webkit-backdrop-filter: blur(20px);
+    transform-style: preserve-3d;
+}
+
+.homeOneSectionBg {
+    position: absolute;
+    height: 700px;
+    margin-top: -100px;
+    width: 100%;
+    animation: heroImageAnimBrightness 5s ease-in-out infinite;
+    filter: blur(3px) brightness(50%);
+    background: rgba(0, 0, 0, 0.318);
+}
+
+.homeOneSection_Bg__InsetShadow {
+    position: absolute;
+    width: 100%;
+    bottom: -150px;
+    height: 100%;
+    z-index: 200;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.484), black);
+    box-shadow: 0px 150px 155px 10px black;
+    filter: drop-shadow(0 -810px 100px black);
+}
+
+.heroList {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    list-style: none;
+}
+
+.heroList>li:last-child {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    width: min(100%, 700px);
+    min-height: 360px;
+    padding: 28px 42px 30px;
+    border-radius: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    background: linear-gradient(135deg, rgba(8, 12, 20, 0.88), rgba(15, 23, 42, 0.7), rgba(13, 18, 30, 0.94));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 40px rgba(2, 6, 23, 0.72), 0 0 0 1px rgba(96, 165, 250, 0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    animation: loadElement 1 1s;
+    perspective: 1000px;
+}
+
+.heroList>li:last-child>h1 {
+    font-size: 45px;
+    animation: textAnimColor 5 0.2s;
+    text-transform: uppercase;
+    background: linear-gradient(rgb(255, 253, 253), #f3f3f3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 10px white;
+    font-weight: 900;
+    transform: rotate3d(20deg);
+    -webkit-text-fill-color: transparent;
+    width: 464px;
+}
+
+.schoolImage {
+    display: block;
+    object-fit: cover;
+    filter: brightness(120%);
+    border-radius: 30px;
+    z-index: 1;
+    width: 800px;
+    height: 500px;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    animation: heroImageAnim 5s ease-in-out infinite;
+    box-shadow: 0 0 16px 2px rgba(249, 115, 22, 0.75), 18px 24px 48px rgba(15, 23, 42, 0.75);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+}
+
+.heroSectionCard:hover .schoolImage {
+    transform: perspective(1200px) rotateY(12deg) rotateX(8deg) rotateZ(1deg) translateY(-8px) scale(1.01);
+    box-shadow: 0 0 24px 4px rgba(251, 146, 60, 0.95), 22px 28px 54px rgba(15, 23, 42, 0.82);
+    filter: brightness(140%);
+}
+
+.heroTextBlock {
+    position: relative;
+    z-index: 2;
+}
+
+.heroTextBlock>* {
+    position: relative;
+    z-index: 2;
+}
+
+.heroEyebrow {
+    margin: 0 0 8px;
+    color: rgba(148, 163, 184, 0.9);
+    font-size: 14px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.heroTitle {
+    margin: 0;
+    font-size: clamp(2.8rem, 4vw, 5rem);
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+    color: #f8fafc;
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
+}
+
+.heroLocation {
+    margin: 0;
+    font-size: clamp(2.1rem, 3vw, 4rem);
+    line-height: 1.06;
+    letter-spacing: -0.05em;
+    color: #f8fafc;
+    text-shadow: 0 0 18px rgba(148, 163, 184, 0.25);
+}
+
+.heroPrincipalName {
+    margin: 0;
+    font-size: clamp(2.1rem, 2.6vw, 3.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow: 0 0 18px rgba(148, 163, 184, 0.2);
+}
+
+.glowHero {
+    background-color: #ea580c;
+    width: 100px;
+    animation: glowHeroAnim 1 2.2s;
+    height: 100px;
+    box-shadow: 0 0 35px #f97316, 0 0 70px rgba(251, 146, 60, 0.6);
+    filter: blur(80px);
+    position: absolute;
+    bottom: 45px;
+    border-radius: 50%;
+    right: 55px;
+}
+
+.locationChild {
+    font-weight: 700 !important;
+    margin-left: 160px;
+    margin-top: -80px;
+    font-size: 55px;
+}

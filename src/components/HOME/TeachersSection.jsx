@@ -10,6 +10,7 @@ import { HashLoader } from "react-spinners";
 // const CACHE_TTL_MS = 1.5 * 24 * 60 * 60 * 1000;
 
 import { fetchSchoolFromFirestore } from "../../utils/firestoreService";
+import "./TeachersSection.css";
 
 const CACHE_TTL_MS = 1.5 * 24 * 60 * 60 * 1000; // 1.5 kun
 

@@ -4,6 +4,7 @@ import TeachersSmileThree from "../../assets/images/Home/TeachersSmileThree.png"
 import TeachersSmileFour from "../../assets/images/Home/TeachersSmileFour.png";
 import TeachersSmileFive from "../../assets/images/Home/TeachersSmileFIve.png";
 import TeachersSmileSix from "../../assets/images/Home/TeachersSmileSix.png";
+import "./TeachersSmileTwo.css";
 
 export default function TeachersSmileTwo() {
   return (

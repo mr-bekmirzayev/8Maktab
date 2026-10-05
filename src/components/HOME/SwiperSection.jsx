@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "./SwiperSection.css";
 import LazyImage from "../LazyImage";
 import schoolImageOne from "../../assets/images/Home/MySchoolImageOne.png";
 import teacherImageTwo from "../../assets/images/Home/TeachersSmile.png";

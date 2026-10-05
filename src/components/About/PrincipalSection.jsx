@@ -1,5 +1,6 @@
 import School_Principal from "../../assets/images/About/School_Principal.png";
 import LazyImage from "../LazyImage";
+import "./PrincipalSection.css";
 export default function PrincipalSection() {
   return (
     <section className="PrinsipalSection display">

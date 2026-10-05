@@ -5,6 +5,7 @@ import { FaChevronLeft } from "react-icons/fa6";
 import { IoHomeSharp } from "react-icons/io5";
 import { SiGhostty } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
+import "./NotFound.css";
 
 export default function NotFound() {
   const navigate = useNavigate();

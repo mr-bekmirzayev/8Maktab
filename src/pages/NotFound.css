@@ -1,0 +1,170 @@
+@keyframes ghostIconAnimation {
+    from {
+        transform: translateY(0);
+    }
+
+    50% {
+        filter: drop-shadow(0 0 5px rgb(194, 194, 194));
+        color: rgb(253, 252, 252);
+        transform: translateY(-20px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes notFoundChildAnim {
+    from {
+        top: 50%;
+        right: 50%;
+        transform: rotate(0);
+    }
+
+    45% {
+        color: red;
+        filter: drop-shadow(0 0 10px red);
+        transform: rotate(80deg);
+    }
+
+    46% {
+        color: red;
+        filter: drop-shadow(0 0 10px red);
+    }
+
+    50% {
+        opacity: 1;
+        top: -50px;
+        font-size: 70px;
+        right: -50px;
+    }
+
+    80% {
+        top: -50px;
+        right: -50px;
+        font-size: 70px;
+    }
+
+    to {
+        top: 50%;
+        opacity: 0;
+        right: 50%;
+    }
+}
+
+@keyframes notFounTitleAnim {
+    0% {
+        opacity: 0;
+        font-size: 75px;
+        background-position: 0% -50%;
+    }
+
+    50% {
+        background-position: -400% -100%;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        background-position: 0% -50%;
+    }
+}
+
+.notFoundSection {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.notFoundIcons {
+    position: relative;
+}
+
+.ghostIcon {
+    animation: ghostIconAnimation 1 3s;
+    font-size: 160px;
+}
+
+.notIcon {
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+    transition: 0.8s;
+    right: 50%;
+    animation: notFoundChildAnim 2s 1;
+}
+
+.notFoundTitle {
+    background: linear-gradient(135deg, rgb(20, 20, 20), white, rgb(20, 20, 20));
+    font-size: 45px;
+    transition: 2s;
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+    animation: notFounTitleAnim 2s ease 1;
+    text-transform: uppercase;
+}
+
+.nAcBtn {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    top: 10px;
+    left: 15px;
+}
+
+.backToOnePage {
+    text-transform: uppercase;
+    background: none;
+    padding: 10px 23px;
+    border: solid 2px rgba(128, 128, 128, 0.249);
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
+    transform: translate(0);
+    gap: 5px;
+    transition: 0.2s;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.backToOnePage:hover {
+    background: white;
+    color: black;
+    border-radius: 20px;
+    border: solid 2px lightgray;
+}
+
+.backToOnePage:active {
+    transform: translateY(5px);
+    color: grey;
+    box-shadow: 0 0 20px 5px inset grey;
+}
+
+.nMainBtn {
+    text-transform: uppercase;
+    background: none;
+    padding: 10px 23px;
+    border: solid 2px rgba(128, 128, 128, 0.249);
+    border-radius: 8px;
+    font-size: 15px;
+    display: flex;
+    transform: translate(0);
+    gap: 5px;
+    transition: 0.2s;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.nMainBtn:hover {
+    color: rgb(246, 169, 25);
+    filter: drop-shadow(orange 0 0 5px);
+}

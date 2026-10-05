@@ -1,7 +1,8 @@
 import { useState } from "react";
 import LazyImage from "../LazyImage";
 import schoolImage from "../../assets/images/Home/MySchoolImage.png";
-import oneSectionBackground from "../../assets/images/Home/oneSectionBackground.png"
+import oneSectionBackground from "../../assets/images/Home/oneSectionBackground.png";
+import "./HeroSection.css";
 
 export default function HeroSection() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });

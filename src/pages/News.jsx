@@ -13,6 +13,7 @@ import { IoNotificationsOutline, IoNotifications } from "react-icons/io5";
 import { fetchNewsFromFirestore } from "../utils/firestoreService";
 import LazyImage from "../components/LazyImage";
 import { FaExclamation } from "react-icons/fa";
+import "./News.css";
 
 const CACHE_TTL_MS = 8 * 60 * 1000; // 8 daqiqa kesh muddati
 

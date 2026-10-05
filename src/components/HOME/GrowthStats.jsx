@@ -1,6 +1,7 @@
 import React from "react";
 import { FaGraduationCap, FaUsers } from "react-icons/fa6";
 import { TbChalkboardTeacher } from "react-icons/tb";
+import "./GrowthStats.css";
 
 export default function GrowthStats() {
   return (

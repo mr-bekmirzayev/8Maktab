@@ -1,0 +1,196 @@
+@keyframes endedSectionRise {
+    from {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.endedSection {
+    position: relative;
+    margin-bottom: -80px;
+    overflow: hidden;
+    padding-top: clamp(64px, 8vw, 108px);
+    padding-bottom: clamp(68px, 8vw, 112px);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(249, 115, 22, 0.1), transparent 52%),
+        linear-gradient(180deg, #0b0d11 0%, #101216 52%, #0b0d11 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.endedSection__heading {
+    max-width: 680px;
+    margin: 0 auto 42px;
+    text-align: center;
+    animation: endedSectionRise 650ms ease both;
+}
+
+.endedSection__eyebrow {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #fb923c;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.endedSection__heading h2 {
+    margin: 0;
+    color: #f8fafc;
+    font-size: clamp(27px, 3.5vw, 40px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.endedSection__heading p {
+    margin: 14px 0 0;
+    color: #a7adb7;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.endedSection .endedSec__List {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    width: min(1120px, 100%);
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.endedSection__card {
+    --card-accent: #fb923c;
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 292px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 26px 26px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 7px;
+    background: linear-gradient(145deg, rgba(28, 31, 36, 0.96), rgba(17, 19, 23, 0.96));
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.2);
+    animation: endedSectionRise 650ms ease both;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.endedSection__card::before {
+    position: absolute;
+    top: 0;
+    left: 26px;
+    width: 42px;
+    height: 2px;
+    background: var(--card-accent);
+    content: "";
+    opacity: 0.9;
+}
+
+.endedSection__card--character {
+    --card-accent: #86c8a0;
+    animation-delay: 100ms;
+}
+
+.endedSection__card--safety {
+    --card-accent: #82b8dc;
+    animation-delay: 200ms;
+}
+
+.endedSection__icon {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--card-accent) 35%, transparent);
+    border-radius: 7px;
+    background: color-mix(in srgb, var(--card-accent) 12%, transparent);
+    color: var(--card-accent);
+    font-size: 21px;
+}
+
+.endedSection__number {
+    position: absolute;
+    top: 30px;
+    right: 26px;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.endedSection__card h3 {
+    margin: 24px 0 9px;
+    color: #f8fafc;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.endedSection__card p {
+    margin: 0;
+    color: #a7adb7;
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.endedSection__card:hover {
+    transform: translateY(-5px);
+    border-color: color-mix(in srgb, var(--card-accent) 42%, transparent);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.34);
+}
+
+@media (max-width: 900px) {
+    .endedSection .endedSec__List {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .endedSection__card:last-child {
+        grid-column: 1 / -1;
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 620px) {
+    .endedSection__heading {
+        margin-bottom: 30px;
+    }
+
+    .endedSection__heading p {
+        font-size: 14px;
+    }
+
+    .endedSection .endedSec__List {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+    }
+
+    .endedSection__card,
+    .endedSection__card:last-child {
+        min-height: 0;
+        grid-column: auto;
+        padding: 24px 22px;
+    }
+
+    .endedSection__card h3 {
+        margin-top: 20px;
+        font-size: 19px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .endedSection__heading,
+    .endedSection__card {
+        animation: none;
+    }
+
+    .endedSection__card {
+        transition: none;
+    }
+}

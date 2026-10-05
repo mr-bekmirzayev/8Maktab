@@ -8,6 +8,7 @@ import { PiChalkboardTeacherFill } from "react-icons/pi";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { RiFullscreenLine } from "react-icons/ri";
 import { BsFullscreenExit } from "react-icons/bs";
+import "./Header.css";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -72,8 +73,7 @@ export default function Header() {
       document.documentElement.requestFullscreen?.() ??
         document.documentElement.webkitRequestFullscreen?.();
     } else {
-      document.exitFullscreen?.() ??
-        document.webkitExitFullscreen?.();
+      document.exitFullscreen?.() ?? document.webkitExitFullscreen?.();
     }
   }, []);
 
@@ -85,6 +85,9 @@ export default function Header() {
           aria-label="8 - Maktabning logotipi"
           className="header-logo-link"
           to={"/"}
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
         >
           <div className="header-logo-box">
             <GiBookCover className="bookIconInHeader" />

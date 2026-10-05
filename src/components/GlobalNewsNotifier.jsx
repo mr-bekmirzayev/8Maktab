@@ -11,7 +11,7 @@ import { fetchNewsFromFirestore } from "../utils/firestoreService";
 import { FiLock } from "react-icons/fi";
 
 const NOTIFIED_IDS_KEY = "notified_news_ids_v2";
-const CHECK_INTERVAL_MS = 10 * 60 * 1000; // Har 10 daqiqada tejamkor kesh tekshiruvi
+const CHECK_INTERVAL_MS = 1 * 60 * 1000; // Har 10 daqiqada tejamkor kesh tekshiruvi
 
 // Yoqimli bildirishnoma tovushini chiqarish (Web Audio API)
 function playNotificationSound() {

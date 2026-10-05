@@ -1,5 +1,6 @@
 import React from "react";
 import { FaBookOpen, FaScaleBalanced, FaShieldHalved } from "react-icons/fa6";
+import "./EndedSection.css";
 
 export default function EndedSection() {
   return (
