@@ -1,26 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="uz">
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/SchoolTitleFor.png" />
+  <link rel="icon" type="image/png" href="/SchoolTitleFor.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="rgb(255, 255, 252)" />
+  <meta name="theme-color" content="#ea580c" />
   <title>Namangan Viloyati Uychi tumanidagi 8 - Maktab</title>
 </head>
 
 <body>
   <div id="root"></div>
-  <script type="module" src="/src/main.jsx">
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(() => console.log('Service Worker muvaffaqiyatli ulandi!'))
-          .catch((err) => console.log('SW ulanishda xatolik:', err));
-      });
-    }
-  </script>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 
 </html>

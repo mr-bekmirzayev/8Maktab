@@ -1,0 +1,21 @@
+{
+  "short_name": "8-Maktab",
+  "name": "Namangan Viloyati Uychi tumanidagi 8 - Maktab",
+  "icons": [
+    {
+      "src": "/SchoolTitleFor.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/SchoolTitleFor.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0f172a",
+  "theme_color": "#ea580c",
+  "display": "standalone",
+  "gcm_sender_id": "103953800507"
+}

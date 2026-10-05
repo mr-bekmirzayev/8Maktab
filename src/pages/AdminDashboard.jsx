@@ -13,6 +13,7 @@ import {
 import { auth, db } from "../firebase";
 import AdminLogin from "./AdminLogin";
 import { HashLoader } from "react-spinners";
+import { broadcastPushNotification } from "../utils/pushNotificationService";
 import {
   FiLogOut,
   FiPlus,
@@ -239,11 +240,20 @@ export default function AdminDashboard() {
         showNotification("Yangilik muvaffaqiyatli tahrirlandi!");
       } else {
         // Yangi qo'shish
-        await addDoc(collection(db, "news"), {
+        const addedDocRef = await addDoc(collection(db, "news"), {
           ...dataToSave,
           createdAt: new Date().toISOString(),
         });
         showNotification("Yangi yangilik muvaffaqiyatli qo'shildi!");
+
+        // Tab yopiq bo'lsa ham barcha foydalanuvchilar qurilmalariga Push xabarnoma yuborish
+        broadcastPushNotification({
+          title: "8-Maktab: " + dataToSave.title,
+          body: dataToSave.description || "Maktabimizda yangi yangilik e'lon qilindi.",
+          icon: dataToSave.image || "/SchoolTitleFor.png",
+          url: "/news",
+          id: addedDocRef?.id || String(Date.now()),
+        }).catch((e) => console.warn("Push broadcast error:", e));
       }
 
       // Keshni tozalash
