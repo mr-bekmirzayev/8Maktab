@@ -1,3 +1,4 @@
+import EndedSection from "../components/HOME/EndedSection";
 import GrowthStats from "../components/HOME/GrowthStats";
 import HeroSection from "../components/HOME/HeroSection";
 import SwiperSection from "../components/HOME/SwiperSection";
@@ -13,6 +14,7 @@ function Home() {
         <TeachersSection />
         <TeachersSmileTwo/>
         <GrowthStats/>
+        <EndedSection/>
       </main>
     </>
   );

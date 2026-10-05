@@ -28,6 +28,7 @@ export default function HeroSection() {
       onMouseLeave={resetTilt}
     >
       <img className="homeOneSectionBg" src={oneSectionBackground} alt="Background" />
+      <div className="homeOneSection_Bg__InsetShadow"></div>
       <ul className="heroList display">
         <li>
           <LazyImage
