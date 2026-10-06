@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoNotifications, IoClose, IoChevronForward, IoInformationCircle } from "react-icons/io5";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
-import {
-  registerServiceWorker,
-  subscribeToPushNotifications,
-} from "../utils/pushNotificationService";
+
+// JSONBin o'chirilmagan, faqat ishlatilmaydigan holatga keltirilgan:
+// import { fetchWithJsonbinCache } from "../utils/jsonbinCache";
+// const BIN_ID = "6ab11f8effd5d160531f39ea";
+// const MASTER_KEY = "$2a$10$P2EP5iL5TTjPvxXdGmgRJeZ0SuAQRZpwWmOWJV5dLBWuS791xj2jm";
+
+import { fetchNewsFromFirestore } from "../utils/firestoreService";
+import { FiLock } from "react-icons/fi";
 
 const NOTIFIED_IDS_KEY = "notified_news_ids_v2";
+const CHECK_INTERVAL_MS = 1 * 60 * 1000; // Har 10 daqiqada tejamkor kesh tekshiruvi
 
 // Yoqimli bildirishnoma tovushini chiqarish (Web Audio API)
 function playNotificationSound() {
@@ -41,50 +44,32 @@ function playNotificationSound() {
     osc2.start(ctx.currentTime + 0.12);
     osc2.stop(ctx.currentTime + 0.55);
   } catch (e) {
-    // Autoplay cheklovi bo'lsa xatolik chiqarmaslik
+    // Autoplay cheklovi bo'lsa to'xtab qolmasligi uchun
   }
 }
 
-// Brauzer va Telefon uchun Push Notification ko'rsatish
-async function sendSystemNotification(item, onOpenNews) {
+// Brauzer va Telefon uchun Push Notification yuborish
+function sendSystemNotification(item, onOpenNews) {
   if (typeof window === "undefined" || !("Notification" in window)) return;
   if (Notification.permission !== "granted") return;
 
   const title = item.title || item.sarlavha || "8-Maktab: Yangi xabar!";
   const body = item.description || item.tavsif || item.content || "Maktabimizda yangi yangilik e'lon qilindi.";
-  const icon = item.image || item.rasm || "/SchoolTitleFor.png";
+  const icon = item.image || item.rasm || "/schoolLogo.png";
 
-  const options = {
-    body: body.length > 120 ? body.slice(0, 117) + "..." : body,
-    icon: icon,
-    badge: "/SchoolTitleFor.png",
-    tag: String(item.id || item._id || Date.now()),
-    requireInteraction: false,
-    data: { url: "/news" },
-  };
-
-  // 1. Mobil Android Chrome va ServiceWorker qo'llab-quvvatlaydigan muhitlar uchun
-  if ("serviceWorker" in navigator) {
-    try {
-      const reg = await navigator.serviceWorker.ready;
-      if (reg && reg.showNotification) {
-        await reg.showNotification(title, options);
-        return;
-      }
-    } catch {
-      // Service worker bo'lmasa new Notification ga o'tiladi
-    }
-  }
-
-  // 2. Desktop va standart Web Notification qo'llab-quvvatlovchi brauzerlar uchun
   try {
-    const notif = new Notification(title, options);
+    const notif = new Notification(title, {
+      body: body.length > 120 ? body.slice(0, 117) + "..." : body,
+      icon: icon,
+      badge: icon,
+      tag: String(item.id || item._id || Date.now()),
+      requireInteraction: false,
+    });
+
     notif.onclick = () => {
       window.focus();
       if (onOpenNews) onOpenNews();
-      try {
-        notif.close();
-      } catch {}
+      notif.close();
     };
   } catch (err) {
     console.warn("Notification error:", err);
@@ -100,29 +85,13 @@ export default function GlobalNewsNotifier() {
     }
     return "unsupported";
   });
-
+  
+  // Banner yopilganligini seans davomida eslab turish
   const [isDismissed, setIsDismissed] = useState(false);
   const [showDeniedModal, setShowDeniedModal] = useState(false);
+  const isFirstRun = useRef(true);
 
-  // Dastlab Service Worker ni ro'yxatga olish va ruxsat bo'lsa tokenni yangilash
-  useEffect(() => {
-    registerServiceWorker();
-
-    if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
-      subscribeToPushNotifications().catch(() => {});
-    }
-  }, []);
-
-  // Toast avtomatik 10 soniyadan so'ng yopilishi uchun
-  useEffect(() => {
-    if (!toastNews) return;
-    const timer = setTimeout(() => {
-      setToastNews(null);
-    }, 10000);
-    return () => clearTimeout(timer);
-  }, [toastNews]);
-
-  // Ruxsat so'rash va Push tizimiga to'liq ulash
+  // Ruxsat so'rash (Callback + Promise va Denied holatlarini to'liq qo'llab-quvvatlaydi)
   const handleAskPermission = async () => {
     if (typeof window === "undefined" || !("Notification" in window)) {
       alert("Qurilmangiz yoki brauzeringiz bildirishnomalarni qo'llab-quvvatlamaydi.");
@@ -135,22 +104,39 @@ export default function GlobalNewsNotifier() {
     }
 
     try {
-      const result = await subscribeToPushNotifications();
-      if (result.permission) {
-        setPermissionState(result.permission);
-      }
+      let finalResult = Notification.permission;
 
-      if (result.success || Notification.permission === "granted") {
-        setPermissionState("granted");
-        sendSystemNotification(
-          {
-            title: "Bildirishnomalar yoqildi! 🔔",
-            description: "Sayt yopiq bo'lsa ham maktabimiz yangiliklari to'g'ridan-to'g'ri qurilmangizga keladi.",
-          },
-          () => navigate("/news")
-        );
-      } else if (Notification.permission === "denied") {
-        setShowDeniedModal(true);
+      // Promise + Callback qo'llab-quvvatlovi (Mobil va barcha brauzerlar uchun)
+      const requestRes = Notification.requestPermission((res) => {
+        if (res) {
+          finalResult = res;
+          setPermissionState(res);
+          if (res === "granted") {
+            try {
+              new Notification("Bildirishnomalar yoqildi! 🔔", {
+                body: "Maktabimizning yangi xabarlaridan birinchilardan bo'lib boxabar bo'lasiz.",
+                icon: "/schoolLogo.png"
+              });
+            } catch (e) {}
+          } else if (res === "denied") {
+            setShowDeniedModal(true);
+          }
+        }
+      });
+
+      if (requestRes && typeof requestRes.then === "function") {
+        finalResult = await requestRes;
+        setPermissionState(finalResult);
+        if (finalResult === "granted") {
+          try {
+            new Notification("Bildirishnomalar yoqildi! 🔔", {
+              body: "Maktabimizning yangi xabarlaridan birinchilardan bo'lib boxabar bo'lasiz.",
+              icon: "/schoolLogo.png"
+            });
+          } catch (e) {}
+        } else if (finalResult === "denied") {
+          setShowDeniedModal(true);
+        }
       }
     } catch (e) {
       console.warn("Permission error:", e);
@@ -160,98 +146,91 @@ export default function GlobalNewsNotifier() {
     }
   };
 
-  // Real-time Firestore Listener (Tab ochiq turganda zudlik bilan ishlaydi)
   useEffect(() => {
-    let isInitialLoad = true;
+    const checkNews = async () => {
+      // Tab yoqilmagan bo'lsa fonda ortiqcha so'rov yubormaymiz
+      if (typeof document !== "undefined" && document.hidden) return;
 
-    const getStoredIds = () => {
       try {
+        const cacheResult = await fetchNewsFromFirestore({
+          ttlMs: CHECK_INTERVAL_MS,
+        });
+
+        const record = cacheResult?.data;
+        if (!record) return;
+
+        // Firestore dan kelgan ma'lumot to'g'ridan-to'g'ri massiv
+        let items = [];
+        if (Array.isArray(record)) {
+          items = record;
+        } else if (Array.isArray(record?.news)) {
+          items = record.news;
+        } else if (Array.isArray(record?.yangiliklar)) {
+          items = record.yangiliklar;
+        } else if (record && typeof record === "object") {
+          items = [record];
+        }
+
+        if (items.length === 0) return;
+
+        // Oldin xabar berilgan ID lar
         const stored = localStorage.getItem(NOTIFIED_IDS_KEY);
-        return stored ? JSON.parse(stored) : [];
-      } catch {
-        return [];
+        let notifiedIds = stored ? JSON.parse(stored) : null;
+
+        // Agar birinchi marta bo'lsa, mavjudlarini saqlab qo'yamiz
+        if (!notifiedIds) {
+          notifiedIds = items.map((it, idx) => String(it.id ?? it.title ?? idx));
+          localStorage.setItem(NOTIFIED_IDS_KEY, JSON.stringify(notifiedIds));
+          isFirstRun.current = false;
+          return;
+        }
+
+        const notifiedSet = new Set(notifiedIds.map(String));
+
+        // Yangi qo'shilgan yangiliklarni topamiz
+        const brandNewItems = items.filter((it, idx) => {
+          const key = String(it.id ?? it.title ?? idx);
+          return !notifiedSet.has(key);
+        });
+
+        if (brandNewItems.length > 0) {
+          const latestNew = brandNewItems[brandNewItems.length - 1];
+
+          // 1. Ovoz chiqarish
+          playNotificationSound();
+
+          // 2. Brauzer/Telefon Push Notification
+          sendSystemNotification(latestNew, () => navigate("/news"));
+
+          // 3. Sayt ichidagi Toast Popup banner
+          setToastNews(latestNew);
+
+          // 4. Barcha yangi ID larni saqlab qo'yish
+          const updatedIds = [
+            ...notifiedIds,
+            ...brandNewItems.map((it, idx) => String(it.id ?? it.title ?? idx)),
+          ];
+          localStorage.setItem(NOTIFIED_IDS_KEY, JSON.stringify(updatedIds));
+        }
+
+        isFirstRun.current = false;
+      } catch (err) {
+        console.warn("Global news check xatosi:", err);
       }
     };
 
-    const saveStoredIds = (ids) => {
-      try {
-        const unique = Array.from(new Set(ids)).slice(-300);
-        localStorage.setItem(NOTIFIED_IDS_KEY, JSON.stringify(unique));
-      } catch {}
-    };
+    // Darhol tekshirish
+    checkNews();
 
-    let unsubscribe = () => {};
-
-    try {
-      const newsCollectionRef = collection(db, "news");
-
-      unsubscribe = onSnapshot(
-        newsCollectionRef,
-        (snapshot) => {
-          const storedIds = getStoredIds();
-          const storedSet = new Set(storedIds.map(String));
-
-          // 1. Birinchi yuklanish
-          if (isInitialLoad) {
-            const allDocIds = snapshot.docs
-              .map((docSnap) => {
-                const d = docSnap.data();
-                return String(docSnap.id || d.id || d.title || "");
-              })
-              .filter(Boolean);
-
-            if (storedIds.length === 0) {
-              saveStoredIds(allDocIds);
-            } else {
-              saveStoredIds([...storedIds, ...allDocIds]);
-            }
-
-            isInitialLoad = false;
-            return;
-          }
-
-          // 2. Yangi yangilik qo'shilishi
-          const brandNewItems = [];
-          const updatedIds = [...storedIds];
-
-          snapshot.docChanges().forEach((change) => {
-            if (change.type === "added") {
-              const data = change.doc.data();
-              const id = String(change.doc.id || data.id || data.title || "");
-
-              if (id && !storedSet.has(id)) {
-                brandNewItems.push({
-                  id: change.doc.id,
-                  ...data,
-                });
-                storedSet.add(id);
-                updatedIds.push(id);
-              }
-            }
-          });
-
-          if (brandNewItems.length > 0) {
-            saveStoredIds(updatedIds);
-            const latestNew = brandNewItems[brandNewItems.length - 1];
-
-            playNotificationSound();
-            sendSystemNotification(latestNew, () => navigate("/news"));
-            setToastNews(latestNew);
-          }
-        },
-        (err) => {
-          console.warn("Firestore listener error:", err);
-        }
-      );
-    } catch (err) {
-      console.warn("Firestore listener ulanmadi:", err);
-    }
+    // Har 10 daqiqada fonda tejamkor tekshirib turish
+    const intervalId = setInterval(checkNews, CHECK_INTERVAL_MS);
 
     return () => {
-      unsubscribe();
+      clearInterval(intervalId);
     };
   }, [navigate]);
 
+  // Agar ruxsat berilmagan bo'lsa (default yoki denied bo'lsa ham) va foydalanuvchi yopmagan bo'lsa banner HAR DOIM KO'RINADI
   const isBannerVisible =
     typeof window !== "undefined" &&
     "Notification" in window &&
@@ -260,7 +239,7 @@ export default function GlobalNewsNotifier() {
 
   return (
     <>
-      {/* 1. Bildirishnomani yoqish taklifi banneri */}
+      {/* 1. Bildirishnoma ruxsat berish taklifi banneri (O'zi yo'qolmaydi, doimiy eslatib turadi) */}
       {isBannerVisible && (
         <div
           style={{
@@ -300,7 +279,7 @@ export default function GlobalNewsNotifier() {
               Yangi xabarlardan boxabar bo'ling!
             </p>
             <p style={{ margin: "2px 0 0", fontSize: "12px", color: "#94a3b8" }}>
-              Sayt yopiq bo'lsa ham yangiliklar qurilmangizga yetib keladi.
+              Maktab yangiliklarini qurilmangizda qabul qiling.
             </p>
           </div>
 
@@ -341,7 +320,7 @@ export default function GlobalNewsNotifier() {
         </div>
       )}
 
-      {/* 2. Bildirishnoma bloklangan bo'lsa yo'riqnoma modali */}
+      {/* 2. Bildirishnoma brauzerda bloklangan bo'lsa yo'riqnoma modali */}
       {showDeniedModal && (
         <div
           style={{
@@ -378,7 +357,7 @@ export default function GlobalNewsNotifier() {
               Brauzeringizda ushbu sayt uchun bildirishnomalar o'chirilgan (taqiqlangan). Ularni yoqish uchun:
             </p>
             <ol style={{ fontSize: "13px", color: "#94a3b8", lineHeight: 1.6, margin: "0 0 18px", paddingLeft: "20px" }}>
-              <li>Brauzerning yuqori qismidagi manzil qatorida joylashgan qulf yoki sozlama belgisini bosing.</li>
+              <li>Brauzerning yuqori qismidagi manzil qatorida joylashgan <strong> (qulf)</strong> belgisini bosing.</li>
               <li><strong>"Bildirishnomalar" (Notifications)</strong> bo'limidan <strong>"Ruxsat berish" (Allow)</strong> sozlamasini tanlang.</li>
               <li>Sahifani qayta yangilang.</li>
             </ol>
@@ -403,7 +382,7 @@ export default function GlobalNewsNotifier() {
         </div>
       )}
 
-      {/* 3. Jonli Toast Banner */}
+      {/* 3. Yangi xabar kelganda barcha sahifalarda chiquvchi Jonli Toast Banner */}
       {toastNews && (
         <aside
           aria-live="polite"
