@@ -250,10 +250,9 @@ export default function AdminDashboard() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             title: `8-Maktab: ${dataToSave.title}`,
-            body: dataToSave.description || "Yangi yangilik e'lon qilindi",
+            body: dataToSave.description || "",
           }),
-        }).catch((err) => console.warn("Push yuborishda xatolik:", err));
-
+        }).catch((err) => console.warn("Push xatosi:", err));
       }
 
       // Keshni tozalash

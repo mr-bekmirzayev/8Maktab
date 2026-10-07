@@ -9,14 +9,14 @@ import { FaTimes } from "react-icons/fa";
 import { RiFullscreenLine } from "react-icons/ri";
 import Footer from "./components/Footer";
 import { useLocation } from "react-router-dom";
-import { subscribeToPush } from "./utils/pushSubscribe";
+import { subscribeToPushNotifications } from "./utils/pushNotificationService";
 
 function App() {
   const [isShadowHidden, setIsShadowHidden] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
 
   useEffect(() => {
-    subscribeToPush();
+    subscribeToPushNotifications();
   }, []);
 
   // Fullscreen bildirishnomasi yopilganligini localStorage dan tekshirish

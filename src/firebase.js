@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { initializeFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getMessaging, isSupported } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAUs12XGEnXKe7haVon5p3CeFzZVYFdhDs",
@@ -16,3 +17,9 @@ export const db = initializeFirestore(app, {
   experimentalAutoDetectLongPolling: true,
 });
 export const auth = getAuth(app);
+
+export async function getFirebaseMessaging() {
+  const supported = await isSupported();
+  if (!supported) return null;
+  return getMessaging(app);
+}
