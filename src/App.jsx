@@ -68,10 +68,10 @@ function App() {
     }
   };
   const location = useLocation();
-  const showFooterPaths = ["/", "/about", "/new"];
+  const showFooterPaths = ["/", "/about", "/news"];
   const shouldShowFooter = showFooterPaths.includes(location.pathname);
 
-  const showHeaderPaths = ["/", "/about", "/news"]; // o'zingizga kerakli sahifalarni yozasiz
+  const showHeaderPaths = ["/", "/about", "/news", "/teachers"];
   const shouldShowHeader = showHeaderPaths.includes(location.pathname);
 
   return (

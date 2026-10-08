@@ -1,13 +1,21 @@
 import admin from "firebase-admin";
 
 // Serverless muhitda admin ilovasini faqat bir marta initialize qilish
-if (!admin.apps.length) {
+function getFirebaseAdmin() {
+  if (admin.apps.length) {
+    return admin;
+  }
+
   const projectId = process.env.FIREBASE_PROJECT_ID;
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
   let privateKey = process.env.FIREBASE_PRIVATE_KEY;
 
   if (privateKey) {
+    // Agar privateKey tirnoq ichida bo'lsa yoki \n lar to'g'rilanishi kerak bo'lsa
     privateKey = privateKey.replace(/\\n/g, "\n");
+    if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
+      privateKey = privateKey.slice(1, -1);
+    }
   }
 
   if (projectId && clientEmail && privateKey) {
@@ -19,23 +27,51 @@ if (!admin.apps.length) {
           privateKey,
         }),
       });
+      console.log("Firebase Admin muvaffaqiyatli ishga tushdi.");
     } catch (initErr) {
       console.error("Firebase Admin initialize xatosi:", initErr);
     }
   } else {
-    console.warn("Firebase Admin muhit o'zgaruvchilari (FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY) to'liq emas.");
+    console.warn(
+      "Firebase Admin o'zgaruvchilari yetishmayapti: projectId=" +
+        Boolean(projectId) +
+        ", clientEmail=" +
+        Boolean(clientEmail) +
+        ", privateKey=" +
+        Boolean(privateKey)
+    );
   }
+
+  return admin;
 }
 
 export default async function handler(req, res) {
+  // CORS sarlavhalari (zarur bo'lsa)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+  );
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   // Faqat POST so'rovlarni qabul qilish
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Faqat POST so'rovlar qabul qilinadi." });
   }
 
-  if (!admin.apps.length) {
+  const fbAdmin = getFirebaseAdmin();
+  if (!fbAdmin.apps.length) {
     return res.status(500).json({
-      error: "Firebase Admin ishga tushirilmagan. Muhit o'zgaruvchilarini tekshiring.",
+      error:
+        "Firebase Admin ishga tushmadi. Vercel muhit o'zgaruvchilarini tekshiring (FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY).",
     });
   }
 
@@ -46,14 +82,14 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Sarlavha (title) kiritilishi shart." });
     }
 
-    const db = admin.firestore();
+    const db = fbAdmin.firestore();
     const tokensSnapshot = await db.collection("fcm_tokens").get();
 
     if (tokensSnapshot.empty) {
       return res.status(200).json({
         success: true,
         sentCount: 0,
-        message: "Hech qanday obunachi topilmadi.",
+        message: "Hech qanday obunachi topilmadi (fcm_tokens bo'sh).",
       });
     }
 
@@ -76,24 +112,48 @@ export default async function handler(req, res) {
     }
 
     const targetUrl = url || "/news";
+    const notificationTitle = String(title);
+    const notificationBody = String(body || "");
+
+    // Sayt yopiq (background) bo'lganda ham darhol yetib borishi uchun yuqori ustuvorlik
     const messagePayload = {
       tokens,
       notification: {
-        title: String(title),
-        body: String(body || ""),
+        title: notificationTitle,
+        body: notificationBody,
+      },
+      data: {
+        title: notificationTitle,
+        body: notificationBody,
+        url: String(targetUrl),
       },
       webpush: {
+        headers: {
+          Urgency: "high",
+          TTL: "86400", // 24 soat kutiladi
+        },
         notification: {
+          title: notificationTitle,
+          body: notificationBody,
           icon: "/SchoolTitleFor.png",
           badge: "/SchoolTitleFor.png",
+          vibrate: [200, 100, 200],
+          requireInteraction: true,
         },
         fcmOptions: {
           link: targetUrl,
         },
       },
+      android: {
+        priority: "high",
+        notification: {
+          sound: "default",
+          priority: "high",
+        },
+      },
     };
 
-    const response = await admin.messaging().sendEachForMulticast(messagePayload);
+    const response = await fbAdmin.messaging().sendEachForMulticast(messagePayload);
 
     // Yaroqsiz yoki eskirgan tokenlarni Firestore'dan tozalash
     const staleDocsToDelete = [];
@@ -119,10 +179,11 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
+      totalTokens: tokens.length,
       successCount: response.successCount,
       failureCount: response.failureCount,
       cleanedTokensCount: staleDocsToDelete.length,
-      message: `${response.successCount} ta qurilmaga push yuborildi.`,
+      message: `${response.successCount}/${tokens.length} ta qurilmaga push yuborildi.`,
     });
   } catch (error) {
     console.error("send-push xatosi:", error);

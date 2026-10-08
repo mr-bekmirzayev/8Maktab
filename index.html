@@ -12,15 +12,7 @@
 
 <body>
   <div id="root"></div>
-  <script type="module" src="/src/main.jsx">
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(() => console.log('Service Worker muvaffaqiyatli ulandi!'))
-          .catch((err) => console.log('SW ulanishda xatolik:', err));
-      });
-    }
-  </script>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 
 </html>

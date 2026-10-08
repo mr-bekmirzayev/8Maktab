@@ -2,6 +2,9 @@ import { getToken } from "firebase/messaging";
 import { doc, setDoc } from "firebase/firestore";
 import { db, getFirebaseMessaging } from "../firebase";
 
+const FALLBACK_VAPID_KEY =
+  "BNLL10-d-7gq37bn184KnKdRfvvhnR0n8E5eN_aRxj4X1IMegYC4oAca1v8KdI0Mps_e-svPYRD-f8XE4LoKRAA";
+
 export async function registerServiceWorker() {
   if (typeof window === "undefined" || !("serviceWorker" in navigator)) {
     return null;
@@ -12,6 +15,8 @@ export async function registerServiceWorker() {
       "/firebase-messaging-sw.js",
       { scope: "/" }
     );
+    // Service Worker faol bo'lishini kutish
+    await navigator.serviceWorker.ready;
     return registration;
   } catch (error) {
     console.warn("Service Worker ro'yxatdan o'tkazishda xatolik:", error);
@@ -28,18 +33,9 @@ export async function subscribeToPushNotifications() {
     return null;
   }
 
-  const vapidKey = import.meta.env.VITE_FCM_VAPID_KEY;
-  if (!vapidKey) {
-    console.warn(
-      "VITE_FCM_VAPID_KEY topilmadi. Push bildirishnomasi o'chiq qoladi."
-    );
-    return null;
-  }
+  const vapidKey = import.meta.env.VITE_FCM_VAPID_KEY || FALLBACK_VAPID_KEY;
 
   try {
-    const swReg = await registerServiceWorker();
-    if (!swReg) return null;
-
     let permission = Notification.permission;
     if (permission === "default") {
       permission = await Notification.requestPermission();
@@ -48,6 +44,9 @@ export async function subscribeToPushNotifications() {
     if (permission !== "granted") {
       return null;
     }
+
+    const swReg = await registerServiceWorker();
+    if (!swReg) return null;
 
     const messaging = await getFirebaseMessaging();
     if (!messaging) {
@@ -79,6 +78,7 @@ export async function subscribeToPushNotifications() {
       { merge: true }
     );
 
+    console.log("FCM token muvaffaqiyatli saqlandi:", currentToken.slice(0, 15) + "...");
     return currentToken;
   } catch (error) {
     console.warn("FCM obunasida xatolik:", error);

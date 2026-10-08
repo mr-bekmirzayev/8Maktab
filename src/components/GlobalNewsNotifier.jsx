@@ -9,6 +9,7 @@ import { IoNotifications, IoClose, IoChevronForward, IoInformationCircle } from 
 
 import { fetchNewsFromFirestore } from "../utils/firestoreService";
 import { FiLock } from "react-icons/fi";
+import { subscribeToPushNotifications } from "../utils/pushNotificationService";
 
 const NOTIFIED_IDS_KEY = "notified_news_ids_v2";
 const CHECK_INTERVAL_MS = 1 * 60 * 1000; // Har 10 daqiqada tejamkor kesh tekshiruvi
@@ -112,6 +113,7 @@ export default function GlobalNewsNotifier() {
           finalResult = res;
           setPermissionState(res);
           if (res === "granted") {
+            subscribeToPushNotifications();
             try {
               new Notification("Bildirishnomalar yoqildi! 🔔", {
                 body: "Maktabimizning yangi xabarlaridan birinchilardan bo'lib boxabar bo'lasiz.",
@@ -128,6 +130,7 @@ export default function GlobalNewsNotifier() {
         finalResult = await requestRes;
         setPermissionState(finalResult);
         if (finalResult === "granted") {
+          subscribeToPushNotifications();
           try {
             new Notification("Bildirishnomalar yoqildi! 🔔", {
               body: "Maktabimizning yangi xabarlaridan birinchilardan bo'lib boxabar bo'lasiz.",

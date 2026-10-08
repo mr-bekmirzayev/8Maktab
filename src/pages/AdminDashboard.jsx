@@ -252,7 +252,16 @@ export default function AdminDashboard() {
             title: `8-Maktab: ${dataToSave.title}`,
             body: dataToSave.description || "",
           }),
-        }).catch((err) => console.warn("Push xatosi:", err));
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data?.success) {
+              console.log("Push-bildirishnoma natijasi:", data.message);
+            } else {
+              console.warn("Push-bildirishnoma server javobi:", data?.error || data?.message);
+            }
+          })
+          .catch((err) => console.warn("Push xatosi:", err));
       }
 
       // Keshni tozalash
