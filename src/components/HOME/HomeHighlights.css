@@ -1,0 +1,226 @@
+.homeCampusSection {
+    display: grid;
+    grid-template-columns: minmax(230px, 0.72fr) minmax(0, 1.28fr);
+    align-items: center;
+    gap: clamp(32px, 6vw, 88px);
+    width: min(100%, 1600px);
+    margin: 110px auto 96px;
+}
+
+.homeHighlightsEyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #a7d8b3;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.homeCampusIntro h2,
+.homeExploreCopy h2 {
+    margin: 0;
+    color: #f8fafc;
+    font-size: clamp(30px, 3.8vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.homeCampusIntro p,
+.homeExploreCopy p {
+    max-width: 460px;
+    margin: 18px 0 0;
+    color: #a7adb7;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.homeCampusGallery {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 16px;
+    align-items: end;
+}
+
+.homeCampusPhoto {
+    position: relative;
+    min-width: 0;
+    height: 300px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    background: #171a1d;
+}
+
+.homeCampusPhotoHall {
+    height: 240px;
+}
+
+.homeCampusImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms ease;
+}
+
+.homeCampusPhoto:hover .homeCampusImage {
+    transform: scale(1.035);
+}
+
+.homeCampusPhoto::after {
+    position: absolute;
+    inset: 35% 0 0;
+    background: linear-gradient(transparent, rgba(5, 8, 10, 0.88));
+    content: "";
+    pointer-events: none;
+}
+
+.homeCampusPhoto figcaption {
+    position: absolute;
+    z-index: 1;
+    right: 18px;
+    bottom: 17px;
+    left: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #f8fafc;
+    font-size: 14px;
+}
+
+.homeCampusPhoto figcaption span {
+    color: #a7d8b3;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+}
+
+.homeExploreSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 36px;
+    padding-top: 42px;
+    padding-bottom: 42px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: linear-gradient(100deg, rgba(32, 52, 40, 0.48), rgba(17, 20, 20, 0.12) 72%);
+}
+
+.homeExploreCopy {
+    max-width: 640px;
+}
+
+.homeExploreCopy h2 {
+    font-size: clamp(27px, 3.2vw, 40px);
+}
+
+.homeExploreCopy p {
+    margin-top: 12px;
+}
+
+.homeExploreLinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    flex: 0 0 auto;
+}
+
+.homeExploreLink {
+    display: inline-flex;
+    min-height: 48px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 0 18px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #f8fafc;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.homeExploreLink:hover {
+    transform: translateY(-2px);
+    border-color: rgba(167, 216, 179, 0.65);
+    background: rgba(167, 216, 179, 0.1);
+}
+
+.homeExploreLinkAbout {
+    border-color: rgba(167, 216, 179, 0.42);
+    background: rgba(167, 216, 179, 0.12);
+}
+
+.homeExploreLinkNews svg {
+    color: #a7d8b3;
+}
+
+@media (max-width: 800px) {
+    .homeCampusSection {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        margin-top: 84px;
+    }
+
+    .homeCampusIntro p {
+        max-width: 600px;
+    }
+
+    .homeExploreSection {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 520px) {
+    .homeCampusSection {
+        margin-bottom: 72px;
+    }
+
+    .homeCampusGallery {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .homeCampusPhoto,
+    .homeCampusPhotoHall {
+        height: 220px;
+    }
+
+    .homeCampusPhoto figcaption {
+        right: 10px;
+        bottom: 12px;
+        left: 10px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+        font-size: 12px;
+    }
+
+    .homeExploreSection {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+
+    .homeExploreLinks {
+        width: 100%;
+    }
+
+    .homeExploreLink {
+        flex: 1 1 140px;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .homeCampusImage,
+    .homeExploreLink {
+        transition: none;
+    }
+}

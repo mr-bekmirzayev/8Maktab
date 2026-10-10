@@ -44,8 +44,10 @@
 }
 
 header.display {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 50;
     background: rgba(7, 8, 12, 0.75);
     backdrop-filter: blur(20px) saturate(180%);
@@ -92,7 +94,7 @@ header.display.scrolled {
 }
 
 .header-school-num {
-    font-size: clamp(3.2rem, 5vw, 5.2rem);
+    font-size: clamp(3.2rem, 5vw, 5.0rem);
     font-weight: 900;
     line-height: 0.85;
     color: #ffffff;
@@ -110,7 +112,7 @@ header.display.scrolled {
 .header-school-region,
 .header-school-type {
     font-weight: 300;
-    font-size: clamp(13px, 1.6vw, 22px);
+    font-size: clamp(13px, 1.6vw, 15px);
     line-height: 1.25;
     color: #ffffff;
     letter-spacing: 0.5px;

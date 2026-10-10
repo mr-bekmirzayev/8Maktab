@@ -46,7 +46,7 @@ export default function HeroSection() {
           <h1 className="heroTitle">8 - Maktab</h1>
           <h2 className="heroLocation">Uychi tumani -</h2>
           <h3 className="heroPrincipalName">
-            Djamoldinova Mutabar Xoshimovna{" "}
+            Djamoldinova Mutabar Xoshimovna<br /><span style={{fontWeight: 400, fontSize: 25}}>boshchiligidagi umumiy o'rta ta'lim maktabi</span>
           </h3>
           <div className="glowHero"></div>
         </li>

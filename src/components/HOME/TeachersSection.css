@@ -201,3 +201,31 @@
 .teacherTitleThree {
     animation: teacherTitleAnimThree 1.8s ease-out both;
 }
+
+@media (max-width: 1000px) {
+    .teachersListHome {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+    }
+}
+
+@media (max-width: 600px) {
+    .teachersListHome {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .teachersListHome > li {
+        min-height: 220px;
+        padding: 26px 20px;
+    }
+
+    .teacherTitle {
+        font-size: clamp(3.25rem, 18vw, 4.5rem);
+    }
+
+    .teachersGlowCard::before {
+        animation: none;
+        opacity: 0.55;
+    }
+}
