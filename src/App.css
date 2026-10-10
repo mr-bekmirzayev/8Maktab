@@ -210,6 +210,7 @@
 }
 
 @keyframes fsGlowPulse {
+
     0%,
     100% {
         box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(249, 115, 22, 0.25);
@@ -223,6 +224,7 @@
 }
 
 @keyframes iconRotatePulse {
+
     0%,
     100% {
         transform: scale(1) rotate(0deg);

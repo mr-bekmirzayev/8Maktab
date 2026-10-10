@@ -1,4 +1,5 @@
 @keyframes heroImageAnimBrightness {
+
     0%,
     100% {
         filter: brightness(80%) blur(4px);
@@ -10,6 +11,7 @@
 }
 
 @keyframes heroImageAnim {
+
     0%,
     100% {
         transform: perspective(1200px) rotateY(18deg) rotateX(12deg) rotateZ(2deg) translateY(0px);
@@ -251,7 +253,7 @@
         gap: 24px;
     }
 
-    .heroList > li:first-child {
+    .heroList>li:first-child {
         flex: 1 1 50%;
         min-width: 0;
     }
@@ -262,13 +264,13 @@
         aspect-ratio: 8 / 5;
     }
 
-    .heroList > li:last-child {
+    .heroList>li:last-child {
         flex: 1 1 50%;
         min-width: 0;
         padding: 26px;
     }
 
-    .heroList > li:last-child > h1 {
+    .heroList>li:last-child>h1 {
         width: 100%;
     }
 }
@@ -284,7 +286,7 @@
         gap: 20px;
     }
 
-    .heroList > li:first-child {
+    .heroList>li:first-child {
         width: 100%;
     }
 
@@ -297,7 +299,7 @@
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
     }
 
-    .heroList > li:last-child {
+    .heroList>li:last-child {
         width: 100%;
         min-height: 0;
         gap: 8px;
@@ -339,7 +341,7 @@
 }
 
 @media (max-width: 380px) {
-    .heroList > li:last-child {
+    .heroList>li:last-child {
         padding: 20px;
     }
 
