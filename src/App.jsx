@@ -68,7 +68,7 @@ function App() {
     }
   };
   const location = useLocation();
-  const showFooterPaths = ["/", "/about", "/news"];
+  const showFooterPaths = ["/", "/about"];
   const shouldShowFooter = showFooterPaths.includes(location.pathname);
 
   const showHeaderPaths = ["/", "/about", "/news", "/teachers"];
@@ -118,6 +118,7 @@ function App() {
       <div className={`shadowBlue ${isShadowHidden ? "hidden" : ""}`}></div>
       <div className={`app-content ${isInfoOpen ? "blurred" : ""}`}>
         {shouldShowHeader && <Header />}
+        
 
         <AppRouter />
 

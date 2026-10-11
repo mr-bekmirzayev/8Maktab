@@ -1,0 +1,566 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SCHOOL STATS — ULTRA-PREMIUM GLASSMORPHISM & CYBER-GLOW STYLES
+   Designed for High-Level Presentations (Director & Leadership)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.school-stats-section {
+  position: relative;
+  width: 100%;
+  padding: 80px 24px 100px;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.school-stats-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  backdrop-filter: blur(20px);
+  width: 2000px;
+  padding: 20px 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.245);
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── YUQORI SARLAVHA VA INTRO ─────────────────────────────────────────────── */
+.school-stats-header {
+  text-align: center;
+  margin-bottom: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stats-kicker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 12px rgba(56, 189, 248, 0.15);
+  animation: kickerPulse 3s infinite ease-in-out;
+}
+
+.kicker-sparkle-icon {
+  font-size: 1.1rem;
+  color: #38bdf8;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+}
+
+@keyframes kickerPulse {
+  0%, 100% {
+    border-color: rgba(56, 189, 248, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 0 12px rgba(56, 189, 248, 0.15);
+  }
+  50% {
+    border-color: rgba(56, 189, 248, 0.7);
+    box-shadow: 0 4px 25px rgba(56, 189, 248, 0.35), inset 0 0 18px rgba(56, 189, 248, 0.3);
+  }
+}
+
+.stats-main-heading {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.18;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px rgba(254, 254, 254, 0.6);
+}
+
+.stats-heading-highlight {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 10px rgba(109, 122, 239, 0.885));
+}
+
+.stats-subheading {
+  max-width: 680px;
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  line-height: 1.65;
+  color: rgba(226, 232, 240, 0.82);
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+/* Firestore Jonli Indikator */
+.stats-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #94a3b8;
+  position: relative;
+}
+
+.live-dot.live-active {
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+}
+
+.live-dot.live-active::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid #10b981;
+  animation: livePing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes livePing {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.live-text {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(203, 213, 225, 0.85);
+}
+
+/* ─── 4 TA KARTANING GRID TUZILISHI ────────────────────────────────────────── */
+.school-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+}
+
+/* ─── ASOSIY GLASSMORPHISM KARTASI ────────────────────────────────────────── */
+.school-stat-glass-card {
+  position: relative;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 32px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 330px;
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.55),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.18),
+              inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25);
+  animation: cardFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cardFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover Mikromurojaati */
+.school-stat-glass-card:hover {
+  transform: translateY(-8px) scale(1.015);
+}
+
+/* Kartaning ichki yaltirash qatlami (Glass Shimmer) */
+.card-glass-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+  border-radius: 24px 24px 0 0;
+}
+
+/* Orqa fondagi ambient yorug'lik g'ubori (Ambient Glow) */
+.card-ambient-glow {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: -40px;
+  right: -40px;
+  border-radius: 50%;
+  filter: blur(55px);
+  opacity: 0.35;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.school-stat-glass-card:hover .card-ambient-glow {
+  opacity: 0.7;
+  transform: scale(1.3);
+}
+
+/* ─── KARTA YUQORI QISMI (IKONKA & TREND) ──────────────────────────────────── */
+.stat-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.stat-icon-wrapper {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.55rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transition: transform 0.35s ease;
+}
+
+.school-stat-glass-card:hover .stat-icon-wrapper {
+  transform: scale(1.1) rotate(-4deg);
+}
+
+.stat-trend-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+.trend-icon {
+  font-size: 0.75rem;
+}
+
+/* ─── ASOSIY RAQAM VA KIBER-PORLASH (CYBER-GLOW / TEXT-SHADOW) ─────────────── */
+.stat-number-wrapper {
+  position: relative;
+  margin-bottom: 14px;
+  display: inline-block;
+  z-index: 2;
+}
+
+/* Orqa fondagi porlash qatlami (Glow Underlay) */
+.stat-number-glow-underlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  filter: blur(14px);
+  opacity: 0.75;
+  transition: filter 0.4s ease, opacity 0.4s ease;
+}
+
+.school-stat-glass-card:hover .stat-number-glow-underlay {
+  filter: blur(20px);
+  opacity: 1;
+}
+
+/* Asosiy ko'rinadigan raqam */
+.stat-number-display {
+  position: relative;
+  margin: 0;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.stat-count {
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-suffix {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  opacity: 0.92;
+}
+
+/* ─── SARLAVHA VA IZOH ─────────────────────────────────────────────────────── */
+.stat-content {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 22px;
+}
+
+.stat-title {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.stat-description {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: rgba(203, 213, 225, 0.78);
+}
+
+/* ─── PASTKI FOOTER BADGE ──────────────────────────────────────────────────── */
+.stat-card-footer {
+  position: relative;
+  z-index: 2;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.stat-footer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: rgba(226, 232, 240, 0.75);
+}
+
+.footer-check-icon {
+  font-size: 0.85rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   4 TA KARTANING INDIVIDUAL TEMALARI (NEON & GLOW EFFECTS)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. CYAN / ELECTRIC BLUE THEME (O'quvchilar soni) ───────────────────────── */
+.stat-card-cyan .card-ambient-glow {
+  background: radial-gradient(circle, #00f2fe 0%, #4facfe 70%, transparent 100%);
+}
+
+.stat-card-cyan .stat-icon-wrapper {
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+}
+
+.stat-card-cyan .stat-trend-badge {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.stat-card-cyan .stat-number-glow-underlay {
+  color: #00f2fe;
+}
+
+.stat-card-cyan .stat-number-display {
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.8),
+               0 0 28px rgba(0, 242, 254, 0.5),
+               0 0 45px rgba(79, 172, 254, 0.35);
+}
+
+.stat-card-cyan .footer-check-icon {
+  color: #38bdf8;
+}
+
+.stat-card-cyan:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 24px 50px -10px rgba(0, 242, 254, 0.3),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+              0 0 35px rgba(56, 189, 248, 0.2);
+}
+
+/* ── 2. EMERALD / JADE GREEN THEME (Ustozlar soni) ─────────────────────────── */
+.stat-card-emerald .card-ambient-glow {
+  background: radial-gradient(circle, #10b981 0%, #059669 70%, transparent 100%);
+}
+
+.stat-card-emerald .stat-icon-wrapper {
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.35);
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.25);
+}
+
+.stat-card-emerald .stat-trend-badge {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
+.stat-card-emerald .stat-number-glow-underlay {
+  color: #10b981;
+}
+
+.stat-card-emerald .stat-number-display {
+  text-shadow: 0 0 12px rgba(52, 211, 153, 0.8),
+               0 0 28px rgba(16, 185, 129, 0.5),
+               0 0 45px rgba(5, 150, 105, 0.35);
+}
+
+.stat-card-emerald .footer-check-icon {
+  color: #34d399;
+}
+
+.stat-card-emerald:hover {
+  border-color: rgba(52, 211, 153, 0.5);
+  box-shadow: 0 24px 50px -10px rgba(16, 185, 129, 0.3),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+              0 0 35px rgba(52, 211, 153, 0.2);
+}
+
+/* ── 3. AMBER / SOLAR GOLD THEME (Oliy toifali o'qituvchilar) ──────────────── */
+.stat-card-amber .card-ambient-glow {
+  background: radial-gradient(circle, #fbbf24 0%, #f59e0b 70%, transparent 100%);
+}
+
+.stat-card-amber .stat-icon-wrapper {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.35);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
+}
+
+.stat-card-amber .stat-trend-badge {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.stat-card-amber .stat-number-glow-underlay {
+  color: #f59e0b;
+}
+
+.stat-card-amber .stat-number-display {
+  text-shadow: 0 0 12px rgba(251, 191, 36, 0.8),
+               0 0 28px rgba(245, 158, 11, 0.5),
+               0 0 45px rgba(217, 119, 6, 0.35);
+}
+
+.stat-card-amber .footer-check-icon {
+  color: #fbbf24;
+}
+
+.stat-card-amber:hover {
+  border-color: rgba(251, 191, 36, 0.5);
+  box-shadow: 0 24px 50px -10px rgba(245, 158, 11, 0.3),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+              0 0 35px rgba(251, 191, 36, 0.2);
+}
+
+/* ── 4. PURPLE / VIOLET THEME (OTMga kirish foizi) ─────────────────────────── */
+.stat-card-purple .card-ambient-glow {
+  background: radial-gradient(circle, #c084fc 0%, #8b5cf6 70%, transparent 100%);
+}
+
+.stat-card-purple .stat-icon-wrapper {
+  color: #c084fc;
+  border-color: rgba(192, 132, 252, 0.35);
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.25);
+}
+
+.stat-card-purple .stat-trend-badge {
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.12);
+  border-color: rgba(192, 132, 252, 0.3);
+}
+
+.stat-card-purple .stat-number-glow-underlay {
+  color: #a855f7;
+}
+
+.stat-card-purple .stat-number-display {
+  text-shadow: 0 0 12px rgba(192, 132, 252, 0.8),
+               0 0 28px rgba(168, 85, 247, 0.5),
+               0 0 45px rgba(139, 92, 246, 0.35);
+}
+
+.stat-card-purple .footer-check-icon {
+  color: #c084fc;
+}
+
+.stat-card-purple:hover {
+  border-color: rgba(192, 132, 252, 0.5);
+  box-shadow: 0 24px 50px -10px rgba(168, 85, 247, 0.3),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+              0 0 35px rgba(192, 132, 252, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   RESPONSIVE MOSLASHUVCHANLIK (MEDIA QUERIES)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1200px) {
+  .school-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .school-stat-glass-card {
+    min-height: 310px;
+  }
+}
+
+@media (max-width: 640px) {
+  .school-stats-section {
+    padding: 60px 16px 80px;
+  }
+  .school-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .school-stat-glass-card {
+    min-height: auto;
+    padding: 26px 20px 22px;
+    border-radius: 20px;
+  }
+  .school-stats-header {
+    margin-bottom: 38px;
+  }
+  .stat-card-header {
+    margin-bottom: 18px;
+  }
+}

@@ -7,6 +7,8 @@ import TeachersSmileFive from "../../assets/images/Home/TeachersSmileFIve.png";
 import TeachersSmileSix from "../../assets/images/Home/TeachersSmileSix.png";
 import { FaExpand, FaTimes } from "react-icons/fa";
 import "./TeachersSmileTwo.css";
+import Naqsh from "../../assets/images/Home/Naqsh.png";
+import NaqshTwo from "../../assets/images/Home/Naqsh2.png";
 
 const PHOTOS = [
   {
@@ -56,10 +58,15 @@ export default function TeachersSmileTwo() {
 
   return (
     <section className="teachersSmileSection display">
+      <img className="corner-pattern" src={NaqshTwo} alt="Naqsh" />
+      <img src={NaqshTwo} className="naqshTwo" alt="Naqsh" />
+
       {/* ─── SARLAVHA ─── */}
       <div className="teachersSmileTitleWrap">
         <span className="teachersSmileBadge">Fotogalereya</span>
-        <h2 className="teachersSmileTitle">Bizning faxrimiz bo'lgan ustozlar</h2>
+        <h2 className="teachersSmileTitle">
+          Bizning faxrimiz bo'lgan ustozlar
+        </h2>
         <p className="teachersSmileSubtitle">
           Maktabimizning har bir muvaffaqiyati ortida turgan fidoyi, mehribon va
           yuksak malakali pedagoglarimiz

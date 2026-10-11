@@ -1,4 +1,5 @@
 .homeCampusSection {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(230px, 0.72fr) minmax(0, 1.28fr);
     align-items: center;

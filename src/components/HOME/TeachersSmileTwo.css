@@ -6,6 +6,21 @@
 .teachersSmileSection {
     margin: 120px auto;
     width: 100%;
+    position: relative;
+}
+.corner-pattern{
+    position: absolute;
+    width: 200px;
+    transform: scaleX(-1);
+    pointer-events: none;
+    top: 0px;
+    filter: drop-shadow(0 0 10px white);
+}
+.naqshTwo{
+    position: absolute;
+    width: 200px;
+    filter: drop-shadow(0 0 10px white);
+    right: 100px;
 }
 
 /* ─── SARLAVHA ─── */

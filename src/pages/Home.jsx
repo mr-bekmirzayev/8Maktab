@@ -9,7 +9,7 @@ import TeachersSmileTwo from "../components/HOME/TeachersSmileTwo";
 function Home() {
   return (
     <>
-      <main>
+      <main style={{ position: "relative" }}>
         <SwiperSection />
         <HeroSection />
         <TeachersSection />

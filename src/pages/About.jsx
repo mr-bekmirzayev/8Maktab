@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PrincipalSection from "../components/About/PrincipalSection";
+import SchoolStats from "../components/About/SchoolStats";
 
 // ─── ABOUT SAHIFASI ORQA FON RASMI ───────────────────────────────────────────
 // Agar kelajakda orqa fon rasmini o'zgartirmoqchi bo'lsangiz, shu yerdagi importni
@@ -61,6 +62,7 @@ function About() {
       {/* ─── SAHIFA KONTENTI (Orqa fondan tepada turishi uchun zIndex: 1) ─── */}
       <div style={{ position: "relative", zIndex: 1 }}>
         <PrincipalSection />
+        <SchoolStats />
       </div>
     </div>
   );

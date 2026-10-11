@@ -6,12 +6,14 @@ import News from "./pages/News";
 import Teachers from "./pages/Teachers";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/AdminDashboard";
+import ScrollToTop from "./pages/ScrollToTop";
 
 function AppRouter() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
-        <Route path="*" element={<NotFound/>}/>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/news" element={<News />} />
@@ -23,4 +25,3 @@ function AppRouter() {
 }
 
 export default AppRouter;
-

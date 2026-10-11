@@ -14,6 +14,7 @@ import { fetchNewsFromFirestore } from "../utils/firestoreService";
 import LazyImage from "../components/LazyImage";
 import { FaExclamation } from "react-icons/fa";
 import "./News.css";
+import TeachersSmileTwo from "../components/HOME/TeachersSmileTwo";
 
 const CACHE_TTL_MS = 8 * 60 * 1000; // 8 daqiqa kesh muddati
 
@@ -58,8 +59,15 @@ function GalleryItem({ src, alt, onImageClick }) {
 function NewsGallery({ images, title, onImageClick }) {
   if (!images || images.length === 0) {
     return (
-      <div className="news-image-wrapper" style={{ height: "clamp(240px, 45vw, 380px)", position: "relative" }}>
-        <GalleryItem src={SchoolTitleFor} alt={title} onImageClick={onImageClick} />
+      <div
+        className="news-image-wrapper"
+        style={{ height: "clamp(240px, 45vw, 380px)", position: "relative" }}
+      >
+        <GalleryItem
+          src={SchoolTitleFor}
+          alt={title}
+          onImageClick={onImageClick}
+        />
       </div>
     );
   }
@@ -67,7 +75,10 @@ function NewsGallery({ images, title, onImageClick }) {
   // 1 ta rasm
   if (images.length === 1) {
     return (
-      <div className="news-image-wrapper" style={{ height: "clamp(240px, 45vw, 380px)", position: "relative" }}>
+      <div
+        className="news-image-wrapper"
+        style={{ height: "clamp(240px, 45vw, 380px)", position: "relative" }}
+      >
         <GalleryItem src={images[0]} alt={title} onImageClick={onImageClick} />
       </div>
     );
@@ -115,7 +126,11 @@ function NewsGallery({ images, title, onImageClick }) {
           overflow: "hidden",
         }}
       >
-        <GalleryItem src={images[0]} alt={`${title} - 1`} onImageClick={onImageClick} />
+        <GalleryItem
+          src={images[0]}
+          alt={`${title} - 1`}
+          onImageClick={onImageClick}
+        />
         <div
           style={{
             display: "grid",
@@ -125,8 +140,16 @@ function NewsGallery({ images, title, onImageClick }) {
             minHeight: 0,
           }}
         >
-          <GalleryItem src={images[1]} alt={`${title} - 2`} onImageClick={onImageClick} />
-          <GalleryItem src={images[2]} alt={`${title} - 3`} onImageClick={onImageClick} />
+          <GalleryItem
+            src={images[1]}
+            alt={`${title} - 2`}
+            onImageClick={onImageClick}
+          />
+          <GalleryItem
+            src={images[2]}
+            alt={`${title} - 3`}
+            onImageClick={onImageClick}
+          />
         </div>
       </div>
     );
@@ -148,7 +171,12 @@ function NewsGallery({ images, title, onImageClick }) {
         }}
       >
         {images.slice(0, 4).map((src, idx) => (
-          <GalleryItem key={idx} src={src} alt={`${title} - ${idx + 1}`} onImageClick={onImageClick} />
+          <GalleryItem
+            key={idx}
+            src={src}
+            alt={`${title} - ${idx + 1}`}
+            onImageClick={onImageClick}
+          />
         ))}
       </div>
     );
@@ -167,14 +195,50 @@ function NewsGallery({ images, title, onImageClick }) {
         overflow: "hidden",
       }}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px", height: "100%", minHeight: 0 }}>
-        <GalleryItem src={images[0]} alt={`${title} - 1`} onImageClick={onImageClick} />
-        <GalleryItem src={images[1]} alt={`${title} - 2`} onImageClick={onImageClick} />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "4px",
+          height: "100%",
+          minHeight: 0,
+        }}
+      >
+        <GalleryItem
+          src={images[0]}
+          alt={`${title} - 1`}
+          onImageClick={onImageClick}
+        />
+        <GalleryItem
+          src={images[1]}
+          alt={`${title} - 2`}
+          onImageClick={onImageClick}
+        />
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "4px", height: "100%", minHeight: 0 }}>
-        <GalleryItem src={images[2]} alt={`${title} - 3`} onImageClick={onImageClick} />
-        <GalleryItem src={images[3]} alt={`${title} - 4`} onImageClick={onImageClick} />
-        <GalleryItem src={images[4]} alt={`${title} - 5`} onImageClick={onImageClick} />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gap: "4px",
+          height: "100%",
+          minHeight: 0,
+        }}
+      >
+        <GalleryItem
+          src={images[2]}
+          alt={`${title} - 3`}
+          onImageClick={onImageClick}
+        />
+        <GalleryItem
+          src={images[3]}
+          alt={`${title} - 4`}
+          onImageClick={onImageClick}
+        />
+        <GalleryItem
+          src={images[4]}
+          alt={`${title} - 5`}
+          onImageClick={onImageClick}
+        />
       </div>
     </div>
   );
@@ -322,232 +386,242 @@ function News() {
   }, []);
 
   return (
-    <div className="news-wrapper display">
-      {/* Sarlavha qismi */}
-      <header className="news-header">
-        <h1 className="news-main-title">Maktab Yangiliklari</h1>
-        <p className="news-subtitle">
-          Eng so'nggi xabarlar, tadbirlar va e'lonlar
-        </p>
+    <div className="grid-bg">
+      <section className="news-wrapper display">
+        <div className="newsGlowedOne"></div>
+        <div className="topGlowNews"></div>
+        {/* Sarlavha qismi */}
+        <header className="news-header">
+          <h1 className="news-main-title">Maktab Yangiliklari</h1>
+          <p className="news-subtitle">
+            Eng so'nggi xabarlar, tadbirlar va e'lonlar
+          </p>
 
-        {/* Bildirishnoma ruxsat holati */}
-        {typeof window !== "undefined" && "Notification" in window && (
-          <div className="news-notif-action">
-            {permission === "granted" ? (
-              <span className="news-permission-active">
-                <IoNotifications size={16} /> Bildirishnomalar faol
-              </span>
-            ) : (
-              <button
-                type="button"
-                onClick={requestNotificationPermission}
-                className="news-permission-btn"
-              >
-                <IoNotificationsOutline size={17} /> Bildirishnomalarga ruxsat
-                berish
-              </button>
-            )}
+          {/* Bildirishnoma ruxsat holati */}
+          {typeof window !== "undefined" && "Notification" in window && (
+            <div className="news-notif-action">
+              {permission === "granted" ? (
+                <span className="news-permission-active">
+                  <IoNotifications size={16} /> Bildirishnomalar faol
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={requestNotificationPermission}
+                  className="news-permission-btn"
+                >
+                  <IoNotificationsOutline size={17} /> Bildirishnomalarga ruxsat
+                  berish
+                </button>
+              )}
+            </div>
+          )}
+        </header>
+
+        {/* 1. Yuklanish holati */}
+        {loading && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "260px",
+              gap: "16px",
+            }}
+          >
+            <HashLoader color="#f97316" size={50} />
+            <p style={{ color: "#94a3b8", fontSize: "15px" }}>
+              Yangiliklar yuklanmoqda...
+            </p>
           </div>
         )}
-      </header>
 
-      {/* 1. Yuklanish holati */}
-      {loading && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: "260px",
-            gap: "16px",
-          }}
-        >
-          <HashLoader color="#f97316" size={50} />
-          <p style={{ color: "#94a3b8", fontSize: "15px" }}>
-            Yangiliklar yuklanmoqda...
-          </p>
-        </div>
-      )}
-
-      {/* 2. Xatolik holati */}
-      {!loading && error && (
-        <div
-          style={{
-            textAlign: "center",
-            padding: "40px 20px",
-            background: "rgba(239, 68, 68, 0.08)",
-            borderRadius: "20px",
-            border: "1px solid rgba(239, 68, 68, 0.2)",
-            color: "#ef4444",
-          }}
-        >
-          <VscChatSparkleError size={44} style={{ marginBottom: "12px" }} />
-          <h3
-            style={{
-              fontSize: "1.25rem",
-              color: "#f87171",
-              marginBottom: "8px",
-            }}
-          >
-            Xatolik yuz berdi
-          </h3>
-          <p style={{ color: "#94a3b8", fontSize: "14px" }}>{error}</p>
-        </div>
-      )}
-
-      {/* 3. Bo'sh holat */}
-      {!loading && !error && newsList.length === 0 && (
-        <div
-          style={{
-            textAlign: "center",
-            padding: "40px 20px",
-            background: "rgba(15, 23, 42, 0.6)",
-            borderRadius: "20px",
-            border: "1px solid rgba(148, 163, 184, 0.15)",
-            color: "#94a3b8",
-          }}
-        >
-          <p>Hozircha hech qanday yangilik mavjud emas.</p>
-        </div>
-      )}
-
-      {/* 4. Ustunma-ustun (Responsive Feed) Yangiliklar ro'yxati */}
-      {!loading && !error && newsList.length > 0 && (
-        <div className="news-list">
-          {newsList.map((item, index) => {
-            const title =
-              item.title || item.sarlavha || item.name || `Yangilik / Xabar`;
-            const description =
-              item.description ||
-              item.tavsif ||
-              item.content ||
-              item.matn ||
-              "";
-            const date = item.date || item.sana || item.created_at || "";
-            const rawImages = Array.isArray(item.images) && item.images.length > 0
-              ? item.images
-              : (item.image || item.rasm || item.img ? [item.image || item.rasm || item.img] : []);
-            const author = item.author || item.muallif || null;
-            const demand = item.demand || item.talab || null;
-
-            return (
-              <article key={item.id ?? index} className="news-card">
-                {/* Moslashuvchan Rasmlar galereyasi (1 tadan 5 tagacha) */}
-                <NewsGallery
-                  images={rawImages}
-                  title={title}
-                  onImageClick={(src) => setActiveModalImage(src)}
-                />
-                {/* Kontent qismi */}
-                <div className="news-content">
-                  <div className="news-meta-row">
-                    {date && <span className="news-date-badge">{date}</span>}
-
-                    {author && <span className="news-author">{author}</span>}
-                  </div>
-
-                  <h2 className="news-title">{title}</h2>
-
-                  {description && (
-                    <p className="news-description">{description}</p>
-                  )}
-                  {demand && (
-                    <div className="news-demand">
-                      <div className="news-demand-header">
-                        <FaExclamation className="news-demand-icon" />
-                        <strong className="news-demand-title">
-                          Majburiy Talab / Ogohlantirish:
-                        </strong>
-                      </div>
-                      <p className="news-demand-text">{demand}</p>
-                    </div>
-                  )}
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      )}
-
-      {/* 5. Rasm ustiga bosilganda ochiladigan to'liq o'lchamli ko'rish oynasi (Lightbox Modal) */}
-      {activeModalImage && (
-        <div
-          onClick={() => setActiveModalImage(null)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 99999,
-            background: "rgba(3, 7, 18, 0.88)",
-            backdropFilter: "blur(14px)",
-            WebkitBackdropFilter: "blur(14px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px",
-            cursor: "zoom-out",
-          }}
-        >
-          {/* Yopish tugmasi */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setActiveModalImage(null);
-            }}
-            title="Yopish (ESC)"
-            style={{
-              position: "absolute",
-              top: "24px",
-              right: "24px",
-              width: "44px",
-              height: "44px",
-              borderRadius: "50%",
-              background: "rgba(255, 255, 255, 0.15)",
-              border: "1px solid rgba(255, 255, 255, 0.3)",
-              color: "#ffffff",
-              fontSize: "20px",
-              fontWeight: "700",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: 100000,
-              boxShadow: "0 4px 15px rgba(0, 0, 0, 0.5)",
-              transition: "transform 0.2s, background 0.2s",
-            }}
-          >
-            ✕
-          </button>
-
-          {/* O'rtadagi to'liq ko'rinuvchi rasm */}
+        {/* 2. Xatolik holati */}
+        {!loading && error && (
           <div
-            onClick={(e) => e.stopPropagation()}
             style={{
-              maxWidth: "92vw",
-              maxHeight: "88vh",
+              textAlign: "center",
+              padding: "40px 20px",
+              background: "rgba(239, 68, 68, 0.08)",
+              borderRadius: "20px",
+              border: "1px solid rgba(239, 68, 68, 0.2)",
+              color: "#ef4444",
+            }}
+          >
+            <VscChatSparkleError size={44} style={{ marginBottom: "12px" }} />
+            <h3
+              style={{
+                fontSize: "1.25rem",
+                color: "#f87171",
+                marginBottom: "8px",
+              }}
+            >
+              Xatolik yuz berdi
+            </h3>
+            <p style={{ color: "#94a3b8", fontSize: "14px" }}>{error}</p>
+          </div>
+        )}
+
+        {/* 3. Bo'sh holat */}
+        {!loading && !error && newsList.length === 0 && (
+          <div
+            style={{
+              textAlign: "center",
+              padding: "40px 20px",
+              background: "rgba(15, 23, 42, 0.6)",
+              borderRadius: "20px",
+              border: "1px solid rgba(148, 163, 184, 0.15)",
+              color: "#94a3b8",
+            }}
+          >
+            <p>Hozircha hech qanday yangilik mavjud emas.</p>
+          </div>
+        )}
+
+        {/* 4. Ustunma-ustun (Responsive Feed) Yangiliklar ro'yxati */}
+        {!loading && !error && newsList.length > 0 && (
+          <div className="news-list">
+            {newsList.map((item, index) => {
+              const title =
+                item.title || item.sarlavha || item.name || `Yangilik / Xabar`;
+              const description =
+                item.description ||
+                item.tavsif ||
+                item.content ||
+                item.matn ||
+                "";
+              const date = item.date || item.sana || item.created_at || "";
+              const rawImages =
+                Array.isArray(item.images) && item.images.length > 0
+                  ? item.images
+                  : item.image || item.rasm || item.img
+                    ? [item.image || item.rasm || item.img]
+                    : [];
+              const author = item.author || item.muallif || null;
+              const demand = item.demand || item.talab || null;
+
+              return (
+                <article key={item.id ?? index} className="news-card">
+                  {/* Moslashuvchan Rasmlar galereyasi (1 tadan 5 tagacha) */}
+                  <NewsGallery
+                    images={rawImages}
+                    title={title}
+                    onImageClick={(src) => setActiveModalImage(src)}
+                  />
+                  {/* Kontent qismi */}
+                  <div className="news-content">
+                    <div className="news-meta-row">
+                      {date && <span className="news-date-badge">{date}</span>}
+
+                      {author && <span className="news-author">{author}</span>}
+                    </div>
+
+                    <h2 className="news-title">{title}</h2>
+
+                    {description && (
+                      <p className="news-description">{description}</p>
+                    )}
+                    {demand && (
+                      <div className="news-demand">
+                        <div className="news-demand-header">
+                          <FaExclamation className="news-demand-icon" />
+                          <strong className="news-demand-title">
+                            Majburiy Talab / Ogohlantirish:
+                          </strong>
+                        </div>
+                        <p className="news-demand-text">{demand}</p>
+                      </div>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+
+        {/* 5. Rasm ustiga bosilganda ochiladigan to'liq o'lchamli ko'rish oynasi (Lightbox Modal) */}
+        {activeModalImage && (
+          <div
+            onClick={() => setActiveModalImage(null)}
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 99999,
+              background: "rgba(3, 7, 18, 0.88)",
+              backdropFilter: "blur(14px)",
+              WebkitBackdropFilter: "blur(14px)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              position: "relative",
-              cursor: "default",
+              padding: "20px",
+              cursor: "zoom-out",
             }}
           >
-            <img
-              src={activeModalImage}
-              alt="rasm ayrim sabablarga ko'ra mavjud emas."
-              style={{padding: "4px 10px",
-                maxWidth: "100%",
-                maxHeight: "88vh",
-                objectFit: "contain",
-                borderRadius: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(249, 115, 22, 0.2)",
+            {/* Yopish tugmasi */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveModalImage(null);
               }}
-            />
+              title="Yopish (ESC)"
+              style={{
+                position: "absolute",
+                top: "24px",
+                right: "24px",
+                width: "44px",
+                height: "44px",
+                borderRadius: "50%",
+                background: "rgba(255, 255, 255, 0.15)",
+                border: "1px solid rgba(255, 255, 255, 0.3)",
+                color: "#ffffff",
+                fontSize: "20px",
+                fontWeight: "700",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 100000,
+                boxShadow: "0 4px 15px rgba(0, 0, 0, 0.5)",
+                transition: "transform 0.2s, background 0.2s",
+              }}
+            >
+              ✕
+            </button>
+
+            {/* O'rtadagi to'liq ko'rinuvchi rasm */}
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                maxWidth: "92vw",
+                maxHeight: "88vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                cursor: "default",
+              }}
+            >
+              <img
+                src={activeModalImage}
+                alt="rasm ayrim sabablarga ko'ra mavjud emas."
+                style={{
+                  padding: "4px 10px",
+                  maxWidth: "100%",
+                  maxHeight: "88vh",
+                  objectFit: "contain",
+                  borderRadius: "16px",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  boxShadow:
+                    "0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(249, 115, 22, 0.2)",
+                }}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      <div className="blackBgNews"></div>
+      </section>
     </div>
   );
 }

@@ -11,10 +11,10 @@ import { MdOutlineEmail, MdMessage } from "react-icons/md";
 import { GrContactInfo } from "react-icons/gr";
 import "./Footer.css";
 
+export const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <footer id="footer" className="site-footer">

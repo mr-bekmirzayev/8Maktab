@@ -9,6 +9,7 @@ export default function HomeHighlights() {
   return (
     <>
       <section className="homeCampusSection display">
+        <div className="corner-pattern"></div>
         <div className="homeCampusIntro">
           <span className="homeHighlightsEyebrow">Maktabimizdan lavhalar</span>
           <h2>Maktabimiz muhiti</h2>
