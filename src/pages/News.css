@@ -35,7 +35,7 @@
     position: fixed;
     top: 0;
     right: -80px;
-    z-index: 5 ;
+    z-index: -1 ;
     height: 100dvh;
     padding: 100px;
     padding-left: 300px;
