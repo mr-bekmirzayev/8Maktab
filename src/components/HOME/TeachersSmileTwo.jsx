@@ -7,7 +7,6 @@ import TeachersSmileFive from "../../assets/images/Home/TeachersSmileFIve.png";
 import TeachersSmileSix from "../../assets/images/Home/TeachersSmileSix.png";
 import { FaExpand, FaTimes } from "react-icons/fa";
 import "./TeachersSmileTwo.css";
-import Naqsh from "../../assets/images/Home/Naqsh.png";
 import NaqshTwo from "../../assets/images/Home/Naqsh2.png";
 
 const PHOTOS = [

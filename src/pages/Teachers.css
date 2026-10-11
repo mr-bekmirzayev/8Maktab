@@ -65,6 +65,17 @@
 .teachers-page {
     min-height: 100vh;
     padding-bottom: 80px;
+    position: relative;
+    background-color: #06090e;
+    /* Katakka o'xshash, lekin undan butunlay zamonaviy Micro-Dot Matrix + Ambient Spotlight nurlari */
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(249, 115, 22, 0.15), transparent 70%),
+        radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.05), transparent 60%),
+        radial-gradient(rgba(249, 115, 22, 0.18) 1.2px, transparent 1.2px),
+        radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 28px 28px, 14px 14px;
+    background-position: 0 0, 0 0, 0 0, 7px 7px;
+    background-attachment: scroll;
 }
 
 /* ─── HERO ─── */

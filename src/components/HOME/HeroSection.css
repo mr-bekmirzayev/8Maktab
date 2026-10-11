@@ -112,13 +112,16 @@
     width: 100%;
     bottom: -150px;
     height: 100%;
-    z-index: 200;
+    z-index: 1;
+    pointer-events: none;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.484), black);
     box-shadow: 0px 150px 155px 10px black;
     filter: drop-shadow(0 -810px 100px black);
 }
 
 .heroList {
+    position: relative;
+    z-index: 3;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -156,7 +159,6 @@
     background-clip: text;
     text-shadow: 0 0 10px white;
     font-weight: 900;
-    transform: rotate3d(20deg);
     -webkit-text-fill-color: transparent;
     width: 464px;
 }
@@ -171,15 +173,13 @@
     height: 500px;
     transform-style: preserve-3d;
     transform-origin: center center;
-    animation: heroImageAnim 5s ease-in-out infinite;
     box-shadow: 0 0 16px 2px rgba(249, 115, 22, 0.75), 18px 24px 48px rgba(15, 23, 42, 0.75);
-    transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+    transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, filter 0.35s ease;
 }
 
 .heroSectionCard:hover .schoolImage {
-    transform: perspective(1200px) rotateY(12deg) rotateX(8deg) rotateZ(1deg) translateY(-8px) scale(1.01);
     box-shadow: 0 0 24px 4px rgba(251, 146, 60, 0.95), 22px 28px 54px rgba(15, 23, 42, 0.82);
-    filter: brightness(140%);
+    filter: brightness(130%);
 }
 
 .heroTextBlock {

@@ -4,22 +4,29 @@
 
 .news-wrapper {
     width: 100%;
-    max-width: 860px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 40px 20px 90px;
-    /* min-height: 80vh; */
+    padding: 40px 24px 100px;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
 }
 .grid-bg {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
   /* Saytning umumiy qorong'u foni */
-  background-color: #0b0c1068; 
+  background-color: #07090e; 
 
-  /* Katakchalarni chizuvchi chiziqlar (Liniyalar) */
+  /* Katakchalarni chizuvchi nozik chiziqlar */
   background-image: 
-    linear-gradient(to right, rgba(206, 142, 32, 0.117) 3px, transparent 1px),
-    linear-gradient(to bottom, rgba(176, 95, 2, 0.105) 3px, transparent 1px);
+    linear-gradient(to right, rgba(249, 115, 22, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(249, 115, 22, 0.08) 1px, transparent 1px);
 
-  /* Katakchalarning kattaligi (40px ga 40px o'lchamda) */
+  /* Katakchalarning kattaligi (40px ga 40px) va butun bo'yiga to'xtovsiz davom etishi */
   background-size: 40px 40px;
+  background-repeat: repeat;
+  background-attachment: scroll;
 }
 .news-list{
     z-index: 10;
@@ -136,9 +143,9 @@
 }
 
 .news-list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
     width: 100%;
 }
 
@@ -269,10 +276,15 @@
    MEDIA QUERIES (PLANCHET VA TELEFONLAR)
 ========================================= */
 
-/* Planshetlar (max-width: 900px) */
+/* Planshetlar va telefonlar (max-width: 900px) */
 @media screen and (max-width: 900px) {
     .news-wrapper {
         padding: 30px 16px 70px;
+    }
+
+    .news-list {
+        grid-template-columns: 1fr;
+        gap: 22px;
     }
 
     .news-content {
