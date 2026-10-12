@@ -3,6 +3,15 @@
     padding: 0;
     box-sizing: border-box;
 }
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none; /* iOS qurilmalarda elementni uzoq bosib turganda kontekst menyu chiqishini ham bloklaydi */
+}
+
+a, button, div, span {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
 
 @font-face {
     font-family: 'Poppins';
