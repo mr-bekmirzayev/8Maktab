@@ -65,8 +65,8 @@ function NewsGallery({ images, title, onImageClick }) {
       >
         <GalleryItem
           src={SchoolTitleFor}
-          alt={title}
           onImageClick={onImageClick}
+          alt={title}
         />
       </div>
     );
@@ -417,7 +417,6 @@ function News() {
             </div>
           )}
         </header>
-
         {/* 1. Yuklanish holati */}
         {loading && (
           <div
@@ -620,7 +619,7 @@ function News() {
             </div>
           </div>
         )}
-      <div className="blackBgNews"></div>
+        <div className="blackBgNews"></div>
       </section>
     </div>
   );

@@ -39,12 +39,13 @@
 .swiperTitle {
     position: absolute;
     top: 20px;
+    font-size: clamp(16px, 2vw, 28px);
     color: white;
     text-transform: uppercase;
     backdrop-filter: blur(12px);
     padding: 10px 40px;
     border-radius: 10px;
-    text-shadow: 0 0 10px black;
+    text-shadow: 0 0 15px black;
     z-index: 2;
 }
 
