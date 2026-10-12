@@ -9,6 +9,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ScrollToTop from "./pages/ScrollToTop";
 
 function AppRouter() {
+  alert("Eslatma: Admin panelga kirish uchun /admin331257 manzilini ishlating. Bu xavfsizlikni oshirish uchun qo'shilgan.");
   return (
     <>
       <ScrollToTop />
