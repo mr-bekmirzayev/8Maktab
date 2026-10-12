@@ -230,7 +230,7 @@ export default function AdminLogin({ onLoginSuccess }) {
           >
             {loading ? <HashLoader color="#ffffff" size={20} /> : "Tizimga kirish"}
           </button>
-          <a href="t.me/Mr_Bekmirzayev" target="_blank" rel="noopener noreferrer">
+          <a href="https://t.me/Mr_Bekmirzayev" target="_blank" rel="noopener noreferrer">
             Parolni olish uchun yozing
           </a>
         </form>
