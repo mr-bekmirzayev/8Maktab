@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PrincipalSection from "../components/About/PrincipalSection";
 import SchoolStats from "../components/About/SchoolStats";
+import SchoolHistory from "../components/About/SchoolHistory";
+import MissionValues from "../components/About/MissionValues";
+import AcademicWings from "../components/About/AcademicWings";
+import CampusFacilities from "../components/About/CampusFacilities";
+import SchoolAchievements from "../components/About/SchoolAchievements";
+import SchoolCharter from "../components/About/SchoolCharter";
 
 // ─── ABOUT SAHIFASI ORQA FON RASMI ───────────────────────────────────────────
 // Agar kelajakda orqa fon rasmini o'zgartirmoqchi bo'lsangiz, shu yerdagi importni
@@ -30,6 +36,7 @@ function About() {
         minHeight: "100vh",
         width: "100%",
         marginBottom: "-80px",
+        overflowX: "clip",
       }}
     >
       {/* ─── ORQA FON QATLAMI ───
@@ -59,10 +66,31 @@ function About() {
         />
       </div>
 
-      {/* ─── SAHIFA KONTENTI (Orqa fondan tepada turishi uchun zIndex: 1) ─── */}
+      {/* ─── SAHIFA KONTENTI: 8 TA PROFESSIONAL SECTION (Orqa fondan tepada turishi uchun zIndex: 1) ─── */}
       <div style={{ position: "relative", zIndex: 1 }}>
+        {/* 1-Section: Maktab Direktori */}
         <PrincipalSection />
+
+        {/* 2-Section: Maktab Statistikasi & Natijalari */}
         <SchoolStats />
+
+        {/* 3-Section: Maktab Tarixi & Rivojlanish Bosqichlari */}
+        <SchoolHistory />
+
+        {/* 4-Section: Missiya, Qarashlar & Asosiy Qadriyatlar */}
+        <MissionValues />
+
+        {/* 5-Section: Ta'lim Yo'nalishlari & To'garaklar */}
+        <AcademicWings />
+
+        {/* 6-Section: Zamonaviy Shart-sharoitlar & Infratuzilma */}
+        <CampusFacilities />
+
+        {/* 7-Section: Maktabimiz Yutuqlari & Faxrlari */}
+        <SchoolAchievements />
+
+        {/* 8-Section: Maktab Kodeksi, Shior & Hamkorlik */}
+        <SchoolCharter />
       </div>
     </div>
   );

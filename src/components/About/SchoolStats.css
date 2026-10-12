@@ -6,20 +6,22 @@
 .school-stats-section {
   position: relative;
   width: 100%;
-  padding: 80px 24px 100px;
-  overflow: hidden;
+  padding: 40px 24px;
   box-sizing: border-box;
-  font-family: inherit;
 }
 
 .school-stats-container {
   max-width: 1320px;
+  width: 100%;
   margin: 0 auto;
-  backdrop-filter: blur(20px);
-  width: 2000px;
-  padding: 20px 40px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.245);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 44px 36px 50px;
+  border-radius: 28px;
+  background: rgba(7, 11, 20, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+  box-sizing: border-box;
   position: relative;
   z-index: 2;
 }
@@ -544,9 +546,25 @@
   }
 }
 
+@media (max-width: 768px) {
+  .school-stats-section {
+    padding: 50px 16px 70px;
+  }
+  .school-stats-container {
+    padding: 24px 20px;
+    border-radius: 18px;
+  }
+  .school-stats-header {
+    margin-bottom: 32px;
+  }
+  .stats-main-heading {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+  }
+}
+
 @media (max-width: 640px) {
   .school-stats-section {
-    padding: 60px 16px 80px;
+    padding: 40px 12px 60px;
   }
   .school-stats-grid {
     grid-template-columns: 1fr;
@@ -554,13 +572,29 @@
   }
   .school-stat-glass-card {
     min-height: auto;
-    padding: 26px 20px 22px;
-    border-radius: 20px;
-  }
-  .school-stats-header {
-    margin-bottom: 38px;
+    padding: 24px 18px 20px;
+    border-radius: 18px;
   }
   .stat-card-header {
-    margin-bottom: 18px;
+    margin-bottom: 16px;
+  }
+  .stat-number-display {
+    font-size: 2.4rem;
+  }
+  .stat-number-glow-underlay {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .school-stats-container {
+    padding: 18px 12px;
+  }
+  .stats-kicker-badge {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+  }
+  .stat-title {
+    font-size: 1.05rem;
   }
 }

@@ -23,7 +23,7 @@ export default function SwiperSection() {
         slidesPerView={1}
         loop={false}
         autoplay={{
-          delay: 3000,
+          delay: 3500,
           disableOnInteraction: false,
           stopOnLastSlide: true,
         }}
@@ -32,93 +32,98 @@ export default function SwiperSection() {
         className="mySwiper"
       >
         <SwiperSlide style={{ position: "relative" }}>
-          <h2 style={{ backdropFilter: "blur(5px)" }} className="swiperTitle">
+          <div className="slideOverlayGradient" />
+          <h2 className="swiperTitle">
             Keling, sizni ajoyib maktab qarshi oladi!
           </h2>
           <LazyImage
             style={{ objectFit: "cover" }}
             className="swiperSlideImage"
             src={schoolImageSix}
-            alt="Nimadir xato ketdi-ki Rasm ko'rinmay qoldi."
+            alt="8-Maktab binosi"
           />
-          <div className="blackShadowImageFor"></div>
         </SwiperSlide>
-        <SwiperSlide style={{ position: "relative" }}>
-          <h1 className="swiperTitle">Maktab bu - rangli xotiralar</h1>
 
+        <SwiperSlide style={{ position: "relative" }}>
+          <div className="slideOverlayGradient" />
+          <h2 className="swiperTitle">Maktab bu — rangli xotiralar</h2>
           <LazyImage
             style={{
-              filter: "brightness(110%)",
+              filter: "brightness(105%)",
               objectFit: "cover",
             }}
             className="swiperSlideImage"
             src={schoolImageThree}
-            alt="Nimadir xato ketdi-ki Rasm ko'rinmay qoldi."
+            alt="Maktab xotiralari"
           />
         </SwiperSlide>
+
         <SwiperSlide style={{ position: "relative" }}>
+          <div className="slideOverlayGradient" />
           <h2 className="swiperTitle">
-            Maktab zali — yoshlikning eng shavqli va quvnoq damlari guvohi
+            Maktab zali — yoshlikning shavqli va quvnoq damlari
           </h2>
           <LazyImage
             style={{ objectFit: "cover" }}
             className="swiperSlideImage"
             src={schoolImageFive}
-            alt="Nimadir xato ketdi-ki Rasm ko'rinmay qoldi."
+            alt="Maktab zali"
           />
-          <div className="blackShadowImageFor"></div>
         </SwiperSlide>
+
         <SwiperSlide style={{ position: "relative" }}>
-          <h1 className="swiperTitle">
+          <div className="slideOverlayGradient" />
+          <h2 className="swiperTitle">
             Bizning ochiq-ko'ngil va ajoyib ustozlar!
-          </h1>
+          </h2>
           <LazyImage
             style={{ objectFit: "cover" }}
             className="swiperSlideImage"
             src={teacherImageTwo}
-            alt="Nimadir xato ketdi-ki Rasm ko'rinmay qoldi."
+            alt="Mehribon ustozlar"
           />
         </SwiperSlide>
+
         <SwiperSlide style={{ position: "relative" }}>
-          <h1 className="swiperTitle">
+          <div className="slideOverlayGradient" />
+          <h2 className="swiperTitle">
             Har bir dars — kelajak sari tashlangan dadil qadam
-          </h1>
+          </h2>
           <LazyImage
             style={{ objectFit: "cover" }}
             className="swiperSlideImage"
             src={schoolImageOne}
-            alt="Nimadir xato ketdi-ki Rasm ko'rinmay qoldi."
+            alt="Dars jarayoni"
           />
         </SwiperSlide>
+
         <SwiperSlide style={{ position: "relative" }}>
+          <div className="slideOverlayGradient" />
           <h2 className="swiperTitle">
-            Maktab ostonasi — muvaffaqiyatlarimiz boshlanadigan ilk manzil
+            Maktab ostonasi — muvaffaqiyatlarimiz boshlanadigan maskan
           </h2>
           <LazyImage
             style={{ objectFit: "cover" }}
             className="swiperSlideImage"
             src={schoolImageTwo}
-            alt="Nimadir xato ketdi-ki Rasm ko'rinmay qoldi."
+            alt="Maktab ostonasi"
           />
         </SwiperSlide>
+
         <SwiperSlide style={{ position: "relative" }}>
+          <div className="slideOverlayGradient" />
           <h2 className="swiperTitle">
-            bizning maktab o'zingiz guvoh bo'lganingizdek juda o'zgacha
-            <br />
-            <center>
-              <mark style={{ color: "grey", textShadow: "none" }}>
-                eshigimiz ochiq, sizni xush ko'ramiz!
-              </mark>
-            </center>
+            Bizning maktab o'zgacha —{" "}
+            <span className="swiperHighlight">eshigimiz ochiq, xush ko'ramiz!</span>
           </h2>
           <LazyImage
             style={{
-              filter: "brightness(180%)",
+              filter: "brightness(120%)",
               objectFit: "cover",
             }}
             className="swiperSlideImage"
             src={schoolImageFour}
-            alt="Nimadir xato ketdi-ki Rasm ko'rinmay qoldi."
+            alt="Maktab hovlisi"
           />
         </SwiperSlide>
       </Swiper>

@@ -1,8 +1,13 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   HOME SWIPER HERO SECTION — ULTRA-CLEAN RESPONSIVE STYLES
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
 .swiperSectionWrap {
     position: relative;
     z-index: 1;
     width: min(100%, 1700px);
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .mySwiper {
@@ -10,108 +15,108 @@
     width: 100%;
     max-width: 1700px;
     margin: 0 auto;
-    transform: translateZ(0);
+    overflow: hidden;
+    border-radius: 28px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.mySwiper .swiper-slide {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     border-radius: 28px;
 }
 
-.mySwiper .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    overflow: hidden;
-    border-radius: 28px;
+/* Rasm ustidagi nozik kontrast qatlami (Cinematic Overlay) */
+.slideOverlayGradient {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        rgba(7, 9, 14, 0.5) 0%,
+        rgba(7, 9, 14, 0.1) 40%,
+        rgba(7, 9, 14, 0.65) 100%
+    );
 }
 
 .swiperSlideImage {
     display: block;
     width: 100%;
-    height: clamp(360px, 42vw, 620px);
+    height: clamp(380px, 42vw, 620px);
     max-height: 620px;
     object-fit: cover;
     object-position: center;
     border-radius: 28px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    transform: translateZ(-10px);
 }
 
+/* Slayd Sarlavhasi — Glassmorphism Badge */
 .swiperTitle {
     position: absolute;
-    top: 20px;
-    font-size: clamp(16px, 2vw, 28px);
-    color: white;
-    text-transform: uppercase;
-    backdrop-filter: blur(12px);
-    padding: 10px 40px;
-    border-radius: 10px;
-    text-shadow: 0 0 15px black;
-    z-index: 2;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: min(90%, 860px);
+    text-align: center;
+    font-size: clamp(14px, 1.8vw, 24px);
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 10px 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
 }
 
-.blackShadowImageFor {
-    width: 100%;
-    height: 150px;
-    transition: 0.32s;
-    bottom: -50px;
-    opacity: 0;
-    filter: blur(40px);
-    position: absolute;
-    background: black;
-    z-index: 100;
+.swiperHighlight {
+    color: #f97316;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
 }
 
+/* ─── DESKTOP NAVIGATSIYA TUGMALARI ─── */
 .mySwiper .swiper-button-next,
 .mySwiper .swiper-button-prev {
     --swiper-navigation-size: 14px;
     --swiper-navigation-color: #f8fafc;
-    width: 42px;
-    height: 42px;
-    padding: 8px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: rgba(15, 23, 42, 0.7);
     border: 1px solid rgba(148, 163, 184, 0.35);
-    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.4);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transition: all 0.25s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
-}
-
-.mySwiper .swiper-pagination-bullet {
-    background: rgba(128, 128, 128, 0.8);
-    opacity: 1;
-    box-shadow: none;
-}
-
-.mySwiper .swiper-pagination-bullet-active {
-    background: #ffffff;
-    box-shadow: 0 0 8px rgba(128, 128, 128, 0.9);
+    z-index: 10;
 }
 
 .mySwiper .swiper-button-next::after,
 .mySwiper .swiper-button-prev::after {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    height: auto;
     font-size: var(--swiper-navigation-size) !important;
-    line-height: 1;
     color: var(--swiper-navigation-color) !important;
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+    font-weight: 800;
 }
 
 .mySwiper .swiper-button-next:hover,
 .mySwiper .swiper-button-prev:hover {
     --swiper-navigation-color: #ffffff;
-    transform: scale(1.05);
-    background: rgba(59, 130, 246, 0.22);
-    border-color: rgba(96, 165, 250, 0.8);
-    box-shadow: 0 12px 28px rgba(59, 130, 246, 0.35);
+    transform: scale(1.08);
+    background: rgba(249, 115, 22, 0.25);
+    border-color: rgba(249, 115, 22, 0.8);
+    box-shadow: 0 12px 28px rgba(249, 115, 22, 0.35);
 }
 
 .mySwiper .swiper-button-next {
@@ -120,4 +125,102 @@
 
 .mySwiper .swiper-button-prev {
     left: 20px;
+}
+
+/* ─── PAGINATION (SILLIQ INDIKATORLAR) ─── */
+.mySwiper .swiper-pagination {
+    bottom: 16px !important;
+    z-index: 10;
+}
+
+.mySwiper .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.45);
+    opacity: 1;
+    border-radius: 50%;
+    transition: all 0.35s ease;
+    margin: 0 4px !important;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+    width: 24px;
+    height: 8px;
+    border-radius: 9999px;
+    background: #f97316;
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.8);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   MEDIA QUERIES (TELEFON VA PLANCHETLAR UCHUN MAXSUS MOSLASHTIRISH)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Planshetlar va telefonlar (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .mySwiper,
+    .mySwiper .swiper-slide,
+    .swiperSlideImage {
+        border-radius: 18px;
+    }
+
+    .swiperSlideImage {
+        height: clamp(240px, 58vw, 380px);
+    }
+
+    /* Telefonda noqulay tugmalar yashiriladi — foydalanuvchi barmoq bilan suradi */
+    .mySwiper .swiper-button-next,
+    .mySwiper .swiper-button-prev {
+        display: none !important;
+    }
+
+    /* Telefonda sarlavha qulay, ixcham va o'qilishi oson bo'ladi */
+    .swiperTitle {
+        top: 14px;
+        padding: 8px 18px;
+        font-size: clamp(12.5px, 3.2vw, 15px);
+        max-width: 90%;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .mySwiper .swiper-pagination {
+        bottom: 12px !important;
+    }
+}
+
+/* Kichik telefonlar (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .mySwiper,
+    .mySwiper .swiper-slide,
+    .swiperSlideImage {
+        border-radius: 16px;
+    }
+
+    .swiperSlideImage {
+        height: clamp(210px, 60vw, 290px);
+    }
+
+    .swiperTitle {
+        top: 10px;
+        padding: 6px 14px;
+        font-size: 12px;
+        line-height: 1.35;
+        max-width: 92%;
+        border-radius: 10px;
+    }
+
+    .mySwiper .swiper-pagination {
+        bottom: 8px !important;
+    }
+
+    .mySwiper .swiper-pagination-bullet {
+        width: 6px;
+        height: 6px;
+        margin: 0 3px !important;
+    }
+
+    .mySwiper .swiper-pagination-bullet-active {
+        width: 18px;
+        height: 6px;
+    }
 }

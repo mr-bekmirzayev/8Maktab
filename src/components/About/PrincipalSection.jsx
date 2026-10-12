@@ -8,12 +8,12 @@ export default function PrincipalSection() {
         <h1 className="PrincipalSectionTitle">Maktab Direktori!</h1>
       </div>
       <ul className="Principal">
-        <li>
+        <li className="principalPhotoWrap">
           <LazyImage
             style={{ objectFit: "cover" }}
             className="principal"
             src={School_Principal}
-            alt="Nimadir xato ketdi-ki Rasm ko'rinmay qoldi."
+            alt="Maktab Direktori"
           />
         </li>
         <ul className="principalChild">

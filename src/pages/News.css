@@ -149,6 +149,16 @@
     width: 100%;
 }
 
+/* Agar qatorda bitta card qolsa (yoki faqat 1 dona yangilik bo'lsa), o'rtada silliq tursin */
+.news-card:only-child,
+.news-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 640px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .news-card {
     background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(12px);
@@ -285,6 +295,14 @@
     .news-list {
         grid-template-columns: 1fr;
         gap: 22px;
+    }
+
+    .news-card:only-child,
+    .news-card:last-child:nth-child(odd) {
+        grid-column: auto;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .news-content {
