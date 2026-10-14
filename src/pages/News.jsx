@@ -13,10 +13,11 @@ import { IoNotificationsOutline, IoNotifications } from "react-icons/io5";
 import { fetchNewsFromFirestore } from "../utils/firestoreService";
 import LazyImage from "../components/LazyImage";
 import { FaExclamation } from "react-icons/fa";
+
 import "./News.css";
 import TeachersSmileTwo from "../components/HOME/TeachersSmileTwo";
 
-const CACHE_TTL_MS = 8 * 60 * 1000; // 8 daqiqa kesh muddati
+const CACHE_TTL_MS = 8 * 60 * 1000; // 8 daqiqa (480,000 ms) - Firestore dan yangiliklarni olish uchun kesh vaqti
 
 // Galereya alohida rasm katagi (har qanday ekranda to'g'ri sig'ishi va bosilganda ochilishi uchun)
 function GalleryItem({ src, alt, onImageClick }) {

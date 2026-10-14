@@ -7,6 +7,7 @@ import AcademicWings from "../components/About/AcademicWings";
 import CampusFacilities from "../components/About/CampusFacilities";
 import SchoolAchievements from "../components/About/SchoolAchievements";
 import SchoolCharter from "../components/About/SchoolCharter";
+import SchoolGeoMap from "../components/common/SchoolGeoMap";
 
 // ─── ABOUT SAHIFASI ORQA FON RASMI ───────────────────────────────────────────
 // Agar kelajakda orqa fon rasmini o'zgartirmoqchi bo'lsangiz, shu yerdagi importni
@@ -89,7 +90,10 @@ function About() {
         {/* 7-Section: Maktabimiz Yutuqlari & Faxrlari */}
         <SchoolAchievements />
 
-        {/* 8-Section: Maktab Kodeksi, Shior & Hamkorlik */}
+        {/* 8-Section: Maktab Geo-Lokatsiyasi & Xarita */}
+        <SchoolGeoMap />
+
+        {/* 9-Section: Maktab Kodeksi, Shior & Hamkorlik */}
         <SchoolCharter />
       </div>
     </div>

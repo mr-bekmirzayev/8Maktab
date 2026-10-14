@@ -5,6 +5,7 @@ import HomeHighlights from "../components/HOME/HomeHighlights";
 import SwiperSection from "../components/HOME/SwiperSection";
 import TeachersSection from "../components/HOME/TeachersSection";
 import TeachersSmileTwo from "../components/HOME/TeachersSmileTwo";
+import SchoolGeoMap from "../components/common/SchoolGeoMap";
 
 function Home() {
   return (
@@ -16,6 +17,7 @@ function Home() {
         <TeachersSmileTwo />
         <GrowthStats />
         <HomeHighlights />
+        <SchoolGeoMap />
         <EndedSection />
       </main>
     </>

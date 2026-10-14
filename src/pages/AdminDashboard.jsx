@@ -24,7 +24,12 @@ import {
   FiFileText,
   FiRefreshCw,
   FiUpload,
+  FiSend,
 } from "react-icons/fi";
+import {
+  sendNewsSmsThroughCloudFunction,
+  buildSmsText,
+} from "../utils/eskizSmsService";
 
 // Toifalarni avtomatik hisoblash yordamchi funksiyasi
 function calculateToifalar(hodimlar) {
@@ -106,6 +111,10 @@ export default function AdminDashboard() {
   const [user, setUser] = useState(null);
   const [authChecking, setAuthChecking] = useState(true);
   const [activeTab, setActiveTab] = useState("news"); // "news" | "teachers"
+
+  // --- SMS yuborish rejimi: "A" = faqat Firestore, "B" = Firestore + SMS, "C" = ikkalasi ---
+  const [smsMode, setSmsMode] = useState("A");
+  const [smsSending, setSmsSending] = useState(false); // SMS yuborilayotganda true
 
   // --- Yangiliklar State ---
   const [newsList, setNewsList] = useState([]);
@@ -229,8 +238,10 @@ export default function AdminDashboard() {
         author: (newsForm.author || "").trim() || null,
       };
 
+      let savedNewsId = null;
+
       if (editingNews) {
-        // Tahrirlash
+        // Tahrirlash (SMS faqat yangi yangiliklar uchun)
         const newsRef = doc(db, "news", editingNews.id);
         await updateDoc(newsRef, {
           ...dataToSave,
@@ -238,13 +249,15 @@ export default function AdminDashboard() {
         });
         showNotification("Yangilik muvaffaqiyatli tahrirlandi!");
       } else {
-        // Yangi qo'shish
-        await addDoc(collection(db, "news"), {
+        // ── Yangi yangilik qo'shish ──────────────────────────────────────
+        const docRef = await addDoc(collection(db, "news"), {
           ...dataToSave,
           createdAt: new Date().toISOString(),
         });
+        savedNewsId = docRef.id;
         showNotification("Yangi yangilik muvaffaqiyatli qo'shildi!");
 
+        // Push bildirishnomasi (mavjud funksionallik)
         fetch("/api/send-push", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -262,6 +275,30 @@ export default function AdminDashboard() {
             }
           })
           .catch((err) => console.warn("Push xatosi:", err));
+
+        // ── SMS yuborish (Variant B yoki C) ─────────────────────────────
+        if (smsMode === "B" || smsMode === "C") {
+          setSmsSending(true);
+          showNotification("📨 O'qituvchilarga SMS yuborilmoqda...");
+          try {
+            const result = await sendNewsSmsThroughCloudFunction({
+              newsId: savedNewsId,
+              title: dataToSave.title,
+              description: dataToSave.description || "",
+            });
+            showNotification(
+              `✅ SMS muvaffaqiyatli yuborildi! (${result.sentTo ?? "?"} ta o'qituvchi)`
+            );
+          } catch (smsErr) {
+            console.error("SMS yuborish xatosi:", smsErr);
+            showNotification(
+              `⚠️ Yangilik saqlandi, lekin SMS yuborishda xatolik: ${smsErr.message}`,
+              true
+            );
+          } finally {
+            setSmsSending(false);
+          }
+        }
       }
 
       // Keshni tozalash
@@ -279,6 +316,7 @@ export default function AdminDashboard() {
       setUrlInput("");
       setEditingNews(null);
       setIsNewsFormOpen(false);
+      setSmsMode("A"); // formani yopganda rejimni qayta A ga qaytarish
       loadNews();
     } catch (err) {
       console.error("Yangilikni saqlash xatosi:", err);
@@ -1112,39 +1150,154 @@ export default function AdminDashboard() {
                       </div>
                     </div>
                   )}
-                </div>
+                 </div>
+
+                {/* ── SMS Yuborish Varianti (faqat yangi yangilik uchun) ── */}
+                {!editingNews && (
+                  <div
+                    style={{
+                      background: "rgba(249, 115, 22, 0.06)",
+                      border: "1px solid rgba(249, 115, 22, 0.25)",
+                      borderRadius: "14px",
+                      padding: "16px 18px",
+                      marginTop: "4px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: "0 0 12px",
+                        fontSize: "13px",
+                        fontWeight: "600",
+                        color: "#fb923c",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                      }}
+                    >
+                      <FiSend size={14} /> Yangilikni qanday chop etish?
+                    </p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+                      {[
+                        {
+                          key: "A",
+                          label: "A — Faqat saytga",
+                          desc: "Yangilik faqat Firestore ga saqlanadi",
+                          color: "#60a5fa",
+                          bg: "rgba(59,130,246,0.12)",
+                          border: "rgba(59,130,246,0.35)",
+                        },
+                        {
+                          key: "B",
+                          label: "B — Sayt + SMS",
+                          desc: "Barcha o'qituvchilarga SMS yuboriladi",
+                          color: "#4ade80",
+                          bg: "rgba(34,197,94,0.12)",
+                          border: "rgba(34,197,94,0.35)",
+                        },
+                        {
+                          key: "C",
+                          label: "C — Ikki variant",
+                          desc: "Saytga joylash va SMS bir vaqtda",
+                          color: "#f472b6",
+                          bg: "rgba(244,114,182,0.12)",
+                          border: "rgba(244,114,182,0.35)",
+                        },
+                      ].map((variant) => (
+                        <button
+                          key={variant.key}
+                          type="button"
+                          onClick={() => setSmsMode(variant.key)}
+                          style={{
+                            flex: "1 1 150px",
+                            padding: "10px 14px",
+                            borderRadius: "10px",
+                            border: `1.5px solid ${
+                              smsMode === variant.key ? variant.border : "rgba(148,163,184,0.15)"
+                            }`,
+                            background:
+                              smsMode === variant.key
+                                ? variant.bg
+                                : "rgba(30,41,59,0.5)",
+                            color: smsMode === variant.key ? variant.color : "#64748b",
+                            cursor: "pointer",
+                            textAlign: "left",
+                            transition: "all 0.18s",
+                            boxShadow:
+                              smsMode === variant.key ? `0 0 0 2px ${variant.border}` : "none",
+                          }}
+                        >
+                          <div style={{ fontWeight: "700", fontSize: "13.5px", marginBottom: "3px" }}>
+                            {smsMode === variant.key ? "✔ " : ""}
+                            {variant.label}
+                          </div>
+                          <div style={{ fontSize: "11.5px", opacity: 0.75 }}>
+                            {variant.desc}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                    {(smsMode === "B" || smsMode === "C") && (
+                      <p style={{ margin: "10px 0 0", fontSize: "12px", color: "#94a3b8", lineHeight: 1.5 }}>
+                        ℹ️ SMS yuborilishi uchun Firebase Cloud Function deploy qilingan va
+                        Eskiz.uz tokeni sozlangan bo'lishi kerak.
+                      </p>
+                    )}
+                  </div>
+                )}
 
                 <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "10px" }}>
                   <button
                     type="button"
                     onClick={() => setIsNewsFormOpen(false)}
+                    disabled={smsSending}
                     style={{
                       padding: "10px 18px",
                       background: "rgba(100, 116, 139, 0.2)",
                       border: "1px solid rgba(148, 163, 184, 0.2)",
                       borderRadius: "10px",
                       color: "#cbd5e1",
-                      cursor: "pointer",
+                      cursor: smsSending ? "not-allowed" : "pointer",
                       fontSize: "13.5px",
+                      opacity: smsSending ? 0.5 : 1,
                     }}
                   >
                     Bekor qilish
                   </button>
                   <button
                     type="submit"
+                    disabled={smsSending}
                     style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "7px",
                       padding: "10px 22px",
-                      background: "linear-gradient(135deg, #ea580c, #f97316)",
+                      background: smsSending
+                        ? "rgba(100,116,139,0.3)"
+                        : "linear-gradient(135deg, #ea580c, #f97316)",
                       border: "none",
                       borderRadius: "10px",
                       color: "#ffffff",
                       fontWeight: "600",
-                      cursor: "pointer",
+                      cursor: smsSending ? "not-allowed" : "pointer",
                       fontSize: "13.5px",
-                      boxShadow: "0 4px 12px rgba(249, 115, 22, 0.35)",
+                      boxShadow: smsSending ? "none" : "0 4px 12px rgba(249, 115, 22, 0.35)",
                     }}
                   >
-                    {editingNews ? "O'zgarishlarni saqlash" : "Yangilikni chop etish"}
+                    {smsSending ? (
+                      <>
+                        <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⏳</span>
+                        SMS yuborilmoqda...
+                      </>
+                    ) : editingNews ? (
+                      "O'zgarishlarni saqlash"
+                    ) : smsMode === "A" ? (
+                      "Yangilikni chop etish"
+                    ) : (
+                      <>
+                        <FiSend size={14} />
+                        Saqlash va SMS yuborish
+                      </>
+                    )}
                   </button>
                 </div>
               </form>

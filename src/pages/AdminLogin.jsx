@@ -38,7 +38,8 @@ export default function AdminLogin({ onLoginSuccess }) {
       } else if (err.code === "auth/invalid-email") {
         message = "Email formati noto'g'ri.";
       } else if (err.code === "auth/too-many-requests") {
-        message = "Urinishlar soni ko'payib ketdi. Birozdan so'ng qayta urinib ko'ring.";
+        message =
+          "Urinishlar soni ko'payib ketdi. Birozdan so'ng qayta urinib ko'ring.";
       } else if (err.code === "auth/network-request-failed") {
         message = "Internet tarmog'i bilan aloqa yo'q.";
       }
@@ -66,7 +67,8 @@ export default function AdminLogin({ onLoginSuccess }) {
           border: "1px solid rgba(249, 115, 22, 0.3)",
           borderRadius: "24px",
           padding: "36px 28px",
-          boxShadow: "0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(249, 115, 22, 0.1)",
+          boxShadow:
+            "0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(249, 115, 22, 0.1)",
           color: "#f8fafc",
         }}
       >
@@ -76,7 +78,8 @@ export default function AdminLogin({ onLoginSuccess }) {
               width: "60px",
               height: "60px",
               borderRadius: "18px",
-              background: "linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.3))",
+              background:
+                "linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.3))",
               border: "1px solid rgba(249, 115, 22, 0.4)",
               display: "inline-flex",
               alignItems: "center",
@@ -88,7 +91,9 @@ export default function AdminLogin({ onLoginSuccess }) {
           >
             <RiAdminLine />
           </div>
-          <h2 style={{ fontSize: "22px", fontWeight: "700", margin: "0 0 6px" }}>
+          <h2
+            style={{ fontSize: "22px", fontWeight: "700", margin: "0 0 6px" }}
+          >
             Admin Panel
           </h2>
           <p style={{ fontSize: "14px", color: "#94a3b8", margin: 0 }}>
@@ -116,7 +121,10 @@ export default function AdminLogin({ onLoginSuccess }) {
           </div>
         )}
 
-        <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+        <form
+          onSubmit={handleLogin}
+          style={{ display: "flex", flexDirection: "column", gap: "18px" }}
+        >
           <div>
             <label
               style={{
@@ -228,9 +236,17 @@ export default function AdminLogin({ onLoginSuccess }) {
               opacity: loading ? 0.8 : 1,
             }}
           >
-            {loading ? <HashLoader color="#ffffff" size={20} /> : "Tizimga kirish"}
+            {loading ? (
+              <HashLoader color="#ffffff" size={20} />
+            ) : (
+              "Tizimga kirish"
+            )}
           </button>
-          <a href="https://t.me/Mr_Bekmirzayev" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://t.me/Mr_Bekmirzayev"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Parolni olish uchun yozing
           </a>
         </form>
