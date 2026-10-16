@@ -75,6 +75,12 @@ export default function Footer() {
                   <span>Ustozlar</span>
                 </Link>
               </li>
+              <li className="footer-link-item">
+                <Link to="/admin331257">
+                  <PiChalkboardTeacherFill className="footer-link-icon" />
+                  <span>Admin Panel</span>
+                </Link>
+              </li>
             </ul>
           </div>
 
