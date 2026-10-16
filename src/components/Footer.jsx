@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { GiBookCover } from "react-icons/gi";
 import { GoHome } from "react-icons/go";
-import { TbExclamationCircle } from "react-icons/tb";
+import { TbExclamationCircle, TbUser } from "react-icons/tb";
 import { FaRegNewspaper, FaInfoCircle, FaArrowUp } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { PiChalkboardTeacherFill } from "react-icons/pi";
@@ -73,11 +73,11 @@ export default function Footer() {
                 <Link to="/teachers">
                   <PiChalkboardTeacherFill className="footer-link-icon" />
                   <span>Ustozlar</span>
-                </Link>
+                </Link> 
               </li>
               <li className="footer-link-item">
                 <Link to="/admin331257">
-                  <PiChalkboardTeacherFill className="footer-link-icon" />
+                  <TbUser className="footer-link-icon" />
                   <span>Admin Panel</span>
                 </Link>
               </li>
