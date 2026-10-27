@@ -94,7 +94,7 @@ function App() {
               <h4 className="fullscreenMessage">
                 Ilova sizga yanada chiroyli ko'rinishi uchun{" "}
                 <strong>fullscreen (to'liq ekran)</strong> rejimiga
-                o'tishingizni tavsiya etamiz
+                o'tishingizni tavsiya etamiz.
               </h4>
             </div>
           </div>
@@ -118,7 +118,6 @@ function App() {
       <div className={`shadowBlue ${isShadowHidden ? "hidden" : ""}`}></div>
       <div className={`app-content ${isInfoOpen ? "blurred" : ""}`}>
         {shouldShowHeader && <Header />}
-        
 
         <AppRouter />
 
@@ -152,10 +151,27 @@ function App() {
             <p className="school-info-kicker">Maktab haqida</p>
             <h2 id="school-info-title">8-Maktab</h2>
             <p>
-              Maktabimiz o'quvchilar uchun qulay, bilimga yo'naltirilgan va
-              ma'naviy rivojlanishga xizmat qiluvchi ta'lim muhitini yaratishga
-              intiladi.
+              Ushbu ilova Namangan viloyati Uychi tumanidagi 8 - sonli umumiy
+              o'rta ta'lim maktabiga asoslangan bo'lib, barcha ma'lumotlar va
+              yangiliklar bilan juda ham murakkab va ajoyib ishlangan.
             </p>
+              <h3 style={{ marginTop: 20, marginBottom: 10 }}>
+                Siz uchun mahsus:
+              </h3>
+              <ul style={{ marginLeft: 18, marginBottom: 20 }}>
+                <li>
+                  <b style={{textTransform: "uppercase"}}>Yangiliklar</b>
+                </li>
+                <li>
+                  <b style={{textTransform: "uppercase"}}>Ustozlar ma'lumoti</b>
+                </li>
+                <li>
+                  <b style={{textTransform: "uppercase"}}>Maktabimiz joylashgan manzil</b>
+                </li>
+                <li>
+                  <b style={{textTransform: "uppercase"}}>Maktabimiz haqida turli xil fotogalareyalar</b>
+                </li>
+              </ul>
             <p>
               Bu yerda har bir talaba bilim, madaniyat, mas'uliyat va jamiyatga
               foydali faoliyatga tayyorlanadi.

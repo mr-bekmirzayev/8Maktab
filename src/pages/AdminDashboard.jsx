@@ -27,7 +27,7 @@ import {
   FiSend,
 } from "react-icons/fi";
 import {
-  sendNewsSmsThroughCloudFunction,
+  sendNewsSmsThroughVercel,
   buildSmsText,
 } from "../utils/eskizSmsService";
 
@@ -146,6 +146,7 @@ export default function AdminDashboard() {
     mutaxassisligi: "",
     toifasi: "M",
     asosiy_yoki_urindosh: "asosiy",
+    telefon: "",
   });
   const [isTeacherFormOpen, setIsTeacherFormOpen] = useState(false);
 
@@ -266,12 +267,13 @@ export default function AdminDashboard() {
             body: dataToSave.description || "",
           }),
         })
-          .then((res) => res.json())
+          .then(async (res) => {
+            if (!res.ok) return null;
+            return res.json().catch(() => null);
+          })
           .then((data) => {
             if (data?.success) {
               console.log("Push-bildirishnoma natijasi:", data.message);
-            } else {
-              console.warn("Push-bildirishnoma server javobi:", data?.error || data?.message);
             }
           })
           .catch((err) => console.warn("Push xatosi:", err));
@@ -281,13 +283,24 @@ export default function AdminDashboard() {
           setSmsSending(true);
           showNotification("📨 O'qituvchilarga SMS yuborilmoqda...");
           try {
-            const result = await sendNewsSmsThroughCloudFunction({
+            // O'qituvchilarning telefon raqamlarini to'plash
+            const teacherPhones = (schoolData?.hodimlar || [])
+              .map((h) => h.telefon || h.phone || h.tel || h.raqam)
+              .filter(Boolean);
+
+            const result = await sendNewsSmsThroughVercel({
               newsId: savedNewsId,
               title: dataToSave.title,
               description: dataToSave.description || "",
+              demand: dataToSave.demand || "",
+              date: dataToSave.date || "",
+              author: dataToSave.author || "",
+              phones: teacherPhones,
             });
             showNotification(
-              `✅ SMS muvaffaqiyatli yuborildi! (${result.sentTo ?? "?"} ta o'qituvchi)`
+              result.message ||
+                `✅ SMS muvaffaqiyatli yuborildi! (${result.sentTo ?? "?"} ta o'qituvchi)`,
+              !result.success && result.sentTo === 0
             );
           } catch (smsErr) {
             console.error("SMS yuborish xatosi:", smsErr);
@@ -486,6 +499,7 @@ export default function AdminDashboard() {
         mutaxassisligi: "",
         toifasi: "M",
         asosiy_yoki_urindosh: "asosiy",
+        telefon: "",
       });
       setEditingIndex(null);
       setEditingTeacher(null);
@@ -542,6 +556,7 @@ export default function AdminDashboard() {
       mutaxassisligi: item.mutaxassisligi || "",
       toifasi: item.toifasi || "M",
       asosiy_yoki_urindosh: item.asosiy_yoki_urindosh || "asosiy",
+      telefon: item.telefon || item.phone || item.tel || item.raqam || "",
     });
     setIsTeacherFormOpen(true);
   };
@@ -1238,8 +1253,7 @@ export default function AdminDashboard() {
                     </div>
                     {(smsMode === "B" || smsMode === "C") && (
                       <p style={{ margin: "10px 0 0", fontSize: "12px", color: "#94a3b8", lineHeight: 1.5 }}>
-                        ℹ️ SMS yuborilishi uchun Firebase Cloud Function deploy qilingan va
-                        Eskiz.uz tokeni sozlangan bo'lishi kerak.
+                        ℹ️ SMS yuborilishi uchun Eskiz.uz hisobi ulangan va o'qituvchilarning telefon raqamlari kiritilgan bo'lishi kerak.
                       </p>
                     )}
                   </div>
@@ -1549,6 +1563,7 @@ export default function AdminDashboard() {
                   mutaxassisligi: "",
                   toifasi: "M",
                   asosiy_yoki_urindosh: "asosiy",
+                  telefon: "",
                 });
                 setIsTeacherFormOpen(true);
               }}
@@ -1762,6 +1777,28 @@ export default function AdminDashboard() {
                       <option value="orta_maxsus">O'rta maxsus</option>
                     </select>
                   </div>
+
+                  <div>
+                    <label style={{ display: "block", fontSize: "13px", color: "#cbd5e1", marginBottom: "6px" }}>
+                      Telefon raqami (SMS xabarnoma uchun)
+                    </label>
+                    <input
+                      type="text"
+                      value={teacherForm.telefon || ""}
+                      onChange={(e) => setTeacherForm({ ...teacherForm, telefon: e.target.value })}
+                      placeholder="+998901234567"
+                      style={{
+                        width: "100%",
+                        boxSizing: "border-box",
+                        padding: "10px 14px",
+                        background: "rgba(30, 41, 59, 0.9)",
+                        border: "1px solid rgba(249, 115, 22, 0.35)",
+                        borderRadius: "10px",
+                        color: "#f8fafc",
+                        fontSize: "14px",
+                      }}
+                    />
+                  </div>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "10px" }}>
@@ -1855,6 +1892,7 @@ export default function AdminDashboard() {
                     <th style={{ padding: "14px 16px" }}>Ma'lumoti</th>
                     <th style={{ padding: "14px 16px" }}>Mutaxassisligi</th>
                     <th style={{ padding: "14px 16px" }}>Toifasi</th>
+                    <th style={{ padding: "14px 16px" }}>Telefon (SMS)</th>
                     <th style={{ padding: "14px 16px", textAlign: "right" }}>Amallar</th>
                   </tr>
                 </thead>
@@ -1910,6 +1948,17 @@ export default function AdminDashboard() {
                         >
                           {teacher.toifasi || "M"}
                         </span>
+                      </td>
+                      <td style={{ padding: "14px 16px", fontSize: "12.5px" }}>
+                        {teacher.telefon || teacher.phone || teacher.tel || teacher.raqam ? (
+                          <span style={{ color: "#4ade80", fontWeight: "500" }}>
+                            📱 {teacher.telefon || teacher.phone || teacher.tel || teacher.raqam}
+                          </span>
+                        ) : (
+                          <span style={{ color: "#64748b", fontStyle: "italic" }}>
+                            Raqam yo'q
+                          </span>
+                        )}
                       </td>
                       <td style={{ padding: "14px 16px", textAlign: "right" }}>
                         <div style={{ display: "inline-flex", gap: "6px" }}>
