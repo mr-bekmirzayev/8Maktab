@@ -36,7 +36,7 @@ export async function sendNewsSmsThroughVercel(newsData) {
     json = JSON.parse(text);
   } catch {
     throw new Error(
-      `Server javob bermadi (${response.status}). Vite dev serverni qayta ishga tushiring (npm run dev).`
+      `Server javob bermadi (${response.status}). Vite dev serverni qayta ishga tushiring (npm run dev).`,
     );
   }
 

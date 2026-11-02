@@ -59,7 +59,8 @@ function calculateToifalar(hodimlar) {
   return counts;
 }
 
-// Rasmni avtomatik o'lchamini moslab, sifatini saqlagan holda ixchamlashtirish
+// Rasmni avtomatik o'lchamini moslab, sifatini saqlagan holda yuqori tezlikda ixchamlashtirish
+// Firestore 1MB limitidan oshmasligi va brauzer qotmasligi uchun optimallashtirilgan
 function processImageFile(file) {
   return new Promise((resolve, reject) => {
     if (!file) return resolve(null);
@@ -67,37 +68,59 @@ function processImageFile(file) {
       return reject(new Error("Faqat rasm formatidagi fayllarni yuklashingiz mumkin (JPG, PNG, WEBP)"));
     }
 
-    if (file.size > 15 * 1024 * 1024) {
-      return reject(new Error("Rasm hajmi juda katta (maksimal 15MB)"));
+    if (file.size > 30 * 1024 * 1024) {
+      return reject(new Error("Rasm hajmi juda katta (maksimal 30MB)"));
     }
 
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
-        const maxWidth = 1200;
-        const maxHeight = 800;
-        let width = img.width;
-        let height = img.height;
+        try {
+          // Saytda tiniq va chiroyli ko'rinishi uchun optimal o'lcham
+          const maxWidth = 960;
+          const maxHeight = 640;
+          let width = img.width;
+          let height = img.height;
 
-        if (width > maxWidth || height > maxHeight) {
-          if (width / height > maxWidth / maxHeight) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          } else {
-            width = Math.round((width * maxHeight) / height);
-            height = maxHeight;
+          if (width > maxWidth || height > maxHeight) {
+            if (width / height > maxWidth / maxHeight) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            } else {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
           }
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d", { alpha: false });
+
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
+
+          // Oq fon (PNG transparent bo'lsa qorayib qolmasligi uchun)
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, width, height);
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // WebP formatida siqish (hajmi juda kichik va sifati baland)
+          let dataUrl = canvas.toDataURL("image/webp", 0.72);
+          if (!dataUrl.startsWith("data:image/webp")) {
+            dataUrl = canvas.toDataURL("image/jpeg", 0.70);
+          }
+
+          // Agar hajm baribir 120KB dan katta bo'lsa, ikkinchi bosqichda ixchamlashtiramiz
+          if (dataUrl.length > 130000) {
+            dataUrl = canvas.toDataURL("image/jpeg", 0.60);
+          }
+
+          resolve(dataUrl);
+        } catch (canvasErr) {
+          reject(new Error("Rasmni qayta ishlashda xatolik: " + canvasErr.message));
         }
-
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-
-        const dataUrl = canvas.toDataURL("image/jpeg", 0.82);
-        resolve(dataUrl);
       };
       img.onerror = () => reject(new Error("Rasmni o'qishda xatolik yuz berdi"));
       img.src = e.target.result;
@@ -131,6 +154,7 @@ export default function AdminDashboard() {
   const [urlInput, setUrlInput] = useState("");
   const [isNewsFormOpen, setIsNewsFormOpen] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [isSavingNews, setIsSavingNews] = useState(false);
   const fileInputRef = useRef(null);
 
   // --- Maktab / Xodimlar State ---
@@ -226,6 +250,7 @@ export default function AdminDashboard() {
       return;
     }
 
+    setIsSavingNews(true);
     try {
       const currentImages = Array.isArray(newsForm.images) ? newsForm.images.slice(0, 5) : [];
 
@@ -334,6 +359,8 @@ export default function AdminDashboard() {
     } catch (err) {
       console.error("Yangilikni saqlash xatosi:", err);
       showNotification(`Xatolik: ${err.code || err.message || "Yangilikni saqlab bo'lmadi"}`, true);
+    } finally {
+      setIsSavingNews(false);
     }
   };
 
@@ -391,6 +418,8 @@ export default function AdminDashboard() {
     try {
       const processedImages = [];
       for (const file of filesToProcess) {
+        // UI muzlamasligi uchun har bir rasm orasida ozgina nafas beramiz
+        await new Promise((resolve) => setTimeout(resolve, 20));
         const base64Data = await processImageFile(file);
         if (base64Data) {
           processedImages.push(base64Data);
@@ -401,7 +430,7 @@ export default function AdminDashboard() {
         ...prev,
         images: [...(prev.images || []), ...processedImages].slice(0, 5),
       }));
-      showNotification(`${processedImages.length} ta rasm muvaffaqiyatli tanlandi!`);
+      showNotification(`${processedImages.length} ta rasm muvaffaqiyatli tayyorlandi!`);
     } catch (err) {
       console.error("Rasm yuklash xatosi:", err);
       showNotification(err.message || "Rasm yuklashda xatolik yuz berdi", true);
@@ -1263,41 +1292,46 @@ export default function AdminDashboard() {
                   <button
                     type="button"
                     onClick={() => setIsNewsFormOpen(false)}
-                    disabled={smsSending}
+                    disabled={smsSending || isSavingNews}
                     style={{
                       padding: "10px 18px",
                       background: "rgba(100, 116, 139, 0.2)",
                       border: "1px solid rgba(148, 163, 184, 0.2)",
                       borderRadius: "10px",
                       color: "#cbd5e1",
-                      cursor: smsSending ? "not-allowed" : "pointer",
+                      cursor: smsSending || isSavingNews ? "not-allowed" : "pointer",
                       fontSize: "13.5px",
-                      opacity: smsSending ? 0.5 : 1,
+                      opacity: smsSending || isSavingNews ? 0.5 : 1,
                     }}
                   >
                     Bekor qilish
                   </button>
                   <button
                     type="submit"
-                    disabled={smsSending}
+                    disabled={smsSending || isSavingNews}
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "7px",
                       padding: "10px 22px",
-                      background: smsSending
+                      background: smsSending || isSavingNews
                         ? "rgba(100,116,139,0.3)"
                         : "linear-gradient(135deg, #ea580c, #f97316)",
                       border: "none",
                       borderRadius: "10px",
                       color: "#ffffff",
                       fontWeight: "600",
-                      cursor: smsSending ? "not-allowed" : "pointer",
+                      cursor: smsSending || isSavingNews ? "not-allowed" : "pointer",
                       fontSize: "13.5px",
-                      boxShadow: smsSending ? "none" : "0 4px 12px rgba(249, 115, 22, 0.35)",
+                      boxShadow: smsSending || isSavingNews ? "none" : "0 4px 12px rgba(249, 115, 22, 0.35)",
                     }}
                   >
-                    {smsSending ? (
+                    {isSavingNews ? (
+                      <>
+                        <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⏳</span>
+                        Yangilik tezda saqlanmoqda...
+                      </>
+                    ) : smsSending ? (
                       <>
                         <span style={{ display: "inline-block", animation: "spin 1s linear infinite" }}>⏳</span>
                         SMS yuborilmoqda...

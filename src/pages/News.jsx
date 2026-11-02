@@ -3,19 +3,11 @@ import SchoolTitleFor from "/SchoolTitleFor.png";
 import { HashLoader } from "react-spinners";
 import { VscChatSparkleError } from "react-icons/vsc";
 import { IoNotificationsOutline, IoNotifications } from "react-icons/io5";
-// JSONBin o'chirilmagan, faqat ishlatilmaydigan holatga keltirilgan:
-// import { fetchWithJsonbinCache } from "../utils/jsonbinCache";
-// const BIN_ID = "6ab11f8effd5d160531f39ea";
-// const MASTER_KEY = "$2a$10$P2EP5iL5TTjPvxXdGmgRJeZ0SuAQRZpwWmOWJV5dLBWuS791xj2jm";
-// const CACHE_KEY = "news-section-cache";
-// const CACHE_TTL_MS = 15 * 60 * 1000;
-
 import { fetchNewsFromFirestore } from "../utils/firestoreService";
 import LazyImage from "../components/LazyImage";
 import { FaExclamation } from "react-icons/fa";
 
 import "./News.css";
-import TeachersSmileTwo from "../components/HOME/TeachersSmileTwo";
 
 const CACHE_TTL_MS = 8 * 60 * 1000; // 8 daqiqa (480,000 ms) - Firestore dan yangiliklarni olish uchun kesh vaqti
 
@@ -62,7 +54,7 @@ function NewsGallery({ images, title, onImageClick }) {
     return (
       <div
         className="news-image-wrapper"
-        style={{ height: "clamp(240px, 45vw, 380px)", position: "relative" }}
+        style={{ height: "clamp(220px, 30vw, 280px)", position: "relative" }}
       >
         <GalleryItem
           src={SchoolTitleFor}
@@ -78,7 +70,7 @@ function NewsGallery({ images, title, onImageClick }) {
     return (
       <div
         className="news-image-wrapper"
-        style={{ height: "clamp(240px, 45vw, 380px)", position: "relative" }}
+        style={{ height: "clamp(220px, 30vw, 280px)", position: "relative" }}
       >
         <GalleryItem src={images[0]} alt={title} onImageClick={onImageClick} />
       </div>
@@ -89,12 +81,13 @@ function NewsGallery({ images, title, onImageClick }) {
   if (images.length === 2) {
     return (
       <div
+        className="news-image-wrapper"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "4px",
           width: "100%",
-          height: "clamp(220px, 35vw, 340px)",
+          height: "clamp(220px, 30vw, 280px)",
           background: "#0b1120",
           overflow: "hidden",
         }}
@@ -117,12 +110,13 @@ function NewsGallery({ images, title, onImageClick }) {
   if (images.length === 3) {
     return (
       <div
+        className="news-image-wrapper"
         style={{
           display: "grid",
           gridTemplateColumns: "1.1fr 0.9fr",
           gap: "4px",
           width: "100%",
-          height: "clamp(240px, 40vw, 360px)",
+          height: "clamp(220px, 30vw, 280px)",
           background: "#0b1120",
           overflow: "hidden",
         }}
@@ -160,13 +154,14 @@ function NewsGallery({ images, title, onImageClick }) {
   if (images.length === 4) {
     return (
       <div
+        className="news-image-wrapper"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gridTemplateRows: "1fr 1fr",
           gap: "4px",
           width: "100%",
-          height: "clamp(240px, 42vw, 380px)",
+          height: "clamp(220px, 30vw, 280px)",
           background: "#0b1120",
           overflow: "hidden",
         }}
@@ -186,12 +181,13 @@ function NewsGallery({ images, title, onImageClick }) {
   // 5 ta rasm: Yuqorida 2 ta, pastda 3 ta
   return (
     <div
+      className="news-image-wrapper"
       style={{
         display: "grid",
         gridTemplateRows: "1.1fr 0.9fr",
         gap: "4px",
         width: "100%",
-        height: "clamp(260px, 45vw, 400px)",
+        height: "clamp(220px, 30vw, 280px)",
         background: "#0b1120",
         overflow: "hidden",
       }}
@@ -244,6 +240,7 @@ function NewsGallery({ images, title, onImageClick }) {
     </div>
   );
 }
+
 function sendWebNotification(item) {
   if (typeof window === "undefined" || !("Notification" in window)) return;
   if (Notification.permission !== "granted") return;
@@ -277,20 +274,22 @@ function News() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeModalImage, setActiveModalImage] = useState(null);
+  const [selectedNewsItem, setSelectedNewsItem] = useState(null);
   const [permission, setPermission] = useState(
     typeof window !== "undefined" && "Notification" in window
       ? Notification.permission
       : "default",
   );
 
-  // ESC tugmasi orqali rasm modalini yopish va fonni qulflash
+  // ESC tugmasi orqali modal(lar)ni yopish va fonni qulflash
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
         setActiveModalImage(null);
+        setSelectedNewsItem(null);
       }
     };
-    if (activeModalImage) {
+    if (activeModalImage || selectedNewsItem) {
       window.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
     }
@@ -298,7 +297,7 @@ function News() {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
     };
-  }, [activeModalImage]);
+  }, [activeModalImage, selectedNewsItem]);
 
   const requestNotificationPermission = async () => {
     if (typeof window === "undefined" || !("Notification" in window)) {
@@ -353,7 +352,6 @@ function News() {
           ttlMs: CACHE_TTL_MS,
         });
 
-        // Firestore dan kelgan ma'lumot to'g'ridan-to'g'ri massiv
         const record = result?.data;
         let incomingItems = [];
         if (Array.isArray(record)) {
@@ -391,6 +389,7 @@ function News() {
       <section className="news-wrapper display">
         <div className="newsGlowedOne"></div>
         <div className="topGlowNews"></div>
+
         {/* Sarlavha qismi */}
         <header className="news-header">
           <h1 className="news-main-title">Maktab Yangiliklari</h1>
@@ -418,6 +417,7 @@ function News() {
             </div>
           )}
         </header>
+
         {/* 1. Yuklanish holati */}
         {loading && (
           <div
@@ -479,7 +479,7 @@ function News() {
           </div>
         )}
 
-        {/* 4. Ustunma-ustun (Responsive Feed) Yangiliklar ro'yxati */}
+        {/* 4. Bir xil balandlikdagi zamonaviy yangiliklar ro'yxati */}
         {!loading && !error && newsList.length > 0 && (
           <div className="news-list">
             {newsList.map((item, index) => {
@@ -503,36 +503,52 @@ function News() {
 
               return (
                 <article key={item.id ?? index} className="news-card">
-                  {/* Moslashuvchan Rasmlar galereyasi (1 tadan 5 tagacha) */}
+                  {/* Moslashuvchan Rasmlar galereyasi */}
                   <NewsGallery
                     images={rawImages}
                     title={title}
                     onImageClick={(src) => setActiveModalImage(src)}
                   />
+
                   {/* Kontent qismi */}
                   <div className="news-content">
-                    <div className="news-meta-row">
-                      {date && <span className="news-date-badge">{date}</span>}
+                    <div className="news-content-body">
+                      <div className="news-meta-row">
+                        {date && <span className="news-date-badge">{date}</span>}
+                        {author && <span className="news-author">{author}</span>}
+                      </div>
 
-                      {author && <span className="news-author">{author}</span>}
+                      <h2 className="news-title" title={title}>{title}</h2>
+
+                      {description && (
+                        <p className="news-description">{description}</p>
+                      )}
+
+                      {demand && (
+                        <div className="news-demand news-demand-compact">
+                          <div className="news-demand-header">
+                            <FaExclamation className="news-demand-icon" />
+                            <strong className="news-demand-title">
+                              Majburiy Talab:
+                            </strong>
+                          </div>
+                          <p className="news-demand-text">{demand}</p>
+                        </div>
+                      )}
                     </div>
 
-                    <h2 className="news-title">{title}</h2>
-
-                    {description && (
-                      <p className="news-description">{description}</p>
-                    )}
-                    {demand && (
-                      <div className="news-demand">
-                        <div className="news-demand-header">
-                          <FaExclamation className="news-demand-icon" />
-                          <strong className="news-demand-title">
-                            Majburiy Talab / Ogohlantirish:
-                          </strong>
-                        </div>
-                        <p className="news-demand-text">{demand}</p>
-                      </div>
-                    )}
+                    {/* Har bir kartaning eng pastida bir xil tekislikda turadigan "Davomini o'qish" tugmasi */}
+                    <div className="news-card-footer">
+                      <button
+                        type="button"
+                        className="news-read-more-btn"
+                        onClick={() => setSelectedNewsItem(item)}
+                        title="Barcha tafsilotlarni o'qish"
+                      >
+                        <span>Davomini o'qish</span>
+                        <span className="news-read-more-arrow">→</span>
+                      </button>
+                    </div>
                   </div>
                 </article>
               );
@@ -540,7 +556,110 @@ function News() {
           </div>
         )}
 
-        {/* 5. Rasm ustiga bosilganda ochiladigan to'liq o'lchamli ko'rish oynasi (Lightbox Modal) */}
+        {/* 5. Yangilik to'liq tafsilot modali (Blur fon va silliq animatsiya bilan) */}
+        {selectedNewsItem && (
+          <div
+            className="news-detail-overlay"
+            onClick={() => setSelectedNewsItem(null)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="news-detail-modal"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Yopish tugmasi */}
+              <button
+                type="button"
+                className="news-detail-close"
+                onClick={() => setSelectedNewsItem(null)}
+                title="Yopish (ESC yoki tashqariga bosing)"
+                aria-label="Yopish"
+              >
+                ✕
+              </button>
+
+              {/* Rasm(lar) galereyasi */}
+              {(() => {
+                const modalImages =
+                  Array.isArray(selectedNewsItem.images) && selectedNewsItem.images.length > 0
+                    ? selectedNewsItem.images
+                    : selectedNewsItem.image || selectedNewsItem.rasm || selectedNewsItem.img
+                      ? [selectedNewsItem.image || selectedNewsItem.rasm || selectedNewsItem.img]
+                      : [];
+                const modalTitle =
+                  selectedNewsItem.title || selectedNewsItem.sarlavha || selectedNewsItem.name || "Yangilik";
+
+                return (
+                  <div className="news-detail-gallery-wrap">
+                    <NewsGallery
+                      images={modalImages}
+                      title={modalTitle}
+                      onImageClick={(src) => setActiveModalImage(src)}
+                    />
+                  </div>
+                );
+              })()}
+
+              <div className="news-detail-body">
+                <div className="news-meta-row" style={{ marginBottom: "14px" }}>
+                  {(selectedNewsItem.date || selectedNewsItem.sana || selectedNewsItem.created_at) && (
+                    <span className="news-date-badge">
+                      {selectedNewsItem.date || selectedNewsItem.sana || selectedNewsItem.created_at}
+                    </span>
+                  )}
+                  {(selectedNewsItem.author || selectedNewsItem.muallif) && (
+                    <span className="news-author">
+                      ✍️ {selectedNewsItem.author || selectedNewsItem.muallif}
+                    </span>
+                  )}
+                </div>
+
+                <h1 className="news-detail-title">
+                  {selectedNewsItem.title || selectedNewsItem.sarlavha || selectedNewsItem.name}
+                </h1>
+
+                {(selectedNewsItem.demand || selectedNewsItem.talab) && (
+                  <div className="news-demand" style={{ margin: "20px 0" }}>
+                    <div className="news-demand-header">
+                      <FaExclamation className="news-demand-icon" />
+                      <strong className="news-demand-title">
+                        Majburiy Talab / Ogohlantirish:
+                      </strong>
+                    </div>
+                    <p className="news-demand-text">
+                      {selectedNewsItem.demand || selectedNewsItem.talab}
+                    </p>
+                  </div>
+                )}
+
+                {(selectedNewsItem.description ||
+                  selectedNewsItem.tavsif ||
+                  selectedNewsItem.content ||
+                  selectedNewsItem.matn) && (
+                  <div className="news-detail-description">
+                    {selectedNewsItem.description ||
+                      selectedNewsItem.tavsif ||
+                      selectedNewsItem.content ||
+                      selectedNewsItem.matn}
+                  </div>
+                )}
+
+                <div className="news-detail-footer-btn-wrap">
+                  <button
+                    type="button"
+                    className="news-detail-close-btn"
+                    onClick={() => setSelectedNewsItem(null)}
+                  >
+                    Yopish
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 6. Rasm ustiga bosilganda ochiladigan to'liq o'lchamli ko'rish oynasi (Lightbox Modal) */}
         {activeModalImage && (
           <div
             onClick={() => setActiveModalImage(null)}
@@ -620,6 +739,7 @@ function News() {
             </div>
           </div>
         )}
+
         <div className="blackBgNews"></div>
       </section>
     </div>

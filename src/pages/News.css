@@ -11,40 +11,37 @@
     z-index: 2;
     box-sizing: border-box;
 }
+
 .grid-bg {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  /* Saytning umumiy qorong'u foni */
   background-color: #07090e; 
 
-  /* Katakchalarni chizuvchi nozik chiziqlar */
   background-image: 
     linear-gradient(to right, rgba(249, 115, 22, 0.08) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(249, 115, 22, 0.08) 1px, transparent 1px);
 
-  /* Katakchalarning kattaligi (40px ga 40px) va butun bo'yiga to'xtovsiz davom etishi */
   background-size: 40px 40px;
   background-repeat: repeat;
   background-attachment: scroll;
 }
-.news-list{
-    z-index: 10;
-}
-.blackBgNews{
+
+.blackBgNews {
     position: fixed;
     top: 0;
     right: -80px;
-    z-index: -1 ;
+    z-index: -1;
     height: 100dvh;
     padding: 100px;
     padding-left: 300px;
-    
     box-shadow: black 0 0 270px 50px;
     filter: blur(190px);
     background: black;
+    pointer-events: none;
 }
-.topGlowNews{
+
+.topGlowNews {
     position: absolute;
     background: linear-gradient(to bottom, black, orange);
     height: 200px;
@@ -53,8 +50,10 @@
     width: 800px;
     filter: blur(100px);
     border-radius: 0 0 50px 50px;
+    pointer-events: none;
 }
-.newsGlowedOne{
+
+.newsGlowedOne {
     position: fixed;
     padding: 170px;
     background: #f97316;
@@ -64,7 +63,9 @@
     animation: colorsGlow infinite 10.2s;
     left: -80px;
     box-shadow: 0 0 35px #f97316, 0 0 70px rgba(251, 146, 60, 0.6);
+    pointer-events: none;
 }
+
 @keyframes colorsGlow {
     0% {
         background: #f97316;
@@ -78,7 +79,7 @@
         background: #ff0000;
         box-shadow: 0 0 35px #fc0000, 0 0 70px rgba(251, 146, 60, 0.6);
     }
-    75%{
+    75% {
         background: #f4cc05;
         box-shadow: 0 0 35px #002aff, 0 0 70px rgba(251, 146, 60, 0.6);
         filter: blur(210px);
@@ -142,23 +143,29 @@
     border: 1px solid rgba(249, 115, 22, 0.3);
 }
 
+/* =========================================
+   YANGILIKLAR RO'YXATI VA BIR XIL BALANDLIKDAGI KARTALAR
+========================================= */
+
 .news-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 28px;
     width: 100%;
+    z-index: 10;
 }
 
-/* Agar qatorda bitta card qolsa (yoki faqat 1 dona yangilik bo'lsa), o'rtada silliq tursin */
+/* Agar qatorda bitta card qolsa yoki faqat 1 dona bo'lsa */
 .news-card:only-child,
 .news-card:last-child:nth-child(odd) {
     grid-column: 1 / -1;
-    max-width: 640px;
+    max-width: 680px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
+/* Har bir yangilik kartasi BIR XIL BALANDLIKDA (Equal Height) turadi */
 .news-card {
     background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(12px);
@@ -170,19 +177,24 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 530px; /* Barcha kartalar teng bir xil balandlikda turadi */
+    box-sizing: border-box;
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .news-card:hover {
     border-color: rgba(249, 115, 22, 0.5);
     box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45), 0 0 24px rgba(249, 115, 22, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
+/* Rasm qismi (har bir kartada bir xil aniq balandlik) */
 .news-image-wrapper {
     width: 100%;
-    max-height: 380px;
-    min-height: 200px;
+    height: 230px !important;
+    min-height: 230px;
+    max-height: 230px;
+    flex-shrink: 0;
     overflow: hidden;
     background: #0b1120;
     position: relative;
@@ -191,7 +203,6 @@
 .news-image {
     width: 100%;
     height: 100%;
-    max-height: 380px;
     object-fit: cover;
     display: block;
     transition: transform 0.4s ease;
@@ -201,11 +212,24 @@
     transform: scale(1.03);
 }
 
+/* Matn va kontent qismi */
 .news-content {
-    padding: 26px 30px;
+    padding: 20px 24px 18px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    justify-content: space-between;
+    flex: 1;
+    min-height: 0;
+    box-sizing: border-box;
+}
+
+.news-content-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+    flex: 1;
+    min-height: 0;
 }
 
 .news-meta-row {
@@ -217,27 +241,125 @@
 }
 
 .news-date-badge {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 700;
     color: #fb923c;
     background: rgba(249, 115, 22, 0.15);
     border: 1px solid rgba(249, 115, 22, 0.3);
-    padding: 4px 12px;
-    border-radius: 12px;
+    padding: 3px 10px;
+    border-radius: 10px;
     letter-spacing: 0.5px;
 }
 
 .news-author {
-    font-size: 13px;
+    font-size: 12.5px;
     color: #94a3b8;
 }
 
+/* Title uzayib ketsa 2 qatordan oshmaydi va chiroyli clamp bo'ladi */
+.news-title {
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    font-weight: 700;
+    color: #f8fafc;
+    text-transform: capitalize;
+    line-height: 1.35;
+    margin: 2px 0 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Tavsif 2-3 qatordan oshmaydi */
+.news-description {
+    color: #cbd5e1;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+/* Kartadagi ixcham ogohlantirish */
+.news-demand-compact {
+    padding: 8px 12px;
+    margin-top: 2px;
+}
+
+.news-demand-compact .news-demand-title {
+    font-size: 14px;
+}
+
+.news-demand-compact .news-demand-icon {
+    font-size: 14px;
+}
+
+.news-demand-compact .news-demand-text {
+    font-size: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Kartaning eng pastki qismidagi bir xil tekislikdagi footer */
+.news-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 12px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+    flex-shrink: 0;
+}
+
+/* "Davomini o'qish" tugmasi */
+.news-read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(249, 115, 22, 0.12);
+    border: 1px solid rgba(249, 115, 22, 0.35);
+    border-radius: 12px;
+    color: #fb923c;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.news-read-more-btn:hover {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+    transform: translateX(3px);
+}
+
+.news-read-more-arrow {
+    font-size: 15px;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+.news-read-more-btn:hover .news-read-more-arrow {
+    transform: translateX(3px);
+}
+
+/* Ogohlantirish bloki */
 .news-demand {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    background: rgba(0, 0, 0, 0.882);
-    border-left: solid red 3px;
+    background: rgba(0, 0, 0, 0.88);
+    border-left: solid #ef4444 3px;
     border-radius: 0 8px 8px 0;
     padding: 12px 16px;
 }
@@ -249,44 +371,189 @@
 }
 
 .news-demand-icon {
-    color: red;
-    filter: drop-shadow(0 0 5px red);
-    font-size: 20px;
+    color: #ef4444;
+    filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.8));
+    font-size: 18px;
 }
 
 .news-demand-title {
-    color: red;
-    font-size: 20px;
+    color: #ef4444;
+    font-size: 17px;
 }
 
 .news-demand-text {
-    color: white;
-    margin: 0;
-}
-
-.news-title {
-    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
-    font-weight: 700;
     color: #f8fafc;
-    text-transform: capitalize;
-    line-height: 1.4;
-    margin: 4px 0 0;
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
 }
 
-.news-description {
+/* =========================================
+   YANGILIK TO'LIQ TAVSIFI MODALI (BLUR VA SILIQ ANIMATSIYA)
+========================================= */
+
+@keyframes newsBackdropFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+}
+
+@keyframes newsModalPopUp {
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.news-detail-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(3, 7, 18, 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    animation: newsBackdropFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    cursor: pointer;
+}
+
+.news-detail-modal {
+    position: relative;
+    width: 100%;
+    max-width: 840px;
+    max-height: 88vh;
+    background: rgba(15, 23, 42, 0.96);
+    border: 1px solid rgba(249, 115, 22, 0.45);
+    border-radius: 24px;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 45px rgba(249, 115, 22, 0.25);
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: default;
+    animation: newsModalPopUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-sizing: border-box;
+}
+
+/* Chiroyli maxsus scrollbar */
+.news-detail-modal::-webkit-scrollbar {
+    width: 8px;
+}
+.news-detail-modal::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 8px;
+}
+.news-detail-modal::-webkit-scrollbar-thumb {
+    background: rgba(249, 115, 22, 0.4);
+    border-radius: 8px;
+}
+.news-detail-modal::-webkit-scrollbar-thumb:hover {
+    background: #f97316;
+}
+
+.news-detail-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.news-detail-close:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+    transform: rotate(90deg) scale(1.05);
+}
+
+.news-detail-gallery-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: #0b1120;
+    border-radius: 24px 24px 0 0;
+}
+
+.news-detail-gallery-wrap .news-image-wrapper {
+    height: clamp(260px, 42vw, 380px) !important;
+    max-height: 380px !important;
+}
+
+.news-detail-body {
+    padding: 28px 32px 32px;
+}
+
+.news-detail-title {
+    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+    font-weight: 800;
+    color: #f8fafc;
+    line-height: 1.4;
+    margin: 0 0 16px;
+    word-break: break-word;
+}
+
+.news-detail-description {
     color: #cbd5e1;
-    font-size: clamp(14px, 1.5vw, 15px);
-    line-height: 1.75;
-    margin: 4px 0 0;
+    font-size: 15.5px;
+    line-height: 1.85;
     white-space: pre-line;
     word-break: break-word;
+    letter-spacing: 0.2px;
+}
+
+.news-detail-footer-btn-wrap {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.news-detail-close-btn {
+    padding: 10px 24px;
+    border-radius: 12px;
+    background: rgba(100, 116, 139, 0.25);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    color: #f8fafc;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.news-detail-close-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #f87171;
 }
 
 /* =========================================
    MEDIA QUERIES (PLANCHET VA TELEFONLAR)
 ========================================= */
 
-/* Planshetlar va telefonlar (max-width: 900px) */
 @media screen and (max-width: 900px) {
     .news-wrapper {
         padding: 30px 16px 70px;
@@ -295,6 +562,11 @@
     .news-list {
         grid-template-columns: 1fr;
         gap: 22px;
+    }
+
+    .news-card {
+        height: auto;
+        min-height: 480px;
     }
 
     .news-card:only-child,
@@ -306,16 +578,20 @@
     }
 
     .news-content {
-        padding: 22px 24px;
-        gap: 10px;
+        padding: 20px 20px 16px;
     }
 
     .news-image-wrapper {
-        max-height: 300px;
+        height: 220px !important;
+        max-height: 220px !important;
+        min-height: 220px !important;
+    }
+
+    .news-detail-body {
+        padding: 22px 20px 24px;
     }
 }
 
-/* Katta telefonlar va vertikal planshetlar (max-width: 640px) */
 @media screen and (max-width: 640px) {
     .news-wrapper {
         padding: 24px 12px 60px;
@@ -326,17 +602,19 @@
     }
 
     .news-card {
-        border-radius: 16px;
+        border-radius: 18px;
+        height: auto;
+        min-height: 450px;
     }
 
     .news-image-wrapper {
-        max-height: 240px;
-        min-height: 160px;
+        height: 190px !important;
+        max-height: 190px !important;
+        min-height: 190px !important;
     }
 
     .news-content {
-        padding: 18px 16px;
-        gap: 10px;
+        padding: 16px 14px;
     }
 
     .news-permission-btn {
@@ -345,28 +623,46 @@
         padding: 9px 16px;
         font-size: 12.5px;
     }
+
+    .news-detail-modal {
+        max-height: 92vh;
+        border-radius: 20px;
+    }
+
+    .news-detail-body {
+        padding: 18px 16px 20px;
+    }
+
+    .news-detail-title {
+        font-size: 1.25rem;
+    }
+
+    .news-detail-description {
+        font-size: 14px;
+        line-height: 1.7;
+    }
 }
 
-/* Kichik telefonlar (max-width: 420px) */
 @media screen and (max-width: 420px) {
     .news-wrapper {
         padding: 16px 8px 50px;
     }
 
-    .news-content {
-        padding: 14px 12px;
+    .news-card {
+        min-height: 420px;
     }
 
     .news-title {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
     }
 
     .news-description {
-        font-size: 13.5px;
-        line-height: 1.65;
+        font-size: 13px;
     }
 
     .news-image-wrapper {
-        max-height: 200px;
+        height: 170px !important;
+        max-height: 170px !important;
+        min-height: 170px !important;
     }
 }
