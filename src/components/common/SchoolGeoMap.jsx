@@ -25,11 +25,46 @@ const TARGET_LOCATION = {
  * PARVOZ BOSQICHLARI (Koinot/Dunyo -> O'zbekiston -> Namangan -> Uychi -> 8-Maktab)
  */
 const FLIGHT_STAGES = [
-  { step: 0, name: "Global Orbit", desc: "Koinot orbitasi skaneri...", lat: 28.0, lng: 20.0, zoom: 3 },
-  { step: 1, name: "Uzbekistan", desc: "O'zbekiston havo hududiga kirish...", lat: 41.3775, lng: 64.5853, zoom: 6 },
-  { step: 2, name: "Namangan Region", desc: "Namangan viloyati aniqlandi...", lat: 41.0011, lng: 71.6726, zoom: 11 },
-  { step: 3, name: "Uychi", desc: "Uychi tumani sektoriga tushish...", lat: 41.0885, lng: 72.0085, zoom: 14.5 },
-  { step: 4, name: "Ajoyib", desc: "8-Maktab nuqtasi belgilandi", lat: TARGET_LOCATION.lat, lng: TARGET_LOCATION.lng, zoom: 17.5 },
+  {
+    step: 0,
+    name: "Global Orbit",
+    desc: "Koinot orbitasi skaneri...",
+    lat: 28.0,
+    lng: 20.0,
+    zoom: 3,
+  },
+  {
+    step: 1,
+    name: "Uzbekistan",
+    desc: "O'zbekiston havo hududiga kirish...",
+    lat: 41.3775,
+    lng: 64.5853,
+    zoom: 6,
+  },
+  {
+    step: 2,
+    name: "Namangan Region",
+    desc: "Namangan viloyati aniqlandi...",
+    lat: 41.0011,
+    lng: 71.6726,
+    zoom: 11,
+  },
+  {
+    step: 3,
+    name: "Uychi",
+    desc: "Uychi tumani sektoriga tushish...",
+    lat: 41.0885,
+    lng: 72.0085,
+    zoom: 14.5,
+  },
+  {
+    step: 4,
+    name: "Ajoyib",
+    desc: "8-Maktab nuqtasi belgilandi",
+    lat: TARGET_LOCATION.lat,
+    lng: TARGET_LOCATION.lng,
+    zoom: 17.5,
+  },
 ];
 
 export default function SchoolGeoMap({ compact = false }) {
@@ -102,46 +137,66 @@ export default function SchoolGeoMap({ compact = false }) {
     setCurrentStage(0);
 
     // Boshlang'ich nuqta: Koinot/Uzoq Yer shari ko'rinishi
-    map.setView([FLIGHT_STAGES[0].lat, FLIGHT_STAGES[0].lng], FLIGHT_STAGES[0].zoom, {
-      animate: false,
-    });
+    map.setView(
+      [FLIGHT_STAGES[0].lat, FLIGHT_STAGES[0].lng],
+      FLIGHT_STAGES[0].zoom,
+      {
+        animate: false,
+      },
+    );
 
     if (markerRef.current) markerRef.current.remove();
 
     // 1-bosqich: O'zbekistonga uchish
     setTimeout(() => {
       setCurrentStage(1);
-      map.flyTo([FLIGHT_STAGES[1].lat, FLIGHT_STAGES[1].lng], FLIGHT_STAGES[1].zoom, {
-        duration: 2.2,
-        easeLinearity: 0.25,
-      });
+      map.flyTo(
+        [FLIGHT_STAGES[1].lat, FLIGHT_STAGES[1].lng],
+        FLIGHT_STAGES[1].zoom,
+        {
+          duration: 2.2,
+          easeLinearity: 0.25,
+        },
+      );
     }, 1000);
 
     // 2-bosqich: Namangan viloyati
     setTimeout(() => {
       setCurrentStage(2);
-      map.flyTo([FLIGHT_STAGES[2].lat, FLIGHT_STAGES[2].lng], FLIGHT_STAGES[2].zoom, {
-        duration: 2.0,
-        easeLinearity: 0.3,
-      });
+      map.flyTo(
+        [FLIGHT_STAGES[2].lat, FLIGHT_STAGES[2].lng],
+        FLIGHT_STAGES[2].zoom,
+        {
+          duration: 2.0,
+          easeLinearity: 0.3,
+        },
+      );
     }, 3400);
 
     // 3-bosqich: Uychi tumani
     setTimeout(() => {
       setCurrentStage(3);
-      map.flyTo([FLIGHT_STAGES[3].lat, FLIGHT_STAGES[3].lng], FLIGHT_STAGES[3].zoom, {
-        duration: 1.8,
-        easeLinearity: 0.35,
-      });
+      map.flyTo(
+        [FLIGHT_STAGES[3].lat, FLIGHT_STAGES[3].lng],
+        FLIGHT_STAGES[3].zoom,
+        {
+          duration: 1.8,
+          easeLinearity: 0.35,
+        },
+      );
     }, 5500);
 
     // 4-bosqich: 8-Maktab yakuniy nishonga to'xtash va Neon Pin porlashi
     setTimeout(() => {
       setCurrentStage(4);
-      map.flyTo([TARGET_LOCATION.lat, TARGET_LOCATION.lng], FLIGHT_STAGES[4].zoom, {
-        duration: 1.6,
-        easeLinearity: 0.4,
-      });
+      map.flyTo(
+        [TARGET_LOCATION.lat, TARGET_LOCATION.lng],
+        FLIGHT_STAGES[4].zoom,
+        {
+          duration: 1.6,
+          easeLinearity: 0.4,
+        },
+      );
 
       // Neon Cyber Marker yaratish
       setTimeout(() => {
@@ -164,9 +219,12 @@ export default function SchoolGeoMap({ compact = false }) {
           iconAnchor: [20, 20],
         });
 
-        markerRef.current = window.L.marker([TARGET_LOCATION.lat, TARGET_LOCATION.lng], {
-          icon: neonIcon,
-        }).addTo(map);
+        markerRef.current = window.L.marker(
+          [TARGET_LOCATION.lat, TARGET_LOCATION.lng],
+          {
+            icon: neonIcon,
+          },
+        ).addTo(map);
 
         markerRef.current
           .bindPopup(
@@ -180,7 +238,7 @@ export default function SchoolGeoMap({ compact = false }) {
               </div>
             </div>
           `,
-            { className: "cyber-dark-popup", closeButton: false }
+            { className: "cyber-dark-popup", closeButton: false },
           )
           .openPopup();
       }, 1600);
@@ -189,7 +247,13 @@ export default function SchoolGeoMap({ compact = false }) {
 
   // 3. Xaritani initsializatsiya qilish (OpenStreetMap + 100% BEPUL va API Kalitsiz Dark Mode)
   useEffect(() => {
-    if (!mapLoaded || !mapElementRef.current || mapInstanceRef.current || !window.L) return;
+    if (
+      !mapLoaded ||
+      !mapElementRef.current ||
+      mapInstanceRef.current ||
+      !window.L
+    )
+      return;
 
     const map = window.L.map(mapElementRef.current, {
       zoomControl: false,
@@ -197,7 +261,10 @@ export default function SchoolGeoMap({ compact = false }) {
       scrollWheelZoom: false,
       doubleClickZoom: false,
       boxZoom: false,
-    }).setView([FLIGHT_STAGES[0].lat, FLIGHT_STAGES[0].lng], FLIGHT_STAGES[0].zoom);
+    }).setView(
+      [FLIGHT_STAGES[0].lat, FLIGHT_STAGES[0].lng],
+      FLIGHT_STAGES[0].zoom,
+    );
 
     // 100% BEPUL, YUQORI ANIKLIKDAGI HAQIQIY SUN'IY YO'LDOSH (SPUTNIK / SATELLITE) TASVIRI
     window.L.tileLayer(
@@ -205,7 +272,7 @@ export default function SchoolGeoMap({ compact = false }) {
       {
         maxZoom: 19,
         attribution: "Esri Satellite",
-      }
+      },
     ).addTo(map);
 
     // Zoom o'zgarganda telemetriyani yangilab turish
@@ -239,7 +306,7 @@ export default function SchoolGeoMap({ compact = false }) {
           executeFlightAnimation();
         }
       },
-      { threshold: 0.35 }
+      { threshold: 0.35 },
     );
 
     observer.observe(containerRef.current);
@@ -255,7 +322,11 @@ export default function SchoolGeoMap({ compact = false }) {
         padding: compact ? "40px 16px" : "80px 16px 100px",
         maxWidth: "1880px",
         margin: "0 auto",
-        zIndex: 2, backdropFilter: "blur(20px)", background: "rgba(15, 23, 42, 0.75)", borderRadius: "24px", border: "1px solid rgba(var(--accent-rgb), 0.3)",
+        zIndex: 2,
+        backdropFilter: "blur(20px)",
+        background: "rgba(15, 23, 42, 0.75)",
+        borderRadius: "24px",
+        border: "1px solid rgba(var(--accent-rgb), 0.3)",
       }}
     >
       {/* SECTION HEADER */}
@@ -289,7 +360,8 @@ export default function SchoolGeoMap({ compact = false }) {
             letterSpacing: "-0.5px",
           }}
         >
-          Maktabimiz <span style={{ color: "var(--accent)" }}>Qayerda Joylashgan?</span>
+          Maktabimiz{" "}
+          <span style={{ color: "var(--accent)" }}>Qayerda Joylashgan?</span>
         </h2>
 
         <p
@@ -301,8 +373,8 @@ export default function SchoolGeoMap({ compact = false }) {
             lineHeight: 1.6,
           }}
         >
-          Global orbitadan to Uychi tumani qishlog'idagi 8-maktab binosigacha bo'lgan silliq kinematik
-          parvoz orqali manzilimizni aniqlang.
+          Global orbitadan to Uychi tumani qishlog'idagi 8-maktab binosigacha
+          bo'lgan silliq kinematik parvoz orqali manzilimizni aniqlang.
         </p>
       </div>
 
@@ -315,7 +387,8 @@ export default function SchoolGeoMap({ compact = false }) {
           borderRadius: "24px",
           overflow: "hidden",
           border: "1px solid rgba(var(--accent-rgb), 0.35)",
-          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(var(--accent-rgb), 0.15)",
+          boxShadow:
+            "0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(var(--accent-rgb), 0.15)",
           background: "#080c14",
         }}
       >
@@ -412,11 +485,22 @@ export default function SchoolGeoMap({ compact = false }) {
               pointerEvents: "auto",
             }}
           >
-            <span>LAT: <strong style={{ color: "#f8fafc" }}>{telemetry.lat}°</strong></span>
+            <span>
+              LAT:{" "}
+              <strong style={{ color: "#f8fafc" }}>{telemetry.lat}°</strong>
+            </span>
             <span>|</span>
-            <span>LNG: <strong style={{ color: "#f8fafc" }}>{telemetry.lng}°</strong></span>
+            <span>
+              LNG:{" "}
+              <strong style={{ color: "#f8fafc" }}>{telemetry.lng}°</strong>
+            </span>
             <span>|</span>
-            <span>ZOOM: <strong style={{ color: "var(--accent-bright)" }}>{telemetry.zoom}x</strong></span>
+            <span>
+              ZOOM:{" "}
+              <strong style={{ color: "var(--accent-bright)" }}>
+                {telemetry.zoom}x
+              </strong>
+            </span>
           </div>
         </div>
 
@@ -455,7 +539,8 @@ export default function SchoolGeoMap({ compact = false }) {
                 width: "36px",
                 height: "36px",
                 borderRadius: "10px",
-                background: "linear-gradient(135deg, var(--accent-dark), var(--accent))",
+                background:
+                  "linear-gradient(135deg, var(--accent-dark), var(--accent))",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -466,7 +551,13 @@ export default function SchoolGeoMap({ compact = false }) {
               <FiMapPin size={18} />
             </div>
             <div>
-              <div style={{ fontSize: "14px", fontWeight: "700", color: "#f8fafc" }}>
+              <div
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  color: "#f8fafc",
+                }}
+              >
                 8-Maktab (Uychi tumani)
               </div>
               <div style={{ fontSize: "12px", color: "#94a3b8" }}>
@@ -502,8 +593,11 @@ export default function SchoolGeoMap({ compact = false }) {
                 transition: "all 0.2s ease",
               }}
             >
-              <FiRefreshCw className={isFlying ? "cyber-spin-fast" : ""} size={14} />
-              {isFlying ? "Kuting..." : "Qayta Aniqlash"}
+              <FiRefreshCw
+                className={isFlying ? "cyber-spin-fast" : ""}
+                size={14}
+              />
+              {isFlying ? "Kuting..." : "Qayta"}
             </button>
 
             {/* Google Maps havolasi */}
