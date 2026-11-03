@@ -64,11 +64,11 @@ export default function AdminLogin({ onLoginSuccess }) {
           width: "100%",
           maxWidth: "420px",
           background: "rgba(15, 23, 42, 0.95)",
-          border: "1px solid rgba(249, 115, 22, 0.3)",
+          border: "1px solid rgba(var(--accent-rgb), 0.3)",
           borderRadius: "24px",
           padding: "36px 28px",
           boxShadow:
-            "0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(249, 115, 22, 0.1)",
+            "0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(var(--accent-rgb), 0.1)",
           color: "#f8fafc",
         }}
       >
@@ -79,12 +79,12 @@ export default function AdminLogin({ onLoginSuccess }) {
               height: "60px",
               borderRadius: "18px",
               background:
-                "linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.3))",
-              border: "1px solid rgba(249, 115, 22, 0.4)",
+                "linear-gradient(135deg, rgba(var(--accent-rgb), 0.2), rgba(var(--accent-dark-rgb), 0.3))",
+              border: "1px solid rgba(var(--accent-rgb), 0.4)",
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#fb923c",
+              color: "var(--accent-bright)",
               fontSize: "28px",
               marginBottom: "14px",
             }}
@@ -220,7 +220,7 @@ export default function AdminLogin({ onLoginSuccess }) {
               marginTop: "8px",
               width: "100%",
               padding: "13px",
-              background: "linear-gradient(135deg, #ea580c, #f97316)",
+              background: "linear-gradient(135deg, var(--accent-dark), var(--accent))",
               border: "none",
               borderRadius: "12px",
               color: "#ffffff",
@@ -231,7 +231,7 @@ export default function AdminLogin({ onLoginSuccess }) {
               alignItems: "center",
               justifyContent: "center",
               gap: "8px",
-              boxShadow: "0 4px 15px rgba(249, 115, 22, 0.35)",
+              boxShadow: "0 4px 15px rgba(var(--accent-rgb), 0.35)",
               transition: "transform 0.15s, opacity 0.15s",
               opacity: loading ? 0.8 : 1,
             }}

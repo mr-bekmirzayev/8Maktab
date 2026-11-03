@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { FaRegNewspaper } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
 import { TbExclamationCircle } from "react-icons/tb";
@@ -8,6 +8,7 @@ import { PiChalkboardTeacherFill } from "react-icons/pi";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { RiFullscreenLine } from "react-icons/ri";
 import { BsFullscreenExit } from "react-icons/bs";
+import ThemeSwitcher from "./ThemeSwitcher";
 import "./Header.css";
 
 export default function Header() {
@@ -31,11 +32,6 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  // Sahifa o'zgarganda mobil menyuni avtomatik yopish
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location.pathname]);
 
   // Mobil menyu ochiq turganda orqa fon skrollini to'xtatish
   useEffect(() => {
@@ -158,6 +154,9 @@ export default function Header() {
                 <span>Ustozlar</span>
               </NavLink>
             </li>
+            <li className="nav-theme-item">
+              <ThemeSwitcher />
+            </li>
             {isFullscreen ? (
               <li
                 className="nav-link"
@@ -259,6 +258,9 @@ export default function Header() {
                 <PiChalkboardTeacherFill className="mobile-nav-icon" />
                 <span>Ustozlar</span>
               </NavLink>
+            </li>
+            <li className="mobile-theme-item">
+              <ThemeSwitcher inline />
             </li>
             <li>
               <div

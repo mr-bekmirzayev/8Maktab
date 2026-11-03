@@ -64,7 +64,7 @@
 }
 
 .mission-highlight {
-  background: linear-gradient(135deg, #10b981 0%, #38bdf8 100%);
+  background: linear-gradient(135deg, #10b981 0%, var(--accent-2-bright) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -161,20 +161,20 @@
 }
 
 /* Individual themes */
-.mission-theme-blue .mission-card-glow { background: #38bdf8; }
-.mission-theme-blue .mission-icon-box { color: #38bdf8; border-color: rgba(56, 189, 248, 0.3); }
-.mission-theme-blue .mission-card-tag { color: #38bdf8; }
-.mission-theme-blue:hover { border-color: rgba(56, 189, 248, 0.45); }
+.mission-theme-blue .mission-card-glow { background: var(--accent-2-bright); }
+.mission-theme-blue .mission-icon-box { color: var(--accent-2-bright); border-color: rgba(var(--accent-2-bright-rgb), 0.3); }
+.mission-theme-blue .mission-card-tag { color: var(--accent-2-bright); }
+.mission-theme-blue:hover { border-color: rgba(var(--accent-2-bright-rgb), 0.45); }
 
 .mission-theme-rose .mission-card-glow { background: #f43f5e; }
 .mission-theme-rose .mission-icon-box { color: #fb7185; border-color: rgba(244, 63, 94, 0.3); }
 .mission-theme-rose .mission-card-tag { color: #fb7185; }
 .mission-theme-rose:hover { border-color: rgba(244, 63, 94, 0.45); }
 
-.mission-theme-amber .mission-card-glow { background: #f59e0b; }
-.mission-theme-amber .mission-icon-box { color: #fbbf24; border-color: rgba(245, 158, 11, 0.3); }
-.mission-theme-amber .mission-card-tag { color: #fbbf24; }
-.mission-theme-amber:hover { border-color: rgba(245, 158, 11, 0.45); }
+.mission-theme-amber .mission-card-glow { background: var(--accent-2); }
+.mission-theme-amber .mission-icon-box { color: var(--accent-2-bright); border-color: rgba(var(--accent-2-rgb), 0.3); }
+.mission-theme-amber .mission-card-tag { color: var(--accent-2-bright); }
+.mission-theme-amber:hover { border-color: rgba(var(--accent-2-rgb), 0.45); }
 
 .mission-theme-emerald .mission-card-glow { background: #10b981; }
 .mission-theme-emerald .mission-icon-box { color: #34d399; border-color: rgba(16, 185, 129, 0.3); }

@@ -26,7 +26,7 @@
 .teachers-error-icon,
 .teachers-empty-icon {
     font-size: 64px;
-    color: rgba(249, 115, 22, 0.45);
+    color: rgba(var(--accent-rgb), 0.45);
 }
 
 .teachers-error-screen h2,
@@ -48,7 +48,7 @@
     gap: 8px;
     padding: 10px 24px;
     border-radius: 10px;
-    background: #f97316;
+    background: var(--accent);
     color: #fff;
     font-size: 15px;
     font-weight: 600;
@@ -58,7 +58,7 @@
 }
 
 .teachers-retry-btn:hover {
-    background: #ea580c;
+    background: var(--accent-dark);
 }
 
 /* ─── PAGE ─── */
@@ -69,9 +69,9 @@
     background-color: #06090e;
     /* Katakka o'xshash, lekin undan butunlay zamonaviy Micro-Dot Matrix + Ambient Spotlight nurlari */
     background-image:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(249, 115, 22, 0.15), transparent 70%),
-        radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.05), transparent 60%),
-        radial-gradient(rgba(249, 115, 22, 0.18) 1.2px, transparent 1.2px),
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(var(--accent-rgb), 0.15), transparent 70%),
+        radial-gradient(circle at 50% 30%, rgba(var(--accent-2-bright-rgb), 0.05), transparent 60%),
+        radial-gradient(rgba(var(--accent-rgb), 0.18) 1.2px, transparent 1.2px),
         radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
     background-size: 100% 100%, 100% 100%, 28px 28px, 14px 14px;
     background-position: 0 0, 0 0, 0 0, 7px 7px;
@@ -108,9 +108,9 @@
     display: inline-block;
     padding: 4px 14px;
     border-radius: 9999px;
-    background: rgba(249, 115, 22, 0.18);
-    border: 1px solid rgba(249, 115, 22, 0.4);
-    color: #fb923c;
+    background: rgba(var(--accent-rgb), 0.18);
+    border: 1px solid rgba(var(--accent-rgb), 0.4);
+    color: var(--accent-bright);
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
@@ -128,7 +128,7 @@
 }
 
 .teachers-hero-title span {
-    background: linear-gradient(90deg, #f97316, #fb923c);
+    background: linear-gradient(90deg, var(--accent), var(--accent-bright));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -169,11 +169,11 @@
 }
 
 .teachers-stat-card--blue {
-    border-left: 3px solid #3b82f6;
+    border-left: 3px solid var(--accent-mid);
 }
 
 .teachers-stat-card--orange {
-    border-left: 3px solid #f97316;
+    border-left: 3px solid var(--accent);
 }
 
 .teachers-stat-card--green {
@@ -190,11 +190,11 @@
 }
 
 .teachers-stat-card--blue .teachers-stat-icon {
-    color: #3b82f6;
+    color: var(--accent-mid);
 }
 
 .teachers-stat-card--orange .teachers-stat-icon {
-    color: #f97316;
+    color: var(--accent);
 }
 
 .teachers-stat-card--green .teachers-stat-icon {
@@ -262,8 +262,8 @@
 }
 
 .teachers-search-input:focus {
-    border-color: rgba(249, 115, 22, 0.55);
-    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    border-color: rgba(var(--accent-rgb), 0.55);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.1);
 }
 
 .teachers-search-input::placeholder {
@@ -285,7 +285,7 @@
 }
 
 .teachers-search-clear:hover {
-    color: #f97316;
+    color: var(--accent);
 }
 
 .teachers-filter-right {
@@ -308,7 +308,7 @@
 }
 
 .teachers-toifa-select:focus {
-    border-color: rgba(249, 115, 22, 0.55);
+    border-color: rgba(var(--accent-rgb), 0.55);
 }
 
 .teachers-toifa-select option {
@@ -334,12 +334,12 @@
 }
 
 .teachers-view-btn:hover {
-    color: #f97316;
+    color: var(--accent);
 }
 
 .teachers-view-btn.active {
-    background: rgba(249, 115, 22, 0.18);
-    color: #f97316;
+    background: rgba(var(--accent-rgb), 0.18);
+    color: var(--accent);
 }
 
 /* Action tugmalar */
@@ -355,8 +355,8 @@
 }
 
 .teachers-action-btn:hover {
-    color: #f97316;
-    border-color: rgba(249, 115, 22, 0.4);
+    color: var(--accent);
+    border-color: rgba(var(--accent-rgb), 0.4);
 }
 
 
@@ -421,7 +421,7 @@
     align-items: center;
     gap: 14px;
     padding: 16px 22px;
-    background: rgba(249, 115, 22, 0.06);
+    background: rgba(var(--accent-rgb), 0.06);
     border: none;
     border-bottom: 1px solid rgba(148, 163, 184, 0.1);
     cursor: pointer;
@@ -430,12 +430,12 @@
 }
 
 .teachers-subject-header:hover {
-    background: rgba(249, 115, 22, 0.12);
+    background: rgba(var(--accent-rgb), 0.12);
 }
 
 .teachers-subject-icon {
     font-size: 20px;
-    color: #f97316;
+    color: var(--accent);
     flex-shrink: 0;
 }
 
@@ -479,7 +479,7 @@
 }
 
 .teachers-table thead tr {
-    background: rgba(249, 115, 22, 0.06);
+    background: rgba(var(--accent-rgb), 0.06);
 }
 
 .teachers-table th {
@@ -504,7 +504,7 @@
 }
 
 .teachers-table-row:hover {
-    background: rgba(249, 115, 22, 0.05);
+    background: rgba(var(--accent-rgb), 0.05);
 }
 
 .teachers-table td {
@@ -537,13 +537,13 @@
 }
 
 .toifa-oliy {
-    background: rgba(249, 115, 22, 0.15);
-    color: #fb923c;
+    background: rgba(var(--accent-rgb), 0.15);
+    color: var(--accent-bright);
 }
 
 .toifa-first {
-    background: rgba(59, 130, 246, 0.15);
-    color: #60a5fa;
+    background: rgba(var(--accent-mid-rgb), 0.15);
+    color: var(--accent-bright);
 }
 
 .toifa-second {
@@ -594,20 +594,20 @@
 
 .teachers-card:hover {
     transform: translateY(-2px);
-    border-color: rgba(249, 115, 22, 0.35);
+    border-color: rgba(var(--accent-rgb), 0.35);
 }
 
 .teachers-card-avatar {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(249, 115, 22, 0.12);
-    border: 1px solid rgba(249, 115, 22, 0.25);
+    background: rgba(var(--accent-rgb), 0.12);
+    border: 1px solid rgba(var(--accent-rgb), 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 22px;
-    color: #fb923c;
+    color: var(--accent-bright);
     flex-shrink: 0;
 }
 
@@ -662,9 +662,9 @@
 .teachers-no-results button {
     padding: 10px 22px;
     border-radius: 10px;
-    background: rgba(249, 115, 22, 0.12);
-    border: 1px solid rgba(249, 115, 22, 0.35);
-    color: #f97316;
+    background: rgba(var(--accent-rgb), 0.12);
+    border: 1px solid rgba(var(--accent-rgb), 0.35);
+    color: var(--accent);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -672,7 +672,7 @@
 }
 
 .teachers-no-results button:hover {
-    background: rgba(249, 115, 22, 0.22);
+    background: rgba(var(--accent-rgb), 0.22);
 }
 
 /* ─── CHOP ETISH ─── */

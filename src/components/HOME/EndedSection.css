@@ -17,7 +17,7 @@
     padding-top: clamp(64px, 8vw, 108px);
     padding-bottom: clamp(68px, 8vw, 112px);
     background:
-        radial-gradient(ellipse at 50% 0%, rgba(249, 115, 22, 0.1), transparent 52%),
+        radial-gradient(ellipse at 50% 0%, rgba(var(--accent-rgb), 0.1), transparent 52%),
         linear-gradient(180deg, #0b0d11 0%, #101216 52%, #0b0d11 100%);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -32,7 +32,7 @@
 .endedSection__eyebrow {
     display: inline-block;
     margin-bottom: 12px;
-    color: #fb923c;
+    color: var(--accent-bright);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -65,7 +65,7 @@
 }
 
 .endedSection__card {
-    --card-accent: #fb923c;
+    --card-accent: var(--accent-bright);
     position: relative;
     display: flex;
     min-width: 0;

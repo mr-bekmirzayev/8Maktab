@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -7,11 +6,13 @@ import Teachers from "./pages/Teachers";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/AdminDashboard";
 import ScrollToTop from "./pages/ScrollToTop";
+import Seo from "./components/Seo";
 
 function AppRouter() {
   return (
     <>
       <ScrollToTop />
+      <Seo />
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />

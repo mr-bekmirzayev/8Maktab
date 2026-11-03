@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoNotifications, IoClose, IoChevronForward, IoInformationCircle } from "react-icons/io5";
 
@@ -8,8 +8,11 @@ import { IoNotifications, IoClose, IoChevronForward, IoInformationCircle } from 
 // const MASTER_KEY = "$2a$10$P2EP5iL5TTjPvxXdGmgRJeZ0SuAQRZpwWmOWJV5dLBWuS791xj2jm";
 
 import { fetchNewsFromFirestore } from "../utils/firestoreService";
-import { FiLock } from "react-icons/fi";
-import { subscribeToPushNotifications } from "../utils/pushNotificationService";
+import {
+  enablePushNotifications,
+  getNotificationPermission,
+  showLocalNotification,
+} from "../utils/pushNotificationService";
 
 const NOTIFIED_IDS_KEY = "notified_news_ids_v2";
 const CHECK_INTERVAL_MS = 1 * 60 * 1000; // Har 10 daqiqada tejamkor kesh tekshiruvi
@@ -44,34 +47,46 @@ function playNotificationSound() {
     gain2.connect(ctx.destination);
     osc2.start(ctx.currentTime + 0.12);
     osc2.stop(ctx.currentTime + 0.55);
-  } catch (e) {
+  } catch {
     // Autoplay cheklovi bo'lsa to'xtab qolmasligi uchun
   }
 }
 
 // Brauzer va Telefon uchun Push Notification yuborish
-function sendSystemNotification(item, onOpenNews) {
+async function sendSystemNotification(item, onOpenNews) {
   if (typeof window === "undefined" || !("Notification" in window)) return;
   if (Notification.permission !== "granted") return;
 
   const title = item.title || item.sarlavha || "8-Maktab: Yangi xabar!";
   const body = item.description || item.tavsif || item.content || "Maktabimizda yangi yangilik e'lon qilindi.";
-  const icon = item.image || item.rasm || "/schoolLogo.png";
+  const icon = item.image || item.rasm || "/icons/icon-192.png";
+  const shortBody = body.length > 120 ? body.slice(0, 117) + "..." : body;
 
   try {
-    const notif = new Notification(title, {
-      body: body.length > 120 ? body.slice(0, 117) + "..." : body,
-      icon: icon,
-      badge: icon,
+    // Mobil brauzerlarda `new Notification()` ishlamaydi — service worker orqali ko'rsatamiz
+    const shown = await showLocalNotification(title, {
+      body: shortBody,
+      icon,
+      badge: "/monochrome-96.png",
       tag: String(item.id || item._id || Date.now()),
-      requireInteraction: false,
+      data: { url: "/news" },
     });
 
-    notif.onclick = () => {
-      window.focus();
-      if (onOpenNews) onOpenNews();
-      notif.close();
-    };
+    if (!shown) {
+      const notif = new Notification(title, {
+        body: shortBody,
+        icon: icon,
+        badge: "/monochrome-96.png",
+        tag: String(item.id || item._id || Date.now()),
+        requireInteraction: false,
+      });
+
+      notif.onclick = () => {
+        window.focus();
+        if (onOpenNews) onOpenNews();
+        notif.close();
+      };
+    }
   } catch (err) {
     console.warn("Notification error:", err);
   }
@@ -80,19 +95,30 @@ function sendSystemNotification(item, onOpenNews) {
 export default function GlobalNewsNotifier() {
   const navigate = useNavigate();
   const [toastNews, setToastNews] = useState(null);
-  const [permissionState, setPermissionState] = useState(() => {
-    if (typeof window !== "undefined" && "Notification" in window) {
-      return Notification.permission; // "default", "granted", "denied"
-    }
-    return "unsupported";
-  });
+  const [permissionState, setPermissionState] = useState(() =>
+    getNotificationPermission()
+  );
+  const [isRequesting, setIsRequesting] = useState(false);
   
   // Banner yopilganligini seans davomida eslab turish
   const [isDismissed, setIsDismissed] = useState(false);
   const [showDeniedModal, setShowDeniedModal] = useState(false);
   const isFirstRun = useRef(true);
 
-  // Ruxsat so'rash (Callback + Promise va Denied holatlarini to'liq qo'llab-quvvatlaydi)
+  // Ruxsat holatini brauzer sozlamalaridan qaytganda ham yangilab turamiz
+  useEffect(() => {
+    const syncPermission = () => setPermissionState(getNotificationPermission());
+
+    window.addEventListener("focus", syncPermission);
+    document.addEventListener("visibilitychange", syncPermission);
+
+    return () => {
+      window.removeEventListener("focus", syncPermission);
+      document.removeEventListener("visibilitychange", syncPermission);
+    };
+  }, []);
+
+  // Ruxsat so'rash — faqat foydalanuvchi bosganda (brauzer talabi)
   const handleAskPermission = async () => {
     if (typeof window === "undefined" || !("Notification" in window)) {
       alert("Qurilmangiz yoki brauzeringiz bildirishnomalarni qo'llab-quvvatlamaydi.");
@@ -104,48 +130,30 @@ export default function GlobalNewsNotifier() {
       return;
     }
 
+    setIsRequesting(true);
+
     try {
-      let finalResult = Notification.permission;
+      const result = await enablePushNotifications();
+      setPermissionState(result.permission);
 
-      // Promise + Callback qo'llab-quvvatlovi (Mobil va barcha brauzerlar uchun)
-      const requestRes = Notification.requestPermission((res) => {
-        if (res) {
-          finalResult = res;
-          setPermissionState(res);
-          if (res === "granted") {
-            subscribeToPushNotifications();
-            try {
-              new Notification("Bildirishnomalar yoqildi! 🔔", {
-                body: "Maktabimizning yangi xabarlaridan birinchilardan bo'lib boxabar bo'lasiz.",
-                icon: "/schoolLogo.png"
-              });
-            } catch (e) {}
-          } else if (res === "denied") {
-            setShowDeniedModal(true);
-          }
-        }
-      });
-
-      if (requestRes && typeof requestRes.then === "function") {
-        finalResult = await requestRes;
-        setPermissionState(finalResult);
-        if (finalResult === "granted") {
-          subscribeToPushNotifications();
-          try {
-            new Notification("Bildirishnomalar yoqildi! 🔔", {
-              body: "Maktabimizning yangi xabarlaridan birinchilardan bo'lib boxabar bo'lasiz.",
-              icon: "/schoolLogo.png"
-            });
-          } catch (e) {}
-        } else if (finalResult === "denied") {
-          setShowDeniedModal(true);
-        }
+      if (result.permission === "denied") {
+        setShowDeniedModal(true);
+        return;
       }
-    } catch (e) {
-      console.warn("Permission error:", e);
+
+      if (result.permission === "granted") {
+        await showLocalNotification("Bildirishnomalar yoqildi! 🔔", {
+          body: "Maktabimizning yangi xabarlaridan birinchilardan bo'lib boxabar bo'lasiz.",
+          tag: "8maktab-welcome",
+        });
+      }
+    } catch (error) {
+      console.warn("Permission error:", error);
       if (Notification.permission === "denied") {
         setShowDeniedModal(true);
       }
+    } finally {
+      setIsRequesting(false);
     }
   };
 
@@ -254,10 +262,10 @@ export default function GlobalNewsNotifier() {
             background: "rgba(15, 23, 42, 0.95)",
             backdropFilter: "blur(14px)",
             WebkitBackdropFilter: "blur(14px)",
-            border: "1px solid rgba(249, 115, 22, 0.45)",
+            border: "1px solid rgba(var(--accent-rgb), 0.45)",
             borderRadius: "18px",
             padding: "14px 18px",
-            boxShadow: "0 12px 36px rgba(0,0,0,0.6), 0 0 20px rgba(249, 115, 22, 0.15)",
+            boxShadow: "0 12px 36px rgba(0,0,0,0.6), 0 0 20px rgba(var(--accent-rgb), 0.15)",
             display: "flex",
             alignItems: "center",
             gap: "12px",
@@ -266,10 +274,10 @@ export default function GlobalNewsNotifier() {
         >
           <div
             style={{
-              background: "rgba(249, 115, 22, 0.2)",
+              background: "rgba(var(--accent-rgb), 0.2)",
               padding: "10px",
               borderRadius: "12px",
-              color: "#fb923c",
+              color: "var(--accent-bright)",
               display: "flex",
               flexShrink: 0,
             }}
@@ -289,21 +297,23 @@ export default function GlobalNewsNotifier() {
           <button
             type="button"
             onClick={handleAskPermission}
+            disabled={isRequesting}
             style={{
-              background: "linear-gradient(135deg, #ea580c, #f97316)",
+              background: "linear-gradient(135deg, var(--accent-dark), var(--accent))",
               color: "#fff",
               border: "none",
               padding: "8px 16px",
               borderRadius: "10px",
               fontSize: "12.5px",
               fontWeight: "600",
-              cursor: "pointer",
+              cursor: isRequesting ? "wait" : "pointer",
               flexShrink: 0,
-              boxShadow: "0 2px 10px rgba(249, 115, 22, 0.35)",
+              opacity: isRequesting ? 0.7 : 1,
+              boxShadow: "0 2px 10px rgba(var(--accent-rgb), 0.35)",
               transition: "transform 0.2s ease",
             }}
           >
-            Yoqish
+            {isRequesting ? "..." : "Yoqish"}
           </button>
           <button
             type="button"
@@ -342,7 +352,7 @@ export default function GlobalNewsNotifier() {
           <div
             style={{
               background: "rgba(15, 23, 42, 0.98)",
-              border: "1px solid rgba(249, 115, 22, 0.4)",
+              border: "1px solid rgba(var(--accent-rgb), 0.4)",
               borderRadius: "20px",
               padding: "24px 22px",
               maxWidth: "440px",
@@ -352,7 +362,7 @@ export default function GlobalNewsNotifier() {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "#fb923c", marginBottom: "12px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "var(--accent-bright)", marginBottom: "12px" }}>
               <IoInformationCircle size={26} />
               <h3 style={{ margin: 0, fontSize: "16px", fontWeight: "700" }}>Bildirishnomalar bloklangan</h3>
             </div>
@@ -369,7 +379,7 @@ export default function GlobalNewsNotifier() {
               onClick={() => setShowDeniedModal(false)}
               style={{
                 width: "100%",
-                background: "linear-gradient(135deg, #ea580c, #f97316)",
+                background: "linear-gradient(135deg, var(--accent-dark), var(--accent))",
                 border: "none",
                 color: "#fff",
                 padding: "10px",
@@ -399,8 +409,8 @@ export default function GlobalNewsNotifier() {
             background: "linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(28, 25, 23, 0.98))",
             backdropFilter: "blur(14px)",
             WebkitBackdropFilter: "blur(14px)",
-            border: "1px solid rgba(249, 115, 22, 0.5)",
-            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.7), 0 0 24px rgba(249, 115, 22, 0.25)",
+            border: "1px solid rgba(var(--accent-rgb), 0.5)",
+            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.7), 0 0 24px rgba(var(--accent-rgb), 0.25)",
             borderRadius: "20px",
             padding: "16px 20px",
             width: "min(420px, calc(100vw - 28px))",
@@ -417,7 +427,7 @@ export default function GlobalNewsNotifier() {
                 gap: "6px",
                 fontSize: "12px",
                 fontWeight: "700",
-                color: "#fb923c",
+                color: "var(--accent-bright)",
                 textTransform: "uppercase",
                 letterSpacing: "0.5px",
               }}
@@ -470,7 +480,7 @@ export default function GlobalNewsNotifier() {
               alignItems: "center",
               justifyContent: "center",
               gap: "6px",
-              background: "linear-gradient(135deg, #ea580c, #f97316)",
+              background: "linear-gradient(135deg, var(--accent-dark), var(--accent))",
               color: "#ffffff",
               border: "none",
               borderRadius: "12px",
@@ -479,7 +489,7 @@ export default function GlobalNewsNotifier() {
               fontWeight: "600",
               cursor: "pointer",
               marginTop: "4px",
-              boxShadow: "0 4px 14px rgba(249, 115, 22, 0.35)",
+              boxShadow: "0 4px 14px rgba(var(--accent-rgb), 0.35)",
             }}
           >
             Yangilikni o'qish <IoChevronForward size={15} />

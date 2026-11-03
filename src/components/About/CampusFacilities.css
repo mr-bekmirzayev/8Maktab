@@ -45,13 +45,13 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #38bdf8;
+  color: var(--accent-2-bright);
   margin-bottom: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .campus-sparkle {
-  color: #38bdf8;
+  color: var(--accent-2-bright);
   font-size: 1.05rem;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .campus-gradient-text {
-  background: linear-gradient(135deg, #38bdf8 0%, #10b981 100%);
+  background: linear-gradient(135deg, var(--accent-2-bright) 0%, #10b981 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -188,8 +188,8 @@
 }
 
 /* Theme accent icons */
-.campus-theme-cyan .campus-icon-box { color: #38bdf8; border-color: rgba(56, 189, 248, 0.35); }
-.campus-theme-amber .campus-icon-box { color: #fbbf24; border-color: rgba(251, 191, 36, 0.35); }
+.campus-theme-cyan .campus-icon-box { color: var(--accent-2-bright); border-color: rgba(var(--accent-2-bright-rgb), 0.35); }
+.campus-theme-amber .campus-icon-box { color: var(--accent-2-bright); border-color: rgba(var(--accent-2-bright-rgb), 0.35); }
 .campus-theme-emerald .campus-icon-box { color: #34d399; border-color: rgba(52, 211, 153, 0.35); }
 .campus-theme-purple .campus-icon-box { color: #c084fc; border-color: rgba(192, 132, 252, 0.35); }
 

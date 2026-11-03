@@ -131,8 +131,8 @@
 
 .teachersListHome>li:hover {
     transform: translateY(-4px);
-    border-color: rgba(249, 115, 22, 0.55);
-    box-shadow: 0 20px 44px rgba(234, 88, 12, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    border-color: rgba(var(--accent-rgb), 0.55);
+    box-shadow: 0 20px 44px rgba(var(--accent-dark-rgb), 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .teachersGlowCard {
@@ -147,7 +147,7 @@
     right: -30px;
     top: -30px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(249, 115, 22, 0.65), rgba(251, 146, 60, 0.35) 38%, rgba(255, 255, 255, 0.08) 52%, transparent 70%);
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.65), rgba(var(--accent-bright-rgb), 0.35) 38%, rgba(255, 255, 255, 0.08) 52%, transparent 70%);
     filter: blur(55px);
     opacity: 0.9;
     animation: teachersGlowMove 4.5s ease-in-out infinite alternate;

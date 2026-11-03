@@ -10,7 +10,7 @@ const TIMELINE_EVENTS = [
     desc: "8-sonli umumta'lim maktabi o'z eshiklarini ilk bor ochdi. Fidoyi ustozlar jamoasi birinchi o'quvchilarga ta'lim bera boshladi.",
     icon: <FaSeedling />,
     tag: "Tarixiy poydevor",
-    color: "#38bdf8",
+    color: "var(--accent-2-bright)",
   },
   {
     year: "2004-yil",
@@ -26,7 +26,7 @@ const TIMELINE_EVENTS = [
     desc: "Sinfxonalarga proyektorlar, zamonaviy elektron doskalar va kimyo-biologiya laboratoriya uskunalari to'liq o'rnatildi.",
     icon: <FaLaptopCode />,
     tag: "Modernizatsiya",
-    color: "#f59e0b",
+    color: "var(--accent-2)",
   },
   {
     year: "2021-yil",
@@ -42,7 +42,7 @@ const TIMELINE_EVENTS = [
     desc: "1200 dan ortiq iqtidorli o'g'il-qizlar uchun chuqurlashtirilgan IT, aniq fanlar va xorijiy tillar muhiti yaratildi.",
     icon: <FaRocket />,
     tag: "Kelajak sari",
-    color: "#f97316",
+    color: "var(--accent)",
   },
 ];
 

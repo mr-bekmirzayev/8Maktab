@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SchoolTitleFor from "/SchoolTitleFor.png";
 import { HashLoader } from "react-spinners";
 import { VscChatSparkleError } from "react-icons/vsc";
 import { IoNotificationsOutline, IoNotifications } from "react-icons/io5";
 import { fetchNewsFromFirestore } from "../utils/firestoreService";
+import { enablePushNotifications, showLocalNotification } from "../utils/pushNotificationService";
 import LazyImage from "../components/LazyImage";
 import { FaExclamation } from "react-icons/fa";
 
@@ -241,34 +242,6 @@ function NewsGallery({ images, title, onImageClick }) {
   );
 }
 
-function sendWebNotification(item) {
-  if (typeof window === "undefined" || !("Notification" in window)) return;
-  if (Notification.permission !== "granted") return;
-
-  const title = item.title || item.sarlavha || "Yangi maktab yangiligi!";
-  const body =
-    item.description ||
-    item.tavsif ||
-    item.content ||
-    "Maktabimizda yangi xabar e'lon qilindi.";
-  const icon = item.image || item.rasm || "/schoolLogo.png";
-
-  try {
-    const notification = new Notification(title, {
-      body: body.length > 130 ? body.slice(0, 127) + "..." : body,
-      icon: icon,
-      badge: icon,
-    });
-
-    notification.onclick = () => {
-      window.focus();
-      notification.close();
-    };
-  } catch (err) {
-    console.warn("Notification ko'rsatishda xatolik:", err);
-  }
-}
-
 function News() {
   const [newsList, setNewsList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -313,30 +286,14 @@ function News() {
     }
 
     try {
-      let result = Notification.permission;
-      const req = Notification.requestPermission((res) => {
-        if (res) {
-          setPermission(res);
-          if (res === "granted") {
-            try {
-              new Notification("Bildirishnomalar yoqildi! 🔔", {
-                body: "Yangi maktab yangiliklari shu yerda chiqib turadi.",
-              });
-            } catch (e) {}
-          }
-        }
-      });
+      const result = await enablePushNotifications();
+      setPermission(result.permission);
 
-      if (req && typeof req.then === "function") {
-        result = await req;
-        setPermission(result);
-        if (result === "granted") {
-          try {
-            new Notification("Bildirishnomalar yoqildi! 🔔", {
-              body: "Yangi maktab yangiliklari shu yerda chiqib turadi.",
-            });
-          } catch (e) {}
-        }
+      if (result.permission === "granted") {
+        await showLocalNotification("Bildirishnomalar yoqildi! 🔔", {
+          body: "Yangi maktab yangiliklari shu yerda chiqib turadi.",
+          tag: "8maktab-welcome",
+        });
       }
     } catch (err) {
       console.error("Ruxsat so'rash xatosi:", err);
@@ -430,7 +387,7 @@ function News() {
               gap: "16px",
             }}
           >
-            <HashLoader color="#f97316" size={50} />
+            <HashLoader color="var(--accent)" size={50} />
             <p style={{ color: "#94a3b8", fontSize: "15px" }}>
               Yangiliklar yuklanmoqda...
             </p>
@@ -733,7 +690,7 @@ function News() {
                   borderRadius: "16px",
                   border: "1px solid rgba(255, 255, 255, 0.15)",
                   boxShadow:
-                    "0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(249, 115, 22, 0.2)",
+                    "0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(var(--accent-rgb), 0.2)",
                 }}
               />
             </div>

@@ -78,9 +78,9 @@
 }
 
 .swiperHighlight {
-    color: #f97316;
+    color: var(--accent);
     font-weight: 800;
-    text-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
+    text-shadow: 0 0 12px rgba(var(--accent-rgb), 0.5);
 }
 
 /* ─── DESKTOP NAVIGATSIYA TUGMALARI ─── */
@@ -114,9 +114,9 @@
 .mySwiper .swiper-button-prev:hover {
     --swiper-navigation-color: #ffffff;
     transform: scale(1.08);
-    background: rgba(249, 115, 22, 0.25);
-    border-color: rgba(249, 115, 22, 0.8);
-    box-shadow: 0 12px 28px rgba(249, 115, 22, 0.35);
+    background: rgba(var(--accent-rgb), 0.25);
+    border-color: rgba(var(--accent-rgb), 0.8);
+    box-shadow: 0 12px 28px rgba(var(--accent-rgb), 0.35);
 }
 
 .mySwiper .swiper-button-next {
@@ -147,8 +147,8 @@
     width: 24px;
     height: 8px;
     border-radius: 9999px;
-    background: #f97316;
-    box-shadow: 0 0 12px rgba(249, 115, 22, 0.8);
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.8);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════

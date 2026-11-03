@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin331257
+
+# Yandex uchun trekking parametrlarni hisobga olmaslik
+Clean-param: source&utm_source&utm_medium&utm_campaign&utm_content&utm_term
+
+Host: 8-maktab.vercel.app
+Sitemap: https://8-maktab.vercel.app/sitemap.xml

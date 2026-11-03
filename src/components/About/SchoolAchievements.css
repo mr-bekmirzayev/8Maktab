@@ -45,13 +45,13 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #fbbf24;
+  color: var(--accent-2-bright);
   margin-bottom: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .achievements-sparkle {
-  color: #fbbf24;
+  color: var(--accent-2-bright);
   font-size: 1.05rem;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .achievements-gradient-text {
-  background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+  background: linear-gradient(135deg, var(--accent-2-bright) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -186,20 +186,20 @@
 }
 
 /* Individual themes */
-.achieve-theme-amber .achieve-glow { background: #fbbf24; }
-.achieve-theme-amber .achieve-icon-wrapper { color: #fbbf24; border-color: rgba(251, 191, 36, 0.3); }
-.achieve-theme-amber .achieve-badge { color: #fbbf24; }
-.achieve-theme-amber:hover { border-color: rgba(251, 191, 36, 0.45); }
+.achieve-theme-amber .achieve-glow { background: var(--accent-2-bright); }
+.achieve-theme-amber .achieve-icon-wrapper { color: var(--accent-2-bright); border-color: rgba(var(--accent-2-bright-rgb), 0.3); }
+.achieve-theme-amber .achieve-badge { color: var(--accent-2-bright); }
+.achieve-theme-amber:hover { border-color: rgba(var(--accent-2-bright-rgb), 0.45); }
 
 .achieve-theme-emerald .achieve-glow { background: #10b981; }
 .achieve-theme-emerald .achieve-icon-wrapper { color: #34d399; border-color: rgba(16, 185, 129, 0.3); }
 .achieve-theme-emerald .achieve-badge { color: #34d399; }
 .achieve-theme-emerald:hover { border-color: rgba(16, 185, 129, 0.45); }
 
-.achieve-theme-cyan .achieve-glow { background: #38bdf8; }
-.achieve-theme-cyan .achieve-icon-wrapper { color: #38bdf8; border-color: rgba(56, 189, 248, 0.3); }
-.achieve-theme-cyan .achieve-badge { color: #38bdf8; }
-.achieve-theme-cyan:hover { border-color: rgba(56, 189, 248, 0.45); }
+.achieve-theme-cyan .achieve-glow { background: var(--accent-2-bright); }
+.achieve-theme-cyan .achieve-icon-wrapper { color: var(--accent-2-bright); border-color: rgba(var(--accent-2-bright-rgb), 0.3); }
+.achieve-theme-cyan .achieve-badge { color: var(--accent-2-bright); }
+.achieve-theme-cyan:hover { border-color: rgba(var(--accent-2-bright-rgb), 0.45); }
 
 .achieve-theme-purple .achieve-glow { background: #c084fc; }
 .achieve-theme-purple .achieve-icon-wrapper { color: #c084fc; border-color: rgba(192, 132, 252, 0.3); }

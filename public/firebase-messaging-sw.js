@@ -1,101 +1,164 @@
-// Immediate activation on install and update
+/* =============================================================================
+   firebase-messaging-sw.js
+   Firebase Cloud Messaging (FCM) uchun service worker.
+
+   Bu fayl MUSTAQIL ishlatilmaydi: u /sw.js ichidan importScripts qilinadi.
+   Shu tufayli saytda faqat bitta service worker ro'yxatdan o'tadi.
+============================================================================= */
+
+// Yangilanish darhol kuchga kirishi uchun
 self.addEventListener("install", (event) => {
-  self.skipWaiting();
+  event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(clients.claim());
+  event.waitUntil(self.clients.claim());
 });
 
-// Scripts for Firebase App and Messaging (compat libraries)
-importScripts("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js");
+const DEFAULT_ICON = "/icons/icon-192.png";
+const DEFAULT_BADGE = "/monochrome-96.png";
+const DEFAULT_URL = "/news";
 
-// Initialize Firebase with the same config as src/firebase.js
-const firebaseConfig = {
-  apiKey: "AIzaSyAUs12XGEnXKe7haVon5p3CeFzZVYFdhDs",
-  authDomain: "schoolnews-cd298.firebaseapp.com",
-  projectId: "schoolnews-cd298",
-  storageBucket: "schoolnews-cd298.firebasestorage.app",
-  messagingSenderId: "831246809354",
-  appId: "1:831246809354:web:3dc84f9ceebce81e8d62f3",
-};
+function toAbsoluteUrl(path) {
+  try {
+    return new URL(path || DEFAULT_URL, self.location.origin).href;
+  } catch {
+    return new URL(DEFAULT_URL, self.location.origin).href;
+  }
+}
 
-firebase.initializeApp(firebaseConfig);
-const messaging = firebase.messaging();
+function showNotification(title, body, icon, url, tag, image) {
+  return self.registration.showNotification(title || "8-Maktab", {
+    body: body || "",
+    icon: icon || DEFAULT_ICON,
+    badge: DEFAULT_BADGE,
+    image: image || undefined,
+    vibrate: [150, 80, 150],
+    tag: tag || "8maktab-news",
+    renotify: true,
+    requireInteraction: false,
+    data: { url: toAbsoluteUrl(url), dateOfArrival: Date.now() },
+    actions: [
+      { action: "open", title: "Yangilikni o'qish" },
+      { action: "close", title: "Yopish" },
+    ],
+  });
+}
 
-// Handle background messages via Firebase SDK
-messaging.onBackgroundMessage((payload) => {
-  console.log("[firebase-messaging-sw.js] Fon xabari qabul qilindi:", payload);
+/* ─── Firebase Messaging SDK ──────────────────────────────────────────────
+   SDK yuklanmasa ham (masalan, tarmoq bloklangan bo'lsa) oddiy Push API
+   orqali xabar ko'rsatishda davom etamiz.
+──────────────────────────────────────────────────────────────────────── */
+let fcmReady = false;
 
-  const notificationTitle =
-    payload.notification?.title || payload.data?.title || "8-Maktab";
-  const notificationOptions = {
-    body: payload.notification?.body || payload.data?.body || "",
-    icon:
-      payload.notification?.icon ||
-      payload.data?.icon ||
-      "/SchoolTitleFor.png",
-    badge: "/SchoolTitleFor.png",
-    vibrate: [200, 100, 200],
-    data: {
-      url: payload.fcmOptions?.link || payload.data?.url || "/news",
-    },
+try {
+  // Firebase App va Messaging (compat) kutubxonalari
+  importScripts("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js");
+  importScripts("https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js");
+
+  // src/firebase.js dagi konfiguratsiya bilan bir xil bo'lishi kerak
+  const firebaseConfig = {
+    apiKey: "AIzaSyAUs12XGEnXKe7haVon5p3CeFzZVYFdhDs",
+    authDomain: "schoolnews-cd298.firebaseapp.com",
+    projectId: "schoolnews-cd298",
+    storageBucket: "schoolnews-cd298.firebasestorage.app",
+    messagingSenderId: "831246809354",
+    appId: "1:831246809354:web:3dc84f9ceebce81e8d62f3",
   };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
+  firebase.initializeApp(firebaseConfig);
+  const messaging = firebase.messaging();
 
-// Fallback push event: agar xabar sof push yoki FCM SDK chaqirilmay qolganda ham xabar chiqishi uchun
+  // Server data-only xabar yuboradi, shuning uchun xabarni o'zimiz ko'rsatamiz.
+  // Agar notification payload ishlatilsa, SDK uni o'zi ko'rsatadi (dublikat bo'lmasin).
+  messaging.onBackgroundMessage((payload) => {
+    if (payload?.notification) return;
+
+    const data = payload?.data || {};
+    return showNotification(
+      data.title || "8-Maktab",
+      data.body || "",
+      data.icon || DEFAULT_ICON,
+      data.url || payload?.fcmOptions?.link || DEFAULT_URL,
+      data.tag || `news-${data.newsId || Date.now()}`,
+      data.image || undefined
+    );
+  });
+
+  fcmReady = true;
+} catch (error) {
+  console.warn(
+    "[firebase-messaging-sw] FCM SDK yuklanmadi, oddiy Push API ishlatiladi:",
+    error
+  );
+}
+
+/* ─── Push event (zaxira qatlam) ──────────────────────────────────────────
+   FCM SDK mavjud bo'lsa, xabar onBackgroundMessage orqali ko'rsatiladi.
+   SDK yuklanmagan bo'lsa, xabar shu yerda ko'rsatiladi.
+──────────────────────────────────────────────────────────────────────── */
 self.addEventListener("push", (event) => {
-  if (!event.data) return;
+  if (fcmReady || !event.data) return;
 
+  let payload;
   try {
-    const data = event.data.json();
-    // Faqat data bo'lsa yoki notification FCM SDK orqali ishlamay qolsa
-    if (!data.notification && data.data) {
-      const title = data.data.title || "8-Maktab";
-      const options = {
-        body: data.data.body || "",
-        icon: data.data.icon || "/SchoolTitleFor.png",
-        badge: "/SchoolTitleFor.png",
-        vibrate: [200, 100, 200],
-        data: { url: data.data.url || "/news" },
-      };
-      event.waitUntil(self.registration.showNotification(title, options));
-    }
-  } catch (err) {
-    const text = event.data.text();
+    payload = event.data.json();
+  } catch {
+    const text = event.data.text?.() || "";
     if (text) {
       event.waitUntil(
-        self.registration.showNotification("8-Maktab", {
-          body: text,
-          icon: "/SchoolTitleFor.png",
-          badge: "/SchoolTitleFor.png",
-          data: { url: "/news" },
-        })
+        showNotification("8-Maktab", text, DEFAULT_ICON, DEFAULT_URL)
       );
     }
+    return;
   }
-});
 
-// Handle notification click to open or focus site
-self.addEventListener("notificationclick", (event) => {
-  event.notification.close();
-  const targetUrl = event.notification?.data?.url || "/news";
+  const data = payload?.data || payload || {};
+  const title = data.title || payload?.notification?.title || "8-Maktab";
+  const body = data.body || payload?.notification?.body || "";
+  const icon = data.icon || payload?.notification?.icon || DEFAULT_ICON;
+  const url = data.url || payload?.fcmOptions?.link || DEFAULT_URL;
+  const tag = data.tag || `news-${data.newsId || Date.now()}`;
 
   event.waitUntil(
-    clients
-      .matchAll({ type: "window", includeUncontrolled: true })
-      .then((windowClients) => {
-        for (const client of windowClients) {
-          if (client.url.includes(targetUrl) && "focus" in client) {
-            return client.focus();
+    showNotification(title, body, icon, url, tag, data.image || undefined)
+  );
+});
+
+/* ─── Bildirishnomaga bosilganda ─────────────────────────────────────────── */
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+
+  if (event.action === "close") return;
+
+  const targetUrl = toAbsoluteUrl(event.notification?.data?.url);
+  const target = new URL(targetUrl);
+
+  event.waitUntil(
+    (async () => {
+      const windowClients = await self.clients.matchAll({
+        type: "window",
+        includeUncontrolled: true,
+      });
+
+      for (const client of windowClients) {
+        const clientUrl = new URL(client.url);
+        if (clientUrl.origin === target.origin) {
+          await client.focus();
+          if ("navigate" in client) {
+            try {
+              await client.navigate(targetUrl);
+            } catch {
+              /* navigatsiya qo'llab-quvvatlanmasa e'tiborsiz qoldiramiz */
+            }
           }
+          return;
         }
-        if (clients.openWindow) {
-          return clients.openWindow(targetUrl);
-        }
-      })
+      }
+
+      if (self.clients.openWindow) {
+        await self.clients.openWindow(targetUrl);
+      }
+    })()
   );
 });

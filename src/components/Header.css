@@ -60,7 +60,7 @@ header.display {
 
 header.display.scrolled {
     background: rgba(7, 8, 12, 0.94);
-    border-bottom: 1px solid rgba(249, 115, 22, 0.2);
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.2);
     box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.7);
 }
 
@@ -98,7 +98,7 @@ header.display.scrolled {
     font-weight: 900;
     line-height: 0.85;
     color: #ffffff;
-    text-shadow: 0 0 20px rgba(249, 115, 22, 0.7), 0 0 35px rgba(251, 146, 60, 0.4);
+    text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.7), 0 0 35px rgba(var(--accent-bright-rgb), 0.4);
     margin: 0;
 }
 
@@ -131,9 +131,9 @@ header.display.scrolled {
     animation: iconAnim 8s ease-in-out infinite;
     right: -10px;
     top: -6px;
-    color: #fb923c;
+    color: var(--accent-bright);
     transform: rotate(20deg);
-    filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.9));
+    filter: drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.9));
 }
 
 /* Desktop Nav */
@@ -187,19 +187,19 @@ header.display.scrolled {
 
 .nav-link:hover .nav-icon {
     transform: scale(1.12);
-    color: #fb923c;
+    color: var(--accent-bright);
 }
 
 .nav-link.active {
     color: #ffffff;
     font-weight: 600;
-    background: linear-gradient(135deg, rgba(234, 88, 12, 0.35) 0%, rgba(249, 115, 22, 0.18) 100%);
-    border-color: rgba(249, 115, 22, 0.4);
-    box-shadow: 0 0 18px rgba(249, 115, 22, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, rgba(var(--accent-dark-rgb), 0.35) 0%, rgba(var(--accent-rgb), 0.18) 100%);
+    border-color: rgba(var(--accent-rgb), 0.4);
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .nav-link.active .nav-icon {
-    color: #fb923c;
+    color: var(--accent-bright);
 }
 
 /* Mobile Menu Button */
@@ -216,7 +216,7 @@ header.display.scrolled {
 
 .mobile-menu-btn:active {
     transform: scale(0.95);
-    background: rgba(249, 115, 22, 0.2);
+    background: rgba(var(--accent-rgb), 0.2);
 }
 
 /* Mobile Drawer Overlay */
@@ -247,7 +247,7 @@ header.display.scrolled {
     background: rgba(15, 23, 42, 0.98);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-left: 1px solid rgba(249, 115, 22, 0.3);
+    border-left: 1px solid rgba(var(--accent-rgb), 0.3);
     box-shadow: -15px 0 40px rgba(0, 0, 0, 0.8);
     padding: 24px 20px;
     display: flex;
@@ -272,7 +272,7 @@ header.display.scrolled {
 .mobile-menu-title {
     font-size: 16px;
     font-weight: 700;
-    color: #fb923c;
+    color: var(--accent-bright);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -292,7 +292,7 @@ header.display.scrolled {
 }
 
 .mobile-close-btn:hover {
-    background: rgba(249, 115, 22, 0.25);
+    background: rgba(var(--accent-rgb), 0.25);
     color: #ffffff;
 }
 
@@ -333,14 +333,26 @@ header.display.scrolled {
 }
 
 .mobile-nav-link.active {
-    background: linear-gradient(135deg, rgba(234, 88, 12, 0.35), rgba(249, 115, 22, 0.2));
-    border-color: rgba(249, 115, 22, 0.5);
-    color: #fb923c;
+    background: linear-gradient(135deg, rgba(var(--accent-dark-rgb), 0.35), rgba(var(--accent-rgb), 0.2));
+    border-color: rgba(var(--accent-rgb), 0.5);
+    color: var(--accent-bright);
     font-weight: 600;
 }
 
 .mobile-nav-link.active .mobile-nav-icon {
-    color: #fb923c;
+    color: var(--accent-bright);
+}
+
+.nav-theme-item {
+    display: flex;
+    align-items: center;
+    margin-left: 2px;
+}
+
+.mobile-theme-item {
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(148, 163, 184, 0.15);
 }
 
 .header-glow {
@@ -349,9 +361,9 @@ header.display.scrolled {
     right: 0;
     bottom: -1px;
     height: 2px;
-    background: linear-gradient(90deg, #ea580c, #f97316, #fb923c, #ffffff, #f97316);
+    background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-bright), #ffffff, var(--accent));
     background-size: 300% 100%;
-    box-shadow: 0 0 18px rgba(249, 115, 22, 0.8), 0 0 28px rgba(251, 146, 60, 0.6);
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.8), 0 0 28px rgba(var(--accent-bright-rgb), 0.6);
     animation: headerGlowFlow 6s ease infinite;
     opacity: 0.95;
     transition: opacity 0.5s ease, transform 0.5s ease;

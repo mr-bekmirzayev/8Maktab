@@ -20,7 +20,7 @@ const DEPARTMENTS = [
     subtitle: "Zukko hisobchi & Mantiq",
     desc: "Mantiqiy misol-masalalar, formulalar sirlari va tuman fan olimpiadasiga puxta tayyorgarlik.",
     badge: "Aniq fanlar",
-    color: "#38bdf8",
+    color: "var(--accent-2-bright)",
   },
   {
     id: "native-lang",
@@ -29,7 +29,7 @@ const DEPARTMENTS = [
     subtitle: "Yosh qalamkashlar & Kitobxonlik",
     desc: "Badiiy kitoblar mutolaasi, erkin insho yozish, she'riyat kechalari va nutq madaniyatini oshirish.",
     badge: "Ijodiy to'garak",
-    color: "#f59e0b",
+    color: "var(--accent-2)",
   },
   {
     id: "english",
@@ -74,7 +74,7 @@ const DEPARTMENTS = [
     subtitle: "Mohir qo'llar",
     desc: "Rasm chizish, qog'oz va loydan milliy buyumlar yasash, maktab ko'rgazmalariga tayyorgarlik.",
     badge: "Ijod & San'at",
-    color: "#f97316",
+    color: "var(--accent)",
   },
   {
     id: "sports",

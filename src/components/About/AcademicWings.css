@@ -45,13 +45,13 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #f97316;
+  color: var(--accent);
   margin-bottom: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .academic-sparkle {
-  color: #f97316;
+  color: var(--accent);
   font-size: 1.05rem;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .academic-gradient-text {
-  background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2-bright) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -166,7 +166,7 @@
 .academic-card-sub {
   font-size: 0.84rem;
   font-weight: 600;
-  color: #38bdf8;
+  color: var(--accent-2-bright);
   margin: 0 0 12px;
 }
 

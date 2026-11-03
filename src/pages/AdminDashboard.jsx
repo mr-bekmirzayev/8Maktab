@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import {
   collection,
@@ -28,8 +28,8 @@ import {
 } from "react-icons/fi";
 import {
   sendNewsSmsThroughVercel,
-  buildSmsText,
 } from "../utils/eskizSmsService";
+import { notifySubscribers } from "../utils/pushNotificationService";
 
 // Toifalarni avtomatik hisoblash yordamchi funksiyasi
 function calculateToifalar(hodimlar) {
@@ -283,25 +283,20 @@ export default function AdminDashboard() {
         savedNewsId = docRef.id;
         showNotification("Yangi yangilik muvaffaqiyatli qo'shildi!");
 
-        // Push bildirishnomasi (mavjud funksionallik)
-        fetch("/api/send-push", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            title: `8-Maktab: ${dataToSave.title}`,
-            body: dataToSave.description || "",
-          }),
-        })
-          .then(async (res) => {
-            if (!res.ok) return null;
-            return res.json().catch(() => null);
-          })
-          .then((data) => {
-            if (data?.success) {
-              console.log("Push-bildirishnoma natijasi:", data.message);
-            }
-          })
-          .catch((err) => console.warn("Push xatosi:", err));
+        // Push bildirishnomasi — ruxsat bergan barcha qurilmalarga
+        notifySubscribers({
+          title: `8-Maktab: ${dataToSave.title}`,
+          body:
+            dataToSave.description ||
+            "Maktabimizda yangi yangilik e'lon qilindi. Batafsil saytda.",
+          url: "/news",
+          newsId: savedNewsId,
+          image: dataToSave.image || null,
+        }).then((result) => {
+          if (result?.success) {
+            console.log("Push-bildirishnoma natijasi:", result.message);
+          }
+        });
 
         // ── SMS yuborish (Variant B yoki C) ─────────────────────────────
         if (smsMode === "B" || smsMode === "C") {
@@ -603,7 +598,7 @@ export default function AdminDashboard() {
           color: "#94a3b8",
         }}
       >
-        <HashLoader color="#f97316" size={45} />
+        <HashLoader color="var(--accent)" size={45} />
         <p>Admin panel yuklanmoqda...</p>
       </div>
     );
@@ -633,7 +628,7 @@ export default function AdminDashboard() {
           gap: "16px",
           background: "rgba(15, 23, 42, 0.8)",
           backdropFilter: "blur(12px)",
-          border: "1px solid rgba(249, 115, 22, 0.25)",
+          border: "1px solid rgba(var(--accent-rgb), 0.25)",
           borderRadius: "20px",
           padding: "18px 24px",
           marginBottom: "24px",
@@ -645,7 +640,7 @@ export default function AdminDashboard() {
             8-Maktab Boshqaruv Paneli
           </h1>
           <p style={{ margin: 0, fontSize: "13px", color: "#94a3b8" }}>
-            Admin: <strong style={{ color: "#fb923c" }}>{user.email}</strong>
+            Admin: <strong style={{ color: "var(--accent-bright)" }}>{user.email}</strong>
           </p>
         </div>
 
@@ -724,11 +719,11 @@ export default function AdminDashboard() {
             cursor: "pointer",
             background:
               activeTab === "news"
-                ? "linear-gradient(135deg, #ea580c, #f97316)"
+                ? "linear-gradient(135deg, var(--accent-dark), var(--accent))"
                 : "rgba(30, 41, 59, 0.6)",
             color: activeTab === "news" ? "#ffffff" : "#94a3b8",
             boxShadow:
-              activeTab === "news" ? "0 4px 14px rgba(249, 115, 22, 0.3)" : "none",
+              activeTab === "news" ? "0 4px 14px rgba(var(--accent-rgb), 0.3)" : "none",
             transition: "all 0.2s",
           }}
         >
@@ -750,11 +745,11 @@ export default function AdminDashboard() {
             cursor: "pointer",
             background:
               activeTab === "teachers"
-                ? "linear-gradient(135deg, #ea580c, #f97316)"
+                ? "linear-gradient(135deg, var(--accent-dark), var(--accent))"
                 : "rgba(30, 41, 59, 0.6)",
             color: activeTab === "teachers" ? "#ffffff" : "#94a3b8",
             boxShadow:
-              activeTab === "teachers" ? "0 4px 14px rgba(249, 115, 22, 0.3)" : "none",
+              activeTab === "teachers" ? "0 4px 14px rgba(var(--accent-rgb), 0.3)" : "none",
             transition: "all 0.2s",
           }}
         >
@@ -818,14 +813,14 @@ export default function AdminDashboard() {
                   alignItems: "center",
                   gap: "6px",
                   padding: "9px 18px",
-                  background: "linear-gradient(135deg, #ea580c, #f97316)",
+                  background: "linear-gradient(135deg, var(--accent-dark), var(--accent))",
                   border: "none",
                   borderRadius: "12px",
                   color: "#ffffff",
                   fontSize: "13.5px",
                   fontWeight: "600",
                   cursor: "pointer",
-                  boxShadow: "0 4px 12px rgba(249, 115, 22, 0.3)",
+                  boxShadow: "0 4px 12px rgba(var(--accent-rgb), 0.3)",
                 }}
               >
                 <FiPlus size={16} /> Yangi yangilik qo'shish
@@ -838,7 +833,7 @@ export default function AdminDashboard() {
             <div
               style={{
                 background: "rgba(15, 23, 42, 0.95)",
-                border: "1px solid rgba(249, 115, 22, 0.35)",
+                border: "1px solid rgba(var(--accent-rgb), 0.35)",
                 borderRadius: "20px",
                 padding: "24px",
                 marginBottom: "24px",
@@ -853,7 +848,7 @@ export default function AdminDashboard() {
                   marginBottom: "18px",
                 }}
               >
-                <h3 style={{ margin: 0, fontSize: "16px", color: "#fb923c", fontWeight: "700" }}>
+                <h3 style={{ margin: 0, fontSize: "16px", color: "var(--accent-bright)", fontWeight: "700" }}>
                   {editingNews ? "Yangilikni tahrirlash" : "Yangi yangilik yaratish"}
                 </h3>
                 <button
@@ -931,7 +926,7 @@ export default function AdminDashboard() {
                       boxSizing: "border-box",
                       padding: "10px 14px",
                       background: "rgba(30, 41, 59, 0.9)",
-                      border: "1px solid rgba(249, 115, 22, 0.35)",
+                      border: "1px solid rgba(var(--accent-rgb), 0.35)",
                       borderRadius: "10px",
                       color: "#f8fafc",
                       fontSize: "14px",
@@ -1002,8 +997,8 @@ export default function AdminDashboard() {
                       style={{
                         fontSize: "12px",
                         fontWeight: "700",
-                        color: (newsForm.images || []).length >= 5 ? "#f87171" : "#fb923c",
-                        background: "rgba(249, 115, 22, 0.12)",
+                        color: (newsForm.images || []).length >= 5 ? "#f87171" : "var(--accent-bright)",
+                        background: "rgba(var(--accent-rgb), 0.12)",
                         padding: "2px 8px",
                         borderRadius: "8px",
                       }}
@@ -1036,13 +1031,13 @@ export default function AdminDashboard() {
                         background:
                           (newsForm.images || []).length >= 5
                             ? "rgba(100, 116, 139, 0.15)"
-                            : "rgba(249, 115, 22, 0.15)",
+                            : "rgba(var(--accent-rgb), 0.15)",
                         border:
                           (newsForm.images || []).length >= 5
                             ? "1px solid rgba(148, 163, 184, 0.2)"
-                            : "1px solid rgba(249, 115, 22, 0.4)",
+                            : "1px solid rgba(var(--accent-rgb), 0.4)",
                         borderRadius: "10px",
-                        color: (newsForm.images || []).length >= 5 ? "#64748b" : "#fb923c",
+                        color: (newsForm.images || []).length >= 5 ? "#64748b" : "var(--accent-bright)",
                         fontSize: "13.5px",
                         fontWeight: "600",
                         cursor:
@@ -1102,10 +1097,10 @@ export default function AdminDashboard() {
                           onClick={handleAddUrlImage}
                           style={{
                             padding: "10px 14px",
-                            background: "rgba(249, 115, 22, 0.2)",
-                            border: "1px solid rgba(249, 115, 22, 0.35)",
+                            background: "rgba(var(--accent-rgb), 0.2)",
+                            border: "1px solid rgba(var(--accent-rgb), 0.35)",
                             borderRadius: "10px",
-                            color: "#fb923c",
+                            color: "var(--accent-bright)",
                             cursor: "pointer",
                             fontSize: "13px",
                             fontWeight: "600",
@@ -1134,7 +1129,7 @@ export default function AdminDashboard() {
                               position: "relative",
                               borderRadius: "10px",
                               overflow: "hidden",
-                              border: "1px solid rgba(249, 115, 22, 0.35)",
+                              border: "1px solid rgba(var(--accent-rgb), 0.35)",
                               background: "#0f172a",
                               height: "90px",
                               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
@@ -1156,7 +1151,7 @@ export default function AdminDashboard() {
                                 bottom: "4px",
                                 left: "4px",
                                 background: "rgba(0,0,0,0.75)",
-                                color: "#fb923c",
+                                color: "var(--accent-bright)",
                                 fontSize: "10.5px",
                                 fontWeight: "700",
                                 padding: "1px 6px",
@@ -1200,8 +1195,8 @@ export default function AdminDashboard() {
                 {!editingNews && (
                   <div
                     style={{
-                      background: "rgba(249, 115, 22, 0.06)",
-                      border: "1px solid rgba(249, 115, 22, 0.25)",
+                      background: "rgba(var(--accent-rgb), 0.06)",
+                      border: "1px solid rgba(var(--accent-rgb), 0.25)",
                       borderRadius: "14px",
                       padding: "16px 18px",
                       marginTop: "4px",
@@ -1212,7 +1207,7 @@ export default function AdminDashboard() {
                         margin: "0 0 12px",
                         fontSize: "13px",
                         fontWeight: "600",
-                        color: "#fb923c",
+                        color: "var(--accent-bright)",
                         display: "flex",
                         alignItems: "center",
                         gap: "6px",
@@ -1226,9 +1221,9 @@ export default function AdminDashboard() {
                           key: "A",
                           label: "A — Faqat saytga",
                           desc: "Yangilik faqat Firestore ga saqlanadi",
-                          color: "#60a5fa",
-                          bg: "rgba(59,130,246,0.12)",
-                          border: "rgba(59,130,246,0.35)",
+                          color: "var(--accent-bright)",
+                          bg: "rgba(var(--accent-mid-rgb),0.12)",
+                          border: "rgba(var(--accent-mid-rgb),0.35)",
                         },
                         {
                           key: "B",
@@ -1316,14 +1311,14 @@ export default function AdminDashboard() {
                       padding: "10px 22px",
                       background: smsSending || isSavingNews
                         ? "rgba(100,116,139,0.3)"
-                        : "linear-gradient(135deg, #ea580c, #f97316)",
+                        : "linear-gradient(135deg, var(--accent-dark), var(--accent))",
                       border: "none",
                       borderRadius: "10px",
                       color: "#ffffff",
                       fontWeight: "600",
                       cursor: smsSending || isSavingNews ? "not-allowed" : "pointer",
                       fontSize: "13.5px",
-                      boxShadow: smsSending || isSavingNews ? "none" : "0 4px 12px rgba(249, 115, 22, 0.35)",
+                      boxShadow: smsSending || isSavingNews ? "none" : "0 4px 12px rgba(var(--accent-rgb), 0.35)",
                     }}
                   >
                     {isSavingNews ? (
@@ -1355,7 +1350,7 @@ export default function AdminDashboard() {
           {/* Yangiliklar ro'yxati */}
           {newsLoading ? (
             <div style={{ textAlign: "center", padding: "40px" }}>
-              <HashLoader color="#f97316" size={40} />
+              <HashLoader color="var(--accent)" size={40} />
             </div>
           ) : newsList.length === 0 ? (
             <div
@@ -1392,8 +1387,8 @@ export default function AdminDashboard() {
                       <span
                         style={{
                           fontSize: "11.5px",
-                          background: "rgba(249, 115, 22, 0.15)",
-                          color: "#fb923c",
+                          background: "rgba(var(--accent-rgb), 0.15)",
+                          color: "var(--accent-bright)",
                           padding: "3px 8px",
                           borderRadius: "6px",
                           fontWeight: "600",
@@ -1402,7 +1397,7 @@ export default function AdminDashboard() {
                         {item.date || item.sana || "Sana yo'q"}
                       </span>
                       {((item.images && item.images.length > 0) || item.image) && (
-                        <span style={{ fontSize: "12px", color: "#fb923c", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                        <span style={{ fontSize: "12px", color: "var(--accent-bright)", display: "inline-flex", alignItems: "center", gap: "4px" }}>
                           📷 {Array.isArray(item.images) && item.images.length > 1 ? `${item.images.length} ta rasm` : "1 ta rasm"}
                         </span>
                       )}
@@ -1435,8 +1430,8 @@ export default function AdminDashboard() {
                         style={{
                           marginTop: "8px",
                           padding: "6px 10px",
-                          background: "rgba(249, 115, 22, 0.12)",
-                          borderLeft: "3px solid #f97316",
+                          background: "rgba(var(--accent-rgb), 0.12)",
+                          borderLeft: "3px solid var(--accent)",
                           borderRadius: "4px 8px 8px 4px",
                           fontSize: "12px",
                           color: "#fdba74",
@@ -1457,10 +1452,10 @@ export default function AdminDashboard() {
                         alignItems: "center",
                         gap: "6px",
                         padding: "8px 14px",
-                        background: "rgba(59, 130, 246, 0.15)",
-                        border: "1px solid rgba(59, 130, 246, 0.3)",
+                        background: "rgba(var(--accent-mid-rgb), 0.15)",
+                        border: "1px solid rgba(var(--accent-mid-rgb), 0.3)",
                         borderRadius: "10px",
-                        color: "#60a5fa",
+                        color: "var(--accent-bright)",
                         fontSize: "13px",
                         fontWeight: "600",
                         cursor: "pointer",
@@ -1513,13 +1508,13 @@ export default function AdminDashboard() {
             <div
               style={{
                 background: "rgba(15, 23, 42, 0.7)",
-                border: "1px solid rgba(249, 115, 22, 0.25)",
+                border: "1px solid rgba(var(--accent-rgb), 0.25)",
                 borderRadius: "16px",
                 padding: "16px 20px",
               }}
             >
               <span style={{ fontSize: "12px", color: "#94a3b8" }}>Jami o'qituvchilar soni</span>
-              <h3 style={{ fontSize: "24px", margin: "4px 0 0", color: "#fb923c" }}>
+              <h3 style={{ fontSize: "24px", margin: "4px 0 0", color: "var(--accent-bright)" }}>
                 {schoolData?.oqituvchilar_soni || 0} ta
               </h3>
             </div>
@@ -1527,13 +1522,13 @@ export default function AdminDashboard() {
             <div
               style={{
                 background: "rgba(15, 23, 42, 0.7)",
-                border: "1px solid rgba(59, 130, 246, 0.25)",
+                border: "1px solid rgba(var(--accent-mid-rgb), 0.25)",
                 borderRadius: "16px",
                 padding: "16px 20px",
               }}
             >
               <span style={{ fontSize: "12px", color: "#94a3b8" }}>Oliy toifali</span>
-              <h3 style={{ fontSize: "24px", margin: "4px 0 0", color: "#60a5fa" }}>
+              <h3 style={{ fontSize: "24px", margin: "4px 0 0", color: "var(--accent-bright)" }}>
                 {schoolData?.toifalar?.oliy_toifali || 0} ta
               </h3>
             </div>
@@ -1606,14 +1601,14 @@ export default function AdminDashboard() {
                 alignItems: "center",
                 gap: "6px",
                 padding: "9px 18px",
-                background: "linear-gradient(135deg, #ea580c, #f97316)",
+                background: "linear-gradient(135deg, var(--accent-dark), var(--accent))",
                 border: "none",
                 borderRadius: "12px",
                 color: "#ffffff",
                 fontSize: "13.5px",
                 fontWeight: "600",
                 cursor: "pointer",
-                boxShadow: "0 4px 12px rgba(249, 115, 22, 0.3)",
+                boxShadow: "0 4px 12px rgba(var(--accent-rgb), 0.3)",
               }}
             >
               <FiPlus size={16} /> Yangi xodim qo'shish
@@ -1625,7 +1620,7 @@ export default function AdminDashboard() {
             <div
               style={{
                 background: "rgba(15, 23, 42, 0.95)",
-                border: "1px solid rgba(249, 115, 22, 0.35)",
+                border: "1px solid rgba(var(--accent-rgb), 0.35)",
                 borderRadius: "20px",
                 padding: "24px",
                 marginBottom: "24px",
@@ -1640,7 +1635,7 @@ export default function AdminDashboard() {
                   marginBottom: "18px",
                 }}
               >
-                <h3 style={{ margin: 0, fontSize: "16px", color: "#fb923c", fontWeight: "700" }}>
+                <h3 style={{ margin: 0, fontSize: "16px", color: "var(--accent-bright)", fontWeight: "700" }}>
                   {editingTeacher ? "Xodim ma'lumotlarini tahrirlash" : "Yangi xodim qo'shish"}
                 </h3>
                 <button
@@ -1826,7 +1821,7 @@ export default function AdminDashboard() {
                         boxSizing: "border-box",
                         padding: "10px 14px",
                         background: "rgba(30, 41, 59, 0.9)",
-                        border: "1px solid rgba(249, 115, 22, 0.35)",
+                        border: "1px solid rgba(var(--accent-rgb), 0.35)",
                         borderRadius: "10px",
                         color: "#f8fafc",
                         fontSize: "14px",
@@ -1855,14 +1850,14 @@ export default function AdminDashboard() {
                     type="submit"
                     style={{
                       padding: "10px 22px",
-                      background: "linear-gradient(135deg, #ea580c, #f97316)",
+                      background: "linear-gradient(135deg, var(--accent-dark), var(--accent))",
                       border: "none",
                       borderRadius: "10px",
                       color: "#ffffff",
                       fontWeight: "600",
                       cursor: "pointer",
                       fontSize: "13.5px",
-                      boxShadow: "0 4px 12px rgba(249, 115, 22, 0.35)",
+                      boxShadow: "0 4px 12px rgba(var(--accent-rgb), 0.35)",
                     }}
                   >
                     {editingTeacher ? "O'zgarishlarni saqlash" : "Xodimni qo'shish"}
@@ -1875,7 +1870,7 @@ export default function AdminDashboard() {
           {/* Xodimlar jadvali */}
           {teachersLoading ? (
             <div style={{ textAlign: "center", padding: "40px" }}>
-              <HashLoader color="#f97316" size={40} />
+              <HashLoader color="var(--accent)" size={40} />
             </div>
           ) : !schoolData?.hodimlar || schoolData.hodimlar.length === 0 ? (
             <div
@@ -1964,7 +1959,7 @@ export default function AdminDashboard() {
                             fontWeight: "600",
                             background:
                               teacher.toifasi === "Oliy"
-                                ? "rgba(59, 130, 246, 0.2)"
+                                ? "rgba(var(--accent-mid-rgb), 0.2)"
                                 : teacher.toifasi === "1"
                                 ? "rgba(34, 197, 94, 0.2)"
                                 : teacher.toifasi === "2"
@@ -1972,7 +1967,7 @@ export default function AdminDashboard() {
                                 : "rgba(100, 116, 139, 0.2)",
                             color:
                               teacher.toifasi === "Oliy"
-                                ? "#60a5fa"
+                                ? "var(--accent-bright)"
                                 : teacher.toifasi === "1"
                                 ? "#4ade80"
                                 : teacher.toifasi === "2"
@@ -2002,10 +1997,10 @@ export default function AdminDashboard() {
                             title="Tahrirlash"
                             style={{
                               padding: "6px 10px",
-                              background: "rgba(59, 130, 246, 0.15)",
-                              border: "1px solid rgba(59, 130, 246, 0.3)",
+                              background: "rgba(var(--accent-mid-rgb), 0.15)",
+                              border: "1px solid rgba(var(--accent-mid-rgb), 0.3)",
                               borderRadius: "8px",
-                              color: "#60a5fa",
+                              color: "var(--accent-bright)",
                               cursor: "pointer",
                             }}
                           >

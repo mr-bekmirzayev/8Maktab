@@ -293,7 +293,7 @@
 
 .principalTitle {
     margin-top: 14px;
-    border-left: solid #38bdf8 3px;
+    border-left: solid var(--accent-2-bright) 3px;
     padding: 8px 12px 8px 16px;
     background: rgba(255, 255, 255, 0.06);
     border-radius: 0 8px 8px 0;
@@ -325,8 +325,8 @@
 @media (hover: hover) and (min-width: 1025px) {
     .principalInfo:hover,
     .studentsComentaryTwo:hover {
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.25);
-        border-color: rgba(56, 189, 248, 0.5);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(var(--accent-2-bright-rgb), 0.25);
+        border-color: rgba(var(--accent-2-bright-rgb), 0.5);
         transform: translateY(-4px);
     }
 }

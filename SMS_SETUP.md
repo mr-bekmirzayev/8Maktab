@@ -1,133 +1,135 @@
-# 📱 SMS Integratsiya — Ishga Tushirish Yo'riqnomasi
+# 📱 SMS integratsiyasi — sozlash yo'riqnomasi
 
-## Nima yaratildi?
+## Qanday ishlaydi?
 
-| Fayl | Maqsad |
-|------|--------|
-| `src/utils/eskizSmsService.js` | Eskiz.uz SMS API bilan ishlash moduli |
-| `functions/src/sendNewsSms.ts` | Firebase Cloud Function — backend SMS yuboruvchi |
-| `functions/src/index.ts` | Cloud Functions kirish nuqtasi |
-| `functions/package.json` | Functions papkasi uchun npm konfiguratsiyasi |
-| `functions/tsconfig.json` | TypeScript konfiguratsiyasi |
-| `firebase.json` | Firebase loyiha konfiguratsiyasi |
+```
+[Admin panel]
+     │  Yangilik saqlanadi (smsMode = "B" yoki "C")
+     ▼
+[src/utils/eskizSmsService.js]  ──POST──►  [/api/send-sms]  (Vercel Serverless)
+                                                │
+                                                │ 1. Eskiz login → token (keshlanadi)
+                                                │ 2. Firestore schools/school_8 → hodimlar telefonlari
+                                                │ 3. Raqamlarni tekshirish + dublikatlarni olib tashlash
+                                                ▼
+                                        [Eskiz.uz SMS API]
+                                                │
+                                                ▼
+                                   📱 O'qituvchilar telefoniga SMS
+```
 
-`AdminDashboard.jsx` ga qo'shildi:
-- **SMS variant paneli** (A / B / C tugmalar)
-- **`handleSaveNews`** funksiyasiga SMS yuborish logikasi
-- **`smsSending`** holatida tugmalar disabled bo'ladi
+Lokal rejimda `vite.config.js` dagi dev middleware `/api/send-sms` ni ishga tushiradi,
+shuning uchun `npm run dev` da ham SMS yuborishni sinab ko'rish mumkin.
 
 ---
 
-## 1-qadam: O'qituvchilarga telefon raqami qo'shish
+## 1-qadam: Eskiz.uz hisobi
 
-Firestore `schools/school_8` hujjatidagi `hodimlar` massivida har bir xodim obyektiga `phone` maydoni kerak:
+Eskiz kabinetida:
+
+- hisob tasdiqlangan bo'lishi;
+- balans yetarli bo'lishi;
+- jo'natuvchi nomi (`from`) tasdiqlangan bo'lishi kerak.
+
+Odatda standart jo'natuvchi — `4546`. Agar `ESKIZ_FROM` tasdiqlanmagan bo'lsa,
+server avtomatik `4546` bilan bir marta qayta urinadi.
+
+---
+
+## 2-qadam: Muhit o'zgaruvchilari
+
+`.env.local` (lokal) yoki Vercel → Project Settings → Environment Variables:
+
+```env
+ESKIZ_EMAIL=your-email@example.com
+ESKIZ_PASSWORD=your-password
+ESKIZ_FROM=4546
+```
+
+Ixtiyoriy:
+
+```env
+# Tayyor token (bo'lmasa login avtomatik bajariladi)
+ESKIZ_TOKEN=
+
+# Eskiz API manzili
+ESKIZ_BASE_URL=https://notify.eskiz.uz/api
+
+# Sender rad etilsa ishlatiladigan zaxira nom
+ESKIZ_FALLBACK_FROM=4546
+
+# Sayt manzili (SMS matnidagi havola uchun)
+SITE_URL=https://8-maktab.vercel.app
+
+# Limitlar
+SMS_MAX_RECIPIENTS=300
+SMS_CONCURRENCY=4
+
+# Firebase ID token talab qilish (tavsiya etiladi)
+SMS_REQUIRE_AUTH=true
+```
+
+> ⚠️ Token va parolni hech qachon kodga yozmang yoki GitHub ga yubormang.
+> `.env.local` `.gitignore` ichida.
+
+Firestore dan raqamlarni olish va `SMS_REQUIRE_AUTH=true` rejimida adminni
+tekshirish uchun Firebase Admin ham sozlanadi:
+
+```env
+FIREBASE_PROJECT_ID=schoolnews-cd298
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@schoolnews-cd298.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+```
+
+---
+
+## 3-qadam: O'qituvchilar telefon raqamlari
+
+Firestore `schools/school_8` hujjatidagi `hodimlar` massivida har bir xodim uchun
+`telefon` (yoki `phone`, `tel`, `raqam`, `mob`) maydoni bo'lishi kerak:
 
 ```json
 {
   "f_i_sh": "Karimov Alisher",
   "fani": "Matematika",
-  "phone": "+998901234567"
+  "telefon": "+998901234567"
 }
 ```
 
-Admim panel orqali xodim qo'shishda ham `phone` maydoni formaga qo'shishingiz mumkin (keyingi qadamda).
+Admin panel → Ustozlar → tahrirlash orqali ham kiritish mumkin.
+
+Qabul qilinadigan formatlar:
+
+- `+998 90 123 45 67`
+- `998901234567`
+- `8 998 90 123 45 67`
+- `0901234567`
+- `901234567`
+
+Noto'g'ri yoki mavjud bo'lmagan raqamlarga SMS yuborilmaydi va pul sarflanmaydi.
 
 ---
 
-## 2-qadam: Functions papkasida paketlarni o'rnatish
+## 4-qadam: Sinash
 
 ```powershell
-cd "c:\Users\user\Desktop\my files\Loyihalarim\8 - Maktab App\8-Maktab\functions"
-npm install
+npm run dev
 ```
+
+1. Admin panelga kiring.
+2. Yangilik qo'shing.
+3. `B — Sayt + SMS` yoki `C — Ikki variant` ni tanlang.
+4. Saqlang. Natija (`sentTo`, `failed`, `invalidCount`) panelda ko'rsatiladi.
 
 ---
 
-## 3-qadam: Firebase CLI o'rnatish (agar yo'q bo'lsa)
+## Xavfsizlik va sifat
 
-```powershell
-npm install -g firebase-tools
-firebase login
-```
-
----
-
-## 4-qadam: Eskiz.uz tokenini xavfsiz sozlash (ENG MUHIM!)
-
-```powershell
-# Loyiha papkasiga o'ting
-cd "c:\Users\user\Desktop\my files\Loyihalarim\8 - Maktab App\8-Maktab"
-
-# Firebase loyihani tanlash
-firebase use schoolnews-cd298
-
-# Token va URL ni sozlash (TOKEN_BU_YERGA o'rniga haqiqiy tokenni yozing)
-firebase functions:config:set eskiz.token="TOKEN_BU_YERGA" eskiz.baseurl="https://notify.eskiz.uz/api" eskiz.from="4546"
-```
-
-> ⚠️ Token hech qachon `git commit` qilinmasin!  
-> `firebase functions:config:set` uni Firebase serverida maxfiy saqlaydi.
-
----
-
-## 5-qadam: Cloud Function ni deploy qilish
-
-```powershell
-cd "c:\Users\user\Desktop\my files\Loyihalarim\8 - Maktab App\8-Maktab"
-firebase deploy --only functions
-```
-
-Deploy muvaffaqiyatli bo'lgandan keyin URL ko'rinadi:
-```
-Function URL (sendNewsSms): https://us-central1-schoolnews-cd298.cloudfunctions.net/sendNewsSms
-```
-
----
-
-## 6-qadam: `eskizSmsService.js` ni tekshiring
-
-`src/utils/eskizSmsService.js` faylida `CLOUD_FUNCTION_URL` allaqachon to'g'ri URL bilan to'ldirilgan:
-```js
-const CLOUD_FUNCTION_URL =
-  "https://us-central1-schoolnews-cd298.cloudfunctions.net/sendNewsSms";
-```
-
-Agar URL boshqacha bo'lsa — shu yerda yangilang.
-
----
-
-## Qanday ishlaydi?
-
-```
-[Admin Panel]
-     │
-     │ Variant B yoki C tanlansa
-     ▼
-[eskizSmsService.js]  ──POST──►  [Cloud Function: sendNewsSms]
-                                          │
-                                          │ 1. Firestore dan o'qituvchilar raqamlari
-                                          │ 2. Eskiz.uz API ga yuborish
-                                          │ 3. news/{id}/smsLogs ga yozish
-                                          ▼
-                                  [Eskiz.uz SMS API]
-                                          │
-                                          ▼
-                             📱 O'qituvchilar telefoniga SMS
-```
-
----
-
-## Xavfsizlik
-
-- ✅ Eskiz token **faqat Cloud Function serverida** saqlanadi
-- ✅ Frontend kodi tokenni ko'rmaydi
-- ✅ SMS yuborish faqat **autentifikatsiya qilingan admin** tomonidan ishga tushiriladi
-- ✅ Firestore da har bir SMS yuborish loglanadi (`news/{id}/smsLogs`)
-
----
-
-## Kelajakdagi yaxshilanishlar
-
-- O'qituvchi qo'shish formasiga `phone` maydoni qo'shish
-- `maktab-export.json` dan raqamlarni Firestore ga bir martalik import qilish
-- SMS yuborish natijasini admin panelda ko'rsatish (sentTo / failed)
+- ✅ Eskiz tokeni va paroli faqat serverda saqlanadi.
+- ✅ Kodda hardcoded token/parol yo'q.
+- ✅ Telefon raqamlari tekshiriladi, dublikatlar olib tashlanadi.
+- ✅ SMS matni GSM-7 formatida (emoji yo'q) — narx oshmaydi.
+- ✅ SMS matni 300 belgidan oshmaydi (2 segment).
+- ✅ Token eskirsa avtomatik qayta login qilinadi.
+- ✅ So'rovlar soni cheklangan (rate limit).
+- ✅ `SMS_REQUIRE_AUTH=true` bo'lsa faqat tizimga kirgan admin SMS yuboradi.

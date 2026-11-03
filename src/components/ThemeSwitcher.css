@@ -1,0 +1,201 @@
+/* =========================================
+   MAVZU TANLAGICH (Theme Switcher)
+   ========================================= */
+
+.theme-switcher {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+        transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.theme-toggle:hover {
+    color: #ffffff;
+    background: rgba(var(--accent-rgb), 0.22);
+    border-color: rgba(var(--accent-rgb), 0.55);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.3);
+}
+
+.theme-toggle:active {
+    transform: scale(0.96);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 3px;
+}
+
+.theme-popover {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    z-index: 1200;
+    width: 232px;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(6, 11, 22, 0.97);
+    border: 1px solid rgba(var(--accent-rgb), 0.4);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.72),
+        0 0 26px rgba(var(--accent-rgb), 0.22);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    animation: themePopoverIn 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes themePopoverIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.theme-popover-title {
+    display: block;
+    padding: 0 4px 8px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.theme-options {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    background: transparent;
+    color: #cbd5e1;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-option:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+}
+
+.theme-option.is-active {
+    background: rgba(var(--accent-rgb), 0.16);
+    border-color: rgba(var(--accent-rgb), 0.45);
+    color: #ffffff;
+}
+
+.theme-option:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+}
+
+.theme-swatch {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.35),
+        0 0 10px rgba(var(--accent-rgb), 0.25);
+}
+
+.theme-option-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.theme-option-name {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.theme-option-hint {
+    font-size: 10.5px;
+    line-height: 1.2;
+    color: var(--text-muted);
+}
+
+.theme-option-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    margin-left: auto;
+    color: var(--accent-bright);
+}
+
+/* Mobil menyu uchun doimiy ko'rinadigan variantlar */
+.theme-switcher--inline {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+}
+
+.theme-inline-label {
+    padding-left: 4px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.theme-options--inline {
+    gap: 6px;
+}
+
+.theme-options--inline .theme-option {
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+.theme-options--inline .theme-option.is-active {
+    background: rgba(var(--accent-rgb), 0.18);
+    border-color: rgba(var(--accent-rgb), 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-popover {
+        animation: none;
+    }
+
+    .theme-toggle,
+    .theme-option,
+    .theme-swatch {
+        transition: none;
+    }
+}

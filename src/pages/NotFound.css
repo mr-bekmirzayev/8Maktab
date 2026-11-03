@@ -166,5 +166,5 @@
 
 .nMainBtn:hover {
     color: rgb(246, 169, 25);
-    filter: drop-shadow(orange 0 0 5px);
+    filter: drop-shadow(var(--accent) 0 0 5px);
 }

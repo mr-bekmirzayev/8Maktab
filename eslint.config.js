@@ -18,4 +18,25 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // Node.js muhitida ishlaydigan serverless funksiyalar va konfiguratsiya
+    files: ['api/**/*.js', 'vite.config.js', 'scripts/**/*.js'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
+    // Service worker fayllari brauzerdan tashqari global obyektlarga ega
+    files: ['public/sw.js', 'public/firebase-messaging-sw.js', 'sw.js'],
+    languageOptions: {
+      globals: {
+        ...globals.serviceworker,
+        firebase: 'readonly',
+      },
+    },
+    rules: {
+      'no-useless-assignment': 'off',
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    },
+  },
 ])

@@ -1,19 +1,104 @@
 <!doctype html>
-<html lang="en">
+<html lang="uz">
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/SchoolTitleFor.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="NJNIt26YRyrs0cwwbDVywZ2qQly9YMQBz-oLGx7ABsQ" />
-  <meta name="description"
-    content="Namangan viloyati Uychi tumani 8-sonli maktabning rasmiy veb-sayti. Maktab yangiliklari, o'qituvchilar tarkibi va o'quvchilar hayoti." />
 
+  <!-- Tanlangan mavzuni birinchi bo'yashdan oldin qo'llash (miltillashni oldini oladi) -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem("8maktab-theme");
+        var known = ["gold", "blue", "sky", "indigo"];
+        if (known.indexOf(theme) === -1) {
+          // Birinchi tashrif: avvalgi (sarg'ish) mavzu ko'rsatiladi
+          theme = "gold";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (error) {
+        document.documentElement.setAttribute("data-theme", "gold");
+      }
+    })();
+  </script>
+
+  <!-- ==================== ASOSIY SEO ==================== -->
+  <title>8-maktab | Uychi tumani maktabgacha va maktab ta'limi bo'limi</title>
+  <meta name="description"
+    content="Namangan viloyati Uychi tumani 8-sonli umumiy o'rta ta'lim maktabining shaxsiy veb-sayti. Maktab yangiliklari, e'lonlar, bildirishnomalar va ustozlar tarkibi." />
   <meta name="keywords"
-    content="8-maktab, 8 maktab, 8-sonli maktab, Uychi 8-maktab, Namangan maktablari, Uychi tumani 8-maktab" />
+    content="uychi 8-maktab, 8-maktab uychi, uychi maktablari, uychi 8 maktab veb sayti, rovot 8-maktab" />
+  <meta name="author" content="Uychi tumani 8-sonli umumiy o'rta ta'lim maktabi" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="yandex" content="index, follow" />
+  <meta name="language" content="uz" />
+  <meta name="geo.region" content="UZ-NG" />
+  <meta name="geo.placename" content="Uychi, Namangan" />
+  <meta name="google-site-verification" content="NJNIt26YRyrs0cwwbDVywZ2qQly9YMQBz-oLGx7ABsQ" />
+  <link rel="canonical" href="https://8-maktab.vercel.app/" />
+
+  <!-- ==================== OPEN GRAPH (ijtimoiy tarmoqlar) ==================== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="8-maktab | Uychi tumani" />
+  <meta property="og:locale" content="uz_UZ" />
+  <meta property="og:url" content="https://8-maktab.vercel.app/" />
+  <meta property="og:title" content="8-maktab | Uychi tumani maktabgacha va maktab ta'limi bo'limi" />
+  <meta property="og:description"
+    content="Namangan viloyati Uychi tumani 8-sonli umumiy o'rta ta'lim maktabining shaxsiy veb-sayti. Maktab yangiliklari, e'lonlar, bildirishnomalar va ustozlar tarkibi." />
+  <meta property="og:image" content="https://8-maktab.vercel.app/og-image.png" />
+  <meta property="og:image:secure_url" content="https://8-maktab.vercel.app/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Uychi tumani 8-sonli maktabning rasmiy logotipi" />
+
+  <!-- ==================== TWITTER / X ==================== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="8-maktab | Uychi tumani maktabgacha va maktab ta'limi bo'limi" />
+  <meta name="twitter:description"
+    content="Namangan viloyati Uychi tumani 8-sonli umumiy o'rta ta'lim maktabining shaxsiy veb-sayti. Maktab yangiliklari, e'lonlar, bildirishnomalar va ustozlar tarkibi." />
+  <meta name="twitter:image" content="https://8-maktab.vercel.app/og-image.png" />
+  <meta name="twitter:image:alt" content="Uychi tumani 8-sonli maktab" />
+
+  <!-- ==================== PWA / ILOVA ==================== -->
   <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="rgb(255, 255, 252)" />
-  <title>Uychi 8 - Maktab</title>
+  <meta name="theme-color" content="#140b02" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="application-name" content="8-Maktab" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="8-Maktab" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <!-- ==================== STRUKTURALI MA'LUMOT (JSON-LD) ==================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "School",
+    "name": "Uychi tumani 8-sonli umumiy o'rta ta'lim maktabi",
+    "alternateName": ["8-maktab", "Uychi 8-maktab", "Rovot 8-maktab"],
+    "description": "Namangan viloyati Uychi tumani 8-sonli umumiy o'rta ta'lim maktabining shaxsiy veb-sayti. Maktab yangiliklari, e'lonlar, bildirishnomalar va ustozlar tarkibi.",
+    "url": "https://8-maktab.vercel.app/",
+    "logo": "https://8-maktab.vercel.app/icons/icon-512.png",
+    "image": "https://8-maktab.vercel.app/og-image.png",
+    "telephone": "+998 99 977 09 17",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Uychi tumani",
+      "addressRegion": "Namangan viloyati",
+      "addressCountry": "UZ"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Uychi tumani, Namangan viloyati"
+    },
+    "sameAs": []
+  }
+  </script>
 </head>
 
 <body>

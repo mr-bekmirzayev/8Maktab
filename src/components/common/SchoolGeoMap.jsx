@@ -255,7 +255,7 @@ export default function SchoolGeoMap({ compact = false }) {
         padding: compact ? "40px 16px" : "80px 16px 100px",
         maxWidth: "1880px",
         margin: "0 auto",
-        zIndex: 2, backdropFilter: "blur(20px)", background: "rgba(15, 23, 42, 0.75)", borderRadius: "24px", border: "1px solid rgba(249, 115, 22, 0.3)",
+        zIndex: 2, backdropFilter: "blur(20px)", background: "rgba(15, 23, 42, 0.75)", borderRadius: "24px", border: "1px solid rgba(var(--accent-rgb), 0.3)",
       }}
     >
       {/* SECTION HEADER */}
@@ -267,9 +267,9 @@ export default function SchoolGeoMap({ compact = false }) {
             gap: "8px",
             padding: "6px 16px",
             borderRadius: "999px",
-            background: "rgba(249, 115, 22, 0.12)",
-            border: "1px solid rgba(249, 115, 22, 0.3)",
-            color: "#fb923c",
+            background: "rgba(var(--accent-rgb), 0.12)",
+            border: "1px solid rgba(var(--accent-rgb), 0.3)",
+            color: "var(--accent-bright)",
             fontSize: "12.5px",
             fontWeight: "700",
             letterSpacing: "1px",
@@ -289,7 +289,7 @@ export default function SchoolGeoMap({ compact = false }) {
             letterSpacing: "-0.5px",
           }}
         >
-          Maktabimiz <span style={{ color: "#f97316" }}>Qayerda Joylashgan?</span>
+          Maktabimiz <span style={{ color: "var(--accent)" }}>Qayerda Joylashgan?</span>
         </h2>
 
         <p
@@ -314,8 +314,8 @@ export default function SchoolGeoMap({ compact = false }) {
           height: compact ? "420px" : "560px",
           borderRadius: "24px",
           overflow: "hidden",
-          border: "1px solid rgba(249, 115, 22, 0.35)",
-          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(249, 115, 22, 0.15)",
+          border: "1px solid rgba(var(--accent-rgb), 0.35)",
+          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(var(--accent-rgb), 0.15)",
           background: "#080c14",
         }}
       >
@@ -338,7 +338,7 @@ export default function SchoolGeoMap({ compact = false }) {
             pointerEvents: "none",
             zIndex: 2,
             backgroundImage:
-              "radial-gradient(circle at center, transparent 40%, rgba(7, 11, 20, 0.75) 100%), linear-gradient(rgba(249, 115, 22, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(249, 115, 22, 0.03) 1px, transparent 1px)",
+              "radial-gradient(circle at center, transparent 40%, rgba(7, 11, 20, 0.75) 100%), linear-gradient(rgba(var(--accent-rgb), 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--accent-rgb), 0.03) 1px, transparent 1px)",
             backgroundSize: "100% 100%, 40px 40px, 40px 40px",
           }}
         />
@@ -368,7 +368,7 @@ export default function SchoolGeoMap({ compact = false }) {
               padding: "8px 16px",
               background: "rgba(15, 23, 42, 0.85)",
               backdropFilter: "blur(12px)",
-              border: "1px solid rgba(249, 115, 22, 0.35)",
+              border: "1px solid rgba(var(--accent-rgb), 0.35)",
               borderRadius: "14px",
               color: "#f8fafc",
               fontSize: "13px",
@@ -381,14 +381,14 @@ export default function SchoolGeoMap({ compact = false }) {
                 width: "8px",
                 height: "8px",
                 borderRadius: "50%",
-                background: isFlying ? "#f97316" : "#22c55e",
+                background: isFlying ? "var(--accent)" : "#22c55e",
                 boxShadow: isFlying
-                  ? "0 0 10px #f97316"
+                  ? "0 0 10px var(--accent)"
                   : "0 0 10px #22c55e",
                 animation: isFlying ? "pulse-dot 1s infinite" : "none",
               }}
             />
-            <span style={{ fontWeight: "700", color: "#fb923c" }}>
+            <span style={{ fontWeight: "700", color: "var(--accent-bright)" }}>
               {FLIGHT_STAGES[currentStage]?.name}:
             </span>
             <span style={{ color: "#cbd5e1" }}>
@@ -416,7 +416,7 @@ export default function SchoolGeoMap({ compact = false }) {
             <span>|</span>
             <span>LNG: <strong style={{ color: "#f8fafc" }}>{telemetry.lng}°</strong></span>
             <span>|</span>
-            <span>ZOOM: <strong style={{ color: "#fb923c" }}>{telemetry.zoom}x</strong></span>
+            <span>ZOOM: <strong style={{ color: "var(--accent-bright)" }}>{telemetry.zoom}x</strong></span>
           </div>
         </div>
 
@@ -441,7 +441,7 @@ export default function SchoolGeoMap({ compact = false }) {
               padding: "12px 18px",
               background: "rgba(15, 23, 42, 0.9)",
               backdropFilter: "blur(14px)",
-              border: "1px solid rgba(249, 115, 22, 0.3)",
+              border: "1px solid rgba(var(--accent-rgb), 0.3)",
               borderRadius: "16px",
               color: "#f8fafc",
               display: "flex",
@@ -455,12 +455,12 @@ export default function SchoolGeoMap({ compact = false }) {
                 width: "36px",
                 height: "36px",
                 borderRadius: "10px",
-                background: "linear-gradient(135deg, #ea580c, #f97316)",
+                background: "linear-gradient(135deg, var(--accent-dark), var(--accent))",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 color: "#fff",
-                boxShadow: "0 4px 12px rgba(249, 115, 22, 0.4)",
+                boxShadow: "0 4px 12px rgba(var(--accent-rgb), 0.4)",
               }}
             >
               <FiMapPin size={18} />
@@ -489,7 +489,7 @@ export default function SchoolGeoMap({ compact = false }) {
                 padding: "10px 16px",
                 background: isFlying
                   ? "rgba(30, 41, 59, 0.6)"
-                  : "linear-gradient(135deg, #ea580c, #f97316)",
+                  : "linear-gradient(135deg, var(--accent-dark), var(--accent))",
                 border: "none",
                 borderRadius: "12px",
                 color: "#ffffff",
@@ -498,7 +498,7 @@ export default function SchoolGeoMap({ compact = false }) {
                 cursor: isFlying ? "not-allowed" : "pointer",
                 boxShadow: isFlying
                   ? "none"
-                  : "0 4px 16px rgba(249, 115, 22, 0.4)",
+                  : "0 4px 16px rgba(var(--accent-rgb), 0.4)",
                 transition: "all 0.2s ease",
               }}
             >
@@ -576,8 +576,8 @@ export default function SchoolGeoMap({ compact = false }) {
           width: 16px;
           height: 16px;
           border-radius: 50%;
-          background: #f97316;
-          box-shadow: 0 0 16px #f97316, 0 0 32px #ea580c;
+          background: var(--accent);
+          box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-dark);
           border: 3px solid #ffffff;
           z-index: 3;
         }
@@ -588,7 +588,7 @@ export default function SchoolGeoMap({ compact = false }) {
           width: 32px;
           height: 32px;
           border-radius: 50%;
-          border: 2px solid #f97316;
+          border: 2px solid var(--accent);
           pointer-events: none;
           animation: cyber-pulse-expand 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
         }
@@ -605,9 +605,9 @@ export default function SchoolGeoMap({ compact = false }) {
           gap: 6px;
           padding: 4px 10px;
           background: rgba(15, 23, 42, 0.95);
-          border: 1px solid #f97316;
+          border: 1px solid var(--accent);
           border-radius: 8px;
-          box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
+          box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.4);
           white-space: nowrap;
           pointer-events: none;
         }
@@ -629,7 +629,7 @@ export default function SchoolGeoMap({ compact = false }) {
         .cyber-dark-popup .leaflet-popup-content-wrapper {
           background: rgba(15, 23, 42, 0.95);
           backdrop-filter: blur(14px);
-          border: 1px solid rgba(249, 115, 22, 0.4);
+          border: 1px solid rgba(var(--accent-rgb), 0.4);
           border-radius: 14px;
           color: #f8fafc;
           box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8);
@@ -644,7 +644,7 @@ export default function SchoolGeoMap({ compact = false }) {
         .popup-tag {
           font-size: 10px;
           font-weight: 700;
-          color: #fb923c;
+          color: var(--accent-bright);
           letter-spacing: 0.5px;
           margin-bottom: 4px;
         }
@@ -663,7 +663,7 @@ export default function SchoolGeoMap({ compact = false }) {
         .popup-meta {
           font-size: 11px;
           font-family: monospace;
-          color: #38bdf8;
+          color: var(--accent-2-bright);
         }
       `}</style>
     </section>

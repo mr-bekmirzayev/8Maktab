@@ -181,7 +181,7 @@ export default function NetworkStatusNotifier() {
             background: "rgba(15, 23, 42, 0.92)",
             backdropFilter: "blur(14px)",
             WebkitBackdropFilter: "blur(14px)",
-            border: "1px solid rgba(245, 158, 11, 0.45)",
+            border: "1px solid rgba(var(--accent-2-rgb), 0.45)",
             boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
             borderRadius: "16px",
             padding: "10px 14px",
@@ -194,8 +194,8 @@ export default function NetworkStatusNotifier() {
         >
           <div
             style={{
-              background: "rgba(245, 158, 11, 0.2)",
-              color: "#fbbf24",
+              background: "rgba(var(--accent-2-rgb), 0.2)",
+              color: "var(--accent-2-bright)",
               padding: "7px",
               borderRadius: "10px",
               display: "flex",

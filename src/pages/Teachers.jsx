@@ -306,7 +306,7 @@ export default function Teachers() {
   if (loading) {
     return (
       <div className="teachers-loading-screen">
-        <HashLoader color="#f97316" size={56} />
+        <HashLoader color="var(--accent)" size={56} />
         <p className="teachers-loading-text">
           Ustozlar ma'lumoti yuklanmoqda…
         </p>
